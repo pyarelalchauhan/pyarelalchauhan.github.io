@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Navbar from "./components/navigation/navbar";
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-center text-lg">Hey there!</h1>
+    <main className="relative dark:text-white">
+      <Navbar />
     </main>
   );
 }
