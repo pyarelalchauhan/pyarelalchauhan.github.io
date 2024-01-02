@@ -3,10 +3,10 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 const Footer = () => {
   return (
-    <>
-      <hr />
       <div className="dark:text-white dark:bg-zinc-400 w-full h-12 bg-blue-100 flex items-center justify-center gap-8">
-        <p className="font-bold" >© {new Date().getFullYear()} Pyare's Portfolio</p>
+        <p className="font-bold">
+          © {new Date().getFullYear()} Pyare's Portfolio
+        </p>
         <div className=" flex gap-4">
           <a
             href="mailto:pyare.lal.dse@gmail.com"
@@ -34,7 +34,6 @@ const Footer = () => {
           </a>
         </div>
       </div>
-    </>
   );
 };
 

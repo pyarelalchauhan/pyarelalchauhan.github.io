@@ -28,7 +28,7 @@ const Navbar = (props: Props) => {
   }, []);
   return (
     <>
-      <div className="w-full h-20 sticky top-0 shadow-sm text-black dark:text-white px-12">
+      <nav className="w-[80%] m-auto h-[60px] rounded-[24px] fixed left-[50%] -translate-x-1/2 top-2 shadow-sm text-black dark:text-white bg-white dark:bg-zinc-700 px-12 z-10">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <div className="flex-1">
@@ -36,18 +36,33 @@ const Navbar = (props: Props) => {
             </div>
             <ul className="hidden md:flex gap-x-6">
               <li>
-                <Link href="/about">
-                  <p>About Us</p>
+                <Link href="#intro">
+                  <p>Intro</p>
                 </Link>
               </li>
               <li>
-                <Link href="/services">
-                  <p>Services</p>
+                <Link href="#about">
+                  <p>About</p>
                 </Link>
               </li>
               <li>
-                <Link href="/contacts">
-                  <p>Contacts</p>
+                <Link href="#projects">
+                  <p>Projects</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="#skills">
+                  <p>Skills</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="#experience">
+                  <p>Experience</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="#contact">
+                  <p>Contact</p>
                 </Link>
               </li>
             </ul>
@@ -62,7 +77,7 @@ const Navbar = (props: Props) => {
             <ThemeSwitch />
           </div>
         </div>
-      </div>
+      </nav>
     </>
   );
 };
