@@ -28,7 +28,7 @@ const Navbar = (props: Props) => {
   }, []);
   return (
     <>
-      <nav className="w-[80%] m-auto h-[60px] rounded-[24px] fixed left-[50%] -translate-x-1/2 top-2 shadow-sm text-black dark:text-white bg-white dark:bg-zinc-700 px-12 z-10">
+      <nav className="w-[80%] m-auto h-[60px] rounded-[24px] fixed left-[50%] -translate-x-1/2 top-2 shadow-[0_35px_100px_-15px_rgba(0,0,0,0.3)] dark:shadow-[] text-black dark:text-white bg-white dark:bg-zinc-700 px-12 z-10">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <div className="flex-1">
