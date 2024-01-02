@@ -7,7 +7,7 @@ import Skills from "./components/skills";
 
 export default function Home() {
   return (
-    <main className="relative dark:text-white h-full">
+    <main className="relative dark:text-white h-full flex flex-col items-center">
       <Intro />
       <About />
       <Projects />
