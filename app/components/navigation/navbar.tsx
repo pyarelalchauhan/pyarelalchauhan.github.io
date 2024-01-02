@@ -13,7 +13,7 @@ const Navbar = (props: Props) => {
   const toggleNavMenu = (value: boolean) => {
     setIsOpen(value);
   };
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(1000);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -28,7 +28,7 @@ const Navbar = (props: Props) => {
   }, []);
   return (
     <>
-      <div className="w-full h-20 sticky top-0 shadow-sm text-black dark:text-white ">
+      <div className="w-full h-20 sticky top-0 shadow-sm text-black dark:text-white px-12">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <div className="flex-1">

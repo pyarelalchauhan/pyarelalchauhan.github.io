@@ -5,10 +5,10 @@ const HamburgerButton = ({
   toggleNavMenu: any;
   isOpen: boolean;
 }) => {
-  const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black transition ease transform duration-300`;
+  const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black dark:bg-white transition ease transform duration-300`;
   return (
     <button
-      className="flex md:hidden flex-col h-8 w-8 rounded justify-center items-center group"
+      className="flex md:hidden flex-col h-8 w-8 mx-2 rounded justify-center items-center group"
       onClick={() => toggleNavMenu(!isOpen)}
     >
       <div
