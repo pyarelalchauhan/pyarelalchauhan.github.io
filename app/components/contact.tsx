@@ -19,7 +19,7 @@ export default function Contact() {
     <div id="contact" className="min-h-[100vh] p-[5rem] w-full">
       <p className="text-4xl text-center text-red-600 font-bold tracking-wider">Contact</p>
 
-      <div className="mt-12 flex gap-2 justify-around items-center">
+      <div className="flex gap-2 justify-around items-center">
         <div
           data-aos="slide-left"
           data-aos-duration="5000"
