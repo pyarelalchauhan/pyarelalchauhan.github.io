@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { Ref } from "react";
+import React from "react";
 
 type Props = {
   isOpen: boolean;
@@ -10,37 +10,37 @@ const Sidebar = ({ isOpen }: Props) => {
     <div
       className={`${
         isOpen
-          ? "absolute top-[5rem] right-[3rem] flex shadow-lg p-2 rounded-md"
+          ? "absolute top-[5rem] right-[2rem] flex shadow-lg p-2 rounded-md w-[50%]"
           : "hidden"
       }`}
     >
-      <ul className="flex-col">
-        <li className="m-4 p-2 bg-lime-100 rounded-sm">
+      <ul className="flex-col w-full text-right shadow-2xl bg-gradient-to-r from-indigo-500 to-blue-500">
+        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
           <Link href="#intro">
             <p>Intro</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-lime-100 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
           <Link href="#about">
             <p>About</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-lime-100 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
           <Link href="#projects">
             <p>Projects</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-lime-100 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
           <Link href="#skills">
             <p>Skills</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-lime-100 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
           <Link href="#experience">
             <p>Experience</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-lime-100 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
           <Link href="#contact">
             <p>Contact</p>
           </Link>
