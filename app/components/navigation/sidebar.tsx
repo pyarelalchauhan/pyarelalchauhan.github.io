@@ -14,33 +14,33 @@ const Sidebar = ({ isOpen }: Props) => {
           : "hidden"
       }`}
     >
-      <ul className="flex-col w-full text-right shadow-2xl bg-gradient-to-r from-indigo-500 to-blue-500">
-        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
+      <ul className="flex-col w-full text-right text-white dark:text-black shadow-2xl bg-gradient-to-r from-indigo-500 dark:from-slate-400 to-blue-500 dark:to-gray-300 transition-all duration-500">
+        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#intro">
             <p>Intro</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#about">
             <p>About</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#projects">
             <p>Projects</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#skills">
             <p>Skills</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#experience">
             <p>Experience</p>
           </Link>
         </li>
-        <li className="m-4 p-2 bg-zinc-300 rounded-sm">
+        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#contact">
             <p>Contact</p>
           </Link>
