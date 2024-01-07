@@ -3,7 +3,8 @@
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    background: #dfdbdb;
+    background: rgb(235, 235, 235);
+    border-radius: 30px;
   }
   
   /* The actual timeline (the vertical ruler) */
@@ -11,7 +12,7 @@
     content: '';
     position: absolute;
     width: 6px;
-    background-color: white;
+    background-color: rgb(246, 241, 241);
     top: 0;
     bottom: 0;
     left: 50%;
