@@ -16,13 +16,13 @@ const Sidebar = ({ isOpen }: Props) => {
     >
       <ul className="flex-col">
         <li className="m-4 p-2 bg-lime-100 rounded-sm">
-          <Link href="#intro">
-            <p>Intro</p>
+          <Link href="#about">
+            <p>About</p>
           </Link>
         </li>
         <li className="m-4 p-2 bg-lime-100 rounded-sm">
-          <Link href="#about">
-            <p>About</p>
+          <Link href="#education">
+            <p>Education</p>
           </Link>
         </li>
         <li className="m-4 p-2 bg-lime-100 rounded-sm">

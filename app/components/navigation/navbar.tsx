@@ -36,13 +36,13 @@ const Navbar = (props: Props) => {
             </div>
             <ul className="hidden md:flex gap-x-6">
               <li>
-                <Link href="#intro">
-                  <p>Intro</p>
+                <Link href="#about">
+                  <p>About</p>
                 </Link>
               </li>
               <li>
-                <Link href="#about">
-                  <p>About</p>
+                <Link href="#education">
+                  <p>Education</p>
                 </Link>
               </li>
               <li>
