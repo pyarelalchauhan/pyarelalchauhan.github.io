@@ -12,7 +12,7 @@ export default function Intro() {
   return (
     <div
       id="intro"
-      className="min-h-[100vh] p-[8rem] w-full flex flex-col-reverse md:flex-row gap-8 items-center justify-between border-2"
+      className="min-h-[100vh] p-[8rem] w-full flex flex-col-reverse md:flex-row gap-8 items-center justify-between"
     >
       <div
         className="flex-2 text-zinc-600 text-sm md:text-lg text-center p-6 italic selection:text-teal-500"
@@ -25,7 +25,10 @@ export default function Intro() {
           Indian Institute of Science Education and Research, Bhopal (IISERB).
         </b>
       </div>
-      <div className="flex-3 flex flex-col justify-center items-center relative" data-aos="zoom-out">
+      <div
+        className="flex-3 flex flex-col justify-center items-center relative"
+        data-aos="zoom-out"
+      >
         <div
           style={{
             clipPath:

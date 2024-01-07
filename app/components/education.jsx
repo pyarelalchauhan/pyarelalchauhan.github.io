@@ -4,20 +4,20 @@ import Image from "next/image";
 import SRM from "@/public/images/srm.png";
 import IISERB from "@/public/images/iiserb.png";
 import IISST from "@/public/images/iisst.png";
-import Aos from "aos"
+import Aos from "aos";
 import { useEffect } from "react";
 const educationArray = [
   {
-    title: "Bachelar of Technology (B.Tech)",
-    university: "SRM University",
-    location: "Chennai, Tamil Nadu",
-    department: "Civil Engineering",
-    grades: 9.168,
+    title: "Doctor of Philosophy (Ph.D)",
+    university: "Indian Institute of Science Education and Research",
+    location: "Bhopal, Madhya Pradesh",
+    department: "Data Science and Engineering",
+    grades: `${9.0}(Sem 1)`,
     timeline: {
-      startTime: 2012,
-      endTime: 2016,
+      startTime: 2022,
+      endTime: null,
     },
-    logo: SRM,
+    logo: IISERB,
   },
   {
     title: "Master of Technology (M.Tech)",
@@ -32,44 +32,60 @@ const educationArray = [
     logo: IISST,
   },
   {
-    title: "Doctor of Philosophy (Ph.D)",
-    university: "Indian Institute of Science Education and Research",
-    location: "Bhopal, Madhya Pradesh",
-    department: "Data Science and Engineering",
-    grades: `${9.0}(Sem 1)`,
+    title: "Bachelar of Technology (B.Tech)",
+    university: "SRM University",
+    location: "Chennai, Tamil Nadu",
+    department: "Civil Engineering",
+    grades: 9.168,
     timeline: {
-      startTime: 2022,
-      endTime: null,
+      startTime: 2012,
+      endTime: 2016,
     },
-    logo: IISERB,
+    logo: SRM,
   },
 ];
 export default function Education() {
-    useEffect(()=>{
-        Aos.init()
-    },[])
+  useEffect(() => {
+    Aos.init({ duration: 1200 });
+  }, []);
   return (
     <div
       id="education"
-      className="min-h-[100vh] p-[5rem] w-full dark:text-black"
+      className="min-h-[100vh] sm:p-[1rem] md:p-[1rem] lg:p-[5rem] w-full dark:text-black"
     >
-      <div className={styles.timeline}>
+      <div className={`${styles.timeline}`}>
         {educationArray?.map((education, i) => (
           <div
             key={i}
             className={`${styles.container} ${
               i % 2 == 0 ? styles.left : styles.right
-            }`}
+            } drop-shadow-lg`}
+            data-aos={i % 2 == 0 ? "fade-down-right" : "fade-down-left"}
           >
             <div className={styles.content}>
               <div>
-                <small>2012 - 2016</small>
-                <h1>{education.title}</h1>
-                <h3>
-                  {education.university}, <b>{education.location}</b>
+                <small className="text-blue-400 font-bold">
+                  {education.timeline.startTime}
+                  {" - "}
+                  {`${
+                    education.timeline.endTime
+                      ? education.timeline.endTime
+                      : "present"
+                  }`}
+                </small>
+                <h1 className="font-bold italic text-teal-700">
+                  {education.title}
+                </h1>
+                <h3 className="italic text-sm font-semibold">
+                  {education.university}, {education.location}
                 </h3>
-                <h5>{education.department}</h5>
-                <h6>Grades: {education.grades}</h6>
+                <h5 className="font-semibold">{education.department}</h5>
+                <h6>
+                  <span className="text-sm italic">CGPA: </span>
+                  <span className="font-semibold text-md text-amber-900">
+                    {education.grades}{" "}
+                  </span>
+                </h6>
               </div>
               <Image
                 height={100}
