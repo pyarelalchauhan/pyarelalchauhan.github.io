@@ -14,11 +14,11 @@ export default function About() {
             <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
               About Me
             </h2>
-            <p data-aos="fade-up-left" className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl transition-all duration-300 transform hover:scale-y-110 hover:scale-x-105">
+            <p data-aos="fade-down-right" className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl transition-all duration-300 transform hover:scale-y-110 hover:scale-x-105">
               Hi, I&lsquo;m Pyare Lal
             </p>
             <p
-              data-aos="fade-up-right"
+              data-aos="fade-down-left"
               className="mt-4 max-w-2xl text-md text-gray-500 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
             >
               a Ph.D. Scholar at the Indian Institute of Science Education and

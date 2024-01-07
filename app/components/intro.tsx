@@ -12,11 +12,11 @@ export default function Intro() {
   return (
     <div
       id="intro"
-      className="min-h-[100vh] p-[8rem] w-full flex flex-col-reverse md:flex-row gap-8 items-center justify-between"
+      className="min-h-[100vh] p-[8rem] flex flex-col-reverse md:flex-row gap-8 items-center justify-between"
     >
       <div
         className="flex-2 text-zinc-600 text-sm md:text-lg text-center p-6 italic selection:text-teal-500"
-        data-aos="fade-up"
+        data-aos="fade-down-left"
         data-aos-anchor-placement="bottom-bottom"
       >
         I&apos;m <span className="text-[2rem] font-bold">Pyare Lal,</span> a
@@ -27,7 +27,7 @@ export default function Intro() {
       </div>
       <div
         className="flex-3 flex flex-col justify-center items-center relative"
-        data-aos="zoom-out"
+        data-aos="fade-down-right"
       >
         <div
           style={{
