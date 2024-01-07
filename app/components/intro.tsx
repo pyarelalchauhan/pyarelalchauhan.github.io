@@ -12,10 +12,10 @@ export default function Intro() {
   return (
     <div
       id="intro"
-      className="min-h-[100vh] p-[8rem] flex flex-col-reverse md:flex-row gap-8 items-center justify-between"
+      className="min-h-[100vh] p-[8rem] flex flex-col-reverse md:flex-row gap-8 items-center justify-between "
     >
       <div
-        className="flex-2 text-zinc-600 text-sm md:text-lg text-center p-6 italic selection:text-teal-500"
+        className="flex-2 text-zinc-700 dark:text-zinc-400 text-sm md:text-lg text-center p-6 italic selection:text-teal-500"
         data-aos="fade-down-left"
         data-aos-anchor-placement="bottom-bottom"
       >
@@ -34,7 +34,7 @@ export default function Intro() {
             clipPath:
               "polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%)",
           }}
-          className="relative h-[14rem] w-[14rem] bg-gradient-to-r from-cyan-500 to-blue-500"
+          className="relative h-[14rem] w-[14rem] bg-gradient-to-r from-[#cfd9df] to-[#e2ebf0]"
         >
           <Image
             src="/images/profile.png"
