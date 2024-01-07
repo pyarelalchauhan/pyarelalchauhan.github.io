@@ -25,7 +25,7 @@ const Footer = () => {
             <FaGithub />
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/in/pyarelaldse/"
             aria-label="LinkedIn"
             target="_blank"
             rel="noopener noreferrer"
