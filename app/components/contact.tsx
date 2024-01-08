@@ -17,51 +17,51 @@ export default function Contact() {
 
   return (
     <div id="contact" className="min-h-[100vh] p-[5rem] w-full">
-      <p className="text-4xl text-center text-red-600 font-bold tracking-wider">Contact</p>
+      <p className="text-4xl text-center text-red-600 font-bold tracking-wider">
+        Contact
+      </p>
 
-      <div className="flex gap-2 justify-around items-center">
+      <div className="sm:flex sm:flex-row flex flex-col gap-2 justify-around items-center">
         <div
           data-aos="slide-left"
           data-aos-duration="5000"
-          data-aos-delay="200">
-          <div className="grid gap-2 items-center ">
-           {/* <div className="flex "> */}
-
+          data-aos-delay="200"
+        >
+          <div className="flex flex-row sm:flex sm:flex-col sm:flex-1 gap-2 items-center justify-between">
             <Link
               href="#"
-              className="p-2 rounded-md bg-blue-500 text-white grid justify-center gap-2 ">
-              <FaPhone className="w-full"/>
-              <p className="">+91 9988776655</p>
+              className="p-2 rounded-md w-full bg-blue-400 text-white flex items-center gap-2 "
+            >
+              <FaPhone size="1.5rem" />
+              <p className="hidden sm:block">+91 9566065406</p>
             </Link>
             <Link
               href="#"
-              className="p-2 rounded-md bg-cyan-700 text-white flex items-center gap-2">
-              <FaMessage />
-              <p>inderpal@gmail.com</p>
-            </Link>
-                {/* </div>
-                <div className=""> */}
-
-            <Link
-              href="#"
-              className="px-2 py-1 rounded-md bg-gray-800 text-white flex items-center gap-2">
-              <FaGithub />
-              <p>inderpalchauhan</p>
+              className="p-2 rounded-md w-full bg-cyan-700 text-white flex items-center gap-2"
+            >
+              <FaMessage size="1.5rem" />
+              <p className="hidden sm:block">pyare.lal.dse@gmail.com</p>
             </Link>
             <Link
               href="#"
-              className="px-2 py-1 rounded-md bg-cyan-700 text-white flex items-center gap-2">
-              <FaLinkedinIn />
-              <p>Linkedin</p>
+              className="p-2 rounded-md w-full bg-gray-800 text-white flex items-center gap-2"
+            >
+              <FaGithub size="1.5rem" />
+              <p className="hidden sm:block">pyarelalchauhan</p>
             </Link>
-                {/* </div> */}
+            <Link
+              href="#"
+              className="p-2 rounded-md w-full bg-cyan-700 text-white flex items-center gap-2"
+            >
+              <FaLinkedinIn size="1.5rem" />
+              <p className="hidden sm:block">pyarelaldse</p>
+            </Link>
           </div>
-
         </div>
         <div
-          className="w-[50%] m-2 flex flex-col items-center justify-around"
-          data-aos="slide-right">
-         
+          className="w-[100%] sm:w-[50%] flex flex-col items-center justify-around"
+          data-aos="slide-right"
+        >
           <ContactForm />
         </div>
       </div>
@@ -77,20 +77,22 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-2 w-[80%] m-4">
+    <form
+      onSubmit={handleSubmit}
+      className="shadow-lg rounded-lg p-2 w-[100%] flex flex-col items-stretch"
+    >
       <input
         type="text"
-        className=" w-full rounded-xl m-2 px-4 py-1 bg-gray-100 outline-none"
+        className="rounded-xl m-2 p-2 bg-gray-100 outline-none"
         name="name"
         id="name"
         placeholder="Name"
       />
-
       <input
         id="email"
         type="email"
         name="email"
-        className="w-full rounded-xl m-2 px-4 py-1 bg-gray-100 outline-none"
+        className="rounded-xl m-2 p-2 bg-gray-100 outline-none"
         placeholder="Email"
       />
       <ValidationError prefix="Email" field="email" errors={state.errors} />
@@ -98,7 +100,7 @@ export function ContactForm() {
         id="message"
         name="message"
         rows={4}
-        className=" w-full rounded-xl m-2 px-4 py-2 bg-gray-100 outline-none"
+        className="rounded-xl m-2 p-2 bg-gray-100 outline-none"
         placeholder="Messages"
       />
       <ValidationError prefix="Message" field="message" errors={state.errors} />
@@ -107,11 +109,10 @@ export function ContactForm() {
         type="submit"
         disabled={state.submitting}
         data-aos="flip-up"
-        className="text-white font-semibold tracking-widest transition-all w-48 h-auto bg-red-600 hover:bg-red-700 hover:cursor-pointer ml-2 px-4 py-1 rounded-tl-md rounded-br-md ">
+        className="text-white font-semibold tracking-widest transition-all m-2 p-2 w-[50%] h-auto bg-red-600 hover:bg-red-700 hover:cursor-pointer ml-2 px-4 py-1 rounded-tl-md rounded-br-md "
+      >
         {state.submitting ? "Submitting..." : "Submit"}
       </button>
-
-      <div className="container my-24 mx-auto md:px-6"></div>
     </form>
   );
 }

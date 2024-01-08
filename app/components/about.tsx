@@ -22,7 +22,7 @@ export default function About() {
             </p>
             <p
               data-aos="fade-down-left"
-              className="mt-4 text-md text-gray-500 dark:text-zinc-400 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
+              className="mt-4 text-sm sm:text-lg dark:text-zinc-400 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
             >
               a <b>Ph.D. Scholar</b> at the{" "}
               <b>
