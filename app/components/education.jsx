@@ -62,7 +62,7 @@ export default function Education() {
             } drop-shadow-lg`}
             data-aos={i % 2 == 0 ? "fade-down-right" : "fade-down-left"}
           >
-            <div className={`${styles.content} text-zinc-300 bg-gray-200 dark:bg-black`}>
+            <div className={`${styles.content} text-zinc-800 bg-gray-200 dark:bg-black dark:text-white`}>
               <div>
                 <small className="text-blue-400 font-bold">
                   {education.timeline.startTime}

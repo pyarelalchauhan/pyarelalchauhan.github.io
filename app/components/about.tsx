@@ -7,7 +7,7 @@ export default function About() {
     Aos.init({ duration: 1200 });
   }, []);
   return (
-    <div id="about" className="min-h-[100vh] p-[5rem] w-full">
+    <div id="about" className="min-h-[100vh] p-[2rem] sm:p-[5rem] w-full">
       <div className="bg-gray-100 dark:bg-black py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
@@ -22,7 +22,7 @@ export default function About() {
             </p>
             <p
               data-aos="fade-down-left"
-              className="mt-4 max-w-2xl text-md text-gray-500 dark:text-zinc-400 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
+              className="mt-4 text-md text-gray-500 dark:text-zinc-400 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
             >
               a <b>Ph.D. Scholar</b> at the{" "}
               <b>
