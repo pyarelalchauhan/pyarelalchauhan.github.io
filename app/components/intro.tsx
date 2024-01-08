@@ -19,11 +19,13 @@ export default function Intro() {
         data-aos="fade-down-left"
         data-aos-anchor-placement="bottom-bottom"
       >
-        I&apos;m <span className="text-[2rem] font-bold">Pyare Lal,</span> a
-        Ph.D. Scholar at the{" "}
-        <b>
-          Indian Institute of Science Education and Research, Bhopal (IISERB).
-        </b>
+        <div>
+          I&apos;m <span className="text-[2rem] font-bold font-serif">Pyare Lal,</span> a
+          Ph.D. Scholar at the{" "}
+          <b>
+            Indian Institute of Science Education and Research, Bhopal (IISERB).
+          </b>
+        </div>
       </div>
       <div
         className="flex-3 flex flex-col justify-center items-center relative"
@@ -45,33 +47,49 @@ export default function Intro() {
           />
         </div>
         <div className="flex flex-row items-center justify-between m-4">
-          <a
-            href="https://github.com/pyarelalchauhan"
-            aria-label="GitHub"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="m-4 p-4 border border-zinc-200 shadow-md rounded-md"
-          >
-            <FaGithub size="2rem" />
-          </a>
-          <a
-            href="mailto:pyare22@iiserb.ac.in"
-            aria-label="Mail"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="m-4 p-4 border border-zinc-200 shadow-md rounded-md"
-          >
-            <MdAttachEmail size="2rem" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/pyarelaldse/"
-            aria-label="LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="m-4 p-4 border border-zinc-200 shadow-md rounded-md"
-          >
-            <FaLinkedin size="2rem" />
-          </a>
+          <section className="flex justify-center items-center">
+            <a
+              href="https://github.com/pyarelalchauhan"
+              aria-label="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="m-4 group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
+            >
+              <FaGithub size="2rem" />
+              <span className="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
+                GitHub
+              </span>
+            </a>
+          </section>
+
+          <section className="flex justify-center items-center">
+            <a
+              href="mailto:pyare22@iiserb.ac.in"
+              aria-label="Mail"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="m-4 group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
+            >
+              <MdAttachEmail size="2rem" />
+              <span className="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
+                Email
+              </span>
+            </a>
+          </section>
+          <section className="flex justify-center items-center">
+            <a
+              href="https://www.linkedin.com/in/pyarelaldse/"
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="m-4 group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
+            >
+              <FaLinkedin size="2rem" />
+              <span className="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
+                LinkedIn
+              </span>
+            </a>
+          </section>
         </div>
       </div>
     </div>

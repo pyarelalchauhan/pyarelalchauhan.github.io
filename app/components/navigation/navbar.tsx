@@ -46,11 +46,11 @@ const Navbar = (props: Props) => {
                 </Link>
               </li>
               <li>
-              <li>
                 <Link href="#experience">
                   <p>Experience</p>
                 </Link>
               </li>
+              <li>
                 <Link href="#projects">
                   <p>Projects</p>
                 </Link>
