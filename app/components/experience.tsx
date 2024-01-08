@@ -95,15 +95,14 @@ export default function Experience() {
         </div>
       ))}
       {/* Internships */}
-      <h3 className="text-lg text-center mb-4">Internships</h3>
       {internships?.map((intern, i) => (
         <div
           key={i}
-          data-aos={i % 2 === 0 ? "flip-down" : "flip-up"}
-          className={`relative w-full mx-auto overflow-hidden  mb-4`}
+          data-aos={i % 2 === 0 ? "flip-left" : "flip-right"}
+          className={`relative md:w-[80%] mx-auto overflow-hidden  mb-4`}
           
         >
-          <div className={`px-6 py-41 md:w-1/2 md:max-w-[80%] shadow-lg bg-white dark:bg-zinc-600 border-2 border-gray-200 rounded-lg ${i%2==0?"sm:float-end":"sm:float-start"}`}>
+          <div className={`px-6 py-41 md:w-3/4 md:max-w-[80%] shadow-lg bg-white dark:bg-zinc-600 border-2 border-gray-200 rounded-lg ${i%2==0?"sm:float-end":"sm:float-start"}`}>
             <div className="text-lg font-bold mb-2 text-teal-600">
               {intern.title}
             </div>

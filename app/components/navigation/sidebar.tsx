@@ -26,6 +26,11 @@ const Sidebar = ({ isOpen }: Props) => {
           </Link>
         </li>
         <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
+          <Link href="#experience">
+            <p>Experience</p>
+          </Link>
+        </li>
+        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#projects">
             <p>Projects</p>
           </Link>
@@ -33,11 +38,6 @@ const Sidebar = ({ isOpen }: Props) => {
         <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
           <Link href="#skills">
             <p>Skills</p>
-          </Link>
-        </li>
-        <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
-          <Link href="#experience">
-            <p>Experience</p>
           </Link>
         </li>
         <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
