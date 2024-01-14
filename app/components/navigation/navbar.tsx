@@ -41,6 +41,11 @@ const Navbar = (props: Props) => {
                 </Link>
               </li>
               <li>
+                <Link href="#publications">
+                  <p>Publications</p>
+                </Link>
+              </li>
+              <li>
                 <Link href="#education">
                   <p>Education</p>
                 </Link>
@@ -48,11 +53,6 @@ const Navbar = (props: Props) => {
               <li>
                 <Link href="#experience">
                   <p>Experience</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#projects">
-                  <p>Projects</p>
                 </Link>
               </li>
               <li>
