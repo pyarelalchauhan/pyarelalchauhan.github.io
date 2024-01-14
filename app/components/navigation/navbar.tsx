@@ -56,8 +56,8 @@ const Navbar = (props: Props) => {
                 </Link>
               </li>
               <li>
-                <Link href="#skills">
-                  <p>Skills</p>
+                <Link href="#awards">
+                  <p>Awards</p>
                 </Link>
               </li>
               <li>

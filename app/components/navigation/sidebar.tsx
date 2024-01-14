@@ -36,8 +36,8 @@ const Sidebar = ({ isOpen }: Props) => {
           </Link>
         </li>
         <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">
-          <Link href="#skills">
-            <p>Skills</p>
+          <Link href="#awards">
+            <p>Awards</p>
           </Link>
         </li>
         <li className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm">

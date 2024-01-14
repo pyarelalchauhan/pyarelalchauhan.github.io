@@ -4,7 +4,7 @@ import Experience from "./components/experience";
 import Intro from "./components/intro";
 import Education from "./components/education";
 import Publications from "./components/publications";
-import Skills from "./components/skills";
+import Awards from "./components/awards";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       <Publications />
       <Education />
       <Experience />
-      <Skills />
+      <Awards />
       <Contact />
     </main>
   );
