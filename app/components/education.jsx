@@ -51,8 +51,9 @@ export default function Education() {
   return (
     <div
       id="education"
-      className="min-h-[100vh] p-[1rem] w-full dark:text-black"
+      className="min-h-[100vh] p-[5rem] w-full dark:text-black"
     >
+       <h3 className="text-center text-xl font-bold">Education</h3>
       <div className={`${styles.timeline}`}>
         {educationArray?.map((education, i) => (
           <div
