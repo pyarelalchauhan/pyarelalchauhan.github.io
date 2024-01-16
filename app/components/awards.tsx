@@ -172,6 +172,7 @@ export default function Awards() {
             <FaLinkedinIn color="#2a52be" fontSize="1.5em" />
           </a>
         </div>
+        {/* Extra Pictures */}
         <div className="grid sm:grid-cols-3 gap-2 my-4">
           {awardsAndPresentations[0].pictures.map((image, index) => (
             <Image
@@ -207,6 +208,27 @@ export default function Awards() {
           </div>
         </div>
       </div>
+      {/* Other awards/certification awards */}
+      {awardsCertificates?.map((element, index) => (
+        <div key={index}>
+          <h3 className="text-md font-mono font-semibold text-center overflow-hidden truncate hover:shadow-lg p-2 m-2 rounded-md">
+            {element.titleLink ? (
+              <Link
+                href={element.titleLink}
+                target="_black"
+                className="hover:text-blue-800 hover:underline"
+              >
+                {element.title}
+              </Link>
+            ) : (
+              <span>{element.title}</span>
+            )}
+          </h3>
+          <div className="grid">
+            
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
