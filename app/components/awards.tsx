@@ -24,7 +24,12 @@ import openHouseHall from "@/public/images/awards/openHouseHall.png";
 import openHouse from "@/public/images/awards/openHouseBhopalPP.jpeg";
 import openHouseBhopal from "@/public/images/awards/openHouseBhopalP_P.jpeg";
 
-import { FaLinkedinIn, FaFacebook, FaTwitter } from "react-icons/fa";
+import {
+  FaLinkedinIn,
+  FaFacebook,
+  FaTwitter,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
 import Link from "next/link";
 
 export default function Awards() {
@@ -138,9 +143,10 @@ export default function Awards() {
           </h4>
           {awardsAndPresentations[0].extra?.description?.map((ele, index) => (
             <div
-              className="border-2 hover:shadow-[inset_-2px_-4px_5px_#7991e0] rounded-md m-2 p-2 text-[14px] text-ellipsis text-blue-950 font-semibold text-nowrap overflow-hidden"
+              className="border-2 hover:text-blue-900 hover:shadow-[inset_0_-2px_2px_#7991e0] rounded-md m-2 p-2 text-[14px] text-ellipsis text-blue-950 font-semibold text-nowrap overflow-hidden flex items-center justify-center gap-1"
               key={index}
             >
+              <FaExternalLinkAlt />
               <Link href={ele.link}>{ele.title}</Link>
             </div>
           ))}
@@ -211,21 +217,32 @@ export default function Awards() {
       {/* Other awards/certification awards */}
       {awardsCertificates?.map((element, index) => (
         <div key={index}>
-          <h3 className="text-md font-mono font-semibold text-center overflow-hidden truncate hover:shadow-lg p-2 m-2 rounded-md">
+          <h3 className="text-lg font-mono font-semibold text-center overflow-hidden truncate hover:shadow-lg p-2 m-2 rounded-md">
             {element.titleLink ? (
               <Link
                 href={element.titleLink}
                 target="_black"
-                className="hover:text-blue-800 hover:underline"
+                className="hover:text-blue-800 hover:underline flex items-center justify-center gap-1"
               >
+                <FaExternalLinkAlt />
                 {element.title}
               </Link>
             ) : (
               <span>{element.title}</span>
             )}
           </h3>
-          <div className="grid">
-            
+          <div className="flex flex-wrap gap-2 w-full">
+            {element.pictures.map((picture, index) => (
+              <Image
+                key={index}
+                src={picture}
+                width={100}
+                objectFit="fill"
+                className="rounded-lg flex-1"
+                alt="Poster/hackathons"
+              />
+              // </div>
+            ))}
           </div>
         </div>
       ))}
