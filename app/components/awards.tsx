@@ -1,9 +1,29 @@
 import Image from "next/image";
+/* Geospatial */
 import geospatialhackathon1 from "@/public/images/awards/geospatial_hackathon2.jpg";
 import geospatialhackathon2 from "@/public/images/awards/geospatial_hackathon1.jpg";
 import geospatialhackathoncertificate from "@/public/images/awards/geospatial_hackathon_certificate.jpg";
 import minorclassessegment from "@/public/images/minor_class_seg.png";
 import pointcloudsegment from "@/public/images/point_cloud_seg.png";
+/* 3D Vision */
+import threeDVision from "@/public/images/awards/3dVision.png";
+import threeDVisionCertificate from "@/public/images/awards/3dVisionCertificate.png";
+import threeDVisionGroup from "@/public/images/awards/3dVisionGroup.png";
+/* Anvenshan Setu */
+import anvenshanSetu from "@/public/images/awards/anvesanSetuPresentation.jpeg";
+/* IEEE-GRSS Hackathon */
+import IEEEGRSSCertificate from "@/public/images/awards/IEEEHackathon.jpeg";
+/* Manit PP */
+import manitBhopalPres from "@/public/images/awards/manitBhopalPresentation.jpeg";
+import manitBhopalPresGroup from "@/public/images/awards/manitBhopalPP.jpeg";
+/* Indian Symposium */
+import symposium from "@/public/images/awards/symposium.jpeg";
+import symposiumCertificate from "@/public/images/awards/symposiumCertificate.png";
+/* Open House IISER Bhopal */
+import openHouseHall from "@/public/images/awards/openHouseHall.png";
+import openHouse from "@/public/images/awards/openHouseBhopalPP.jpeg";
+import openHouseBhopal from "@/public/images/awards/openHouseBhopalP_P.jpeg";
+
 import { FaLinkedinIn, FaFacebook, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
 
@@ -62,33 +82,41 @@ export default function Awards() {
         geospatialhackathoncertificate,
       ],
     },
+  ];
+  const awardsCertificates = [
     {
       title: "3D Vision Summer School at IIIT Hyderabad: 3DVSS 2023",
-      pictures: [],
+      titleLink: "",
+      pictures: [threeDVision, threeDVisionCertificate, threeDVisionGroup],
     },
     {
       title: "Anvenshan Setu Fellowship-2023",
       titleLink:
         "https://www.linkedin.com/feed/update/urn:li:activity:7024619832989954048?utm_source=share&utm_medium=member_desktop",
-      pictures: [],
+      pictures: [anvenshanSetu],
     },
     {
       title: "Won IEEE GRSS Student hackthon - 2023 ( first price )",
       titleLink:
         "https://www.linkedin.com/posts/pyarelaldse_ieeegrss-banglore-sustainabledevelopmentgoals-activity-7058733838289506304-QLcW?utm_source=share&utm_medium=member_desktop",
-      pictures: [],
+      pictures: [IEEEGRSSCertificate],
     },
     {
       title: "MANIT bhopal Poster Presentation",
       titleLink:
         "https://www.linkedin.com/posts/activity-7024332149608620032-vOFc?utm_source=share&utm_medium=member_desktop",
-      pictures: [],
+      pictures: [
+        manitBhopalPres,
+        manitBhopalPresGroup,
+        symposium,
+        symposiumCertificate,
+      ],
     },
     {
       title:
         "Open House: IISER Bhopal: Poster presentation and Experimentation",
       titleLink: "",
-      pictures: [],
+      pictures: [openHouse, openHouseBhopal, openHouseHall],
     },
   ];
   return (
