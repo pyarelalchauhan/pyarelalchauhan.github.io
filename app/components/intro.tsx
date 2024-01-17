@@ -6,7 +6,7 @@ export default function Intro() {
   return (
     <div
       id="intro"
-      className="min-h-[100vh] p-[8rem] flex flex-col-reverse md:flex-row gap-8 items-center justify-between "
+      className="min-h-[100vh] p-[8rem] flex flex-col-reverse md:flex-row gap-8 items-center justify-between bg-[url('/images/background1.png')] bg-center bg-no-repeat bg-cover"
     >
       <div className="flex-2 text-zinc-700 dark:text-zinc-400 text-sm md:text-lg text-center p-6 italic selection:text-teal-500">
         <div>
