@@ -1,36 +1,24 @@
-"use client";
 import Image from "next/image";
-import { useEffect } from "react";
-import Aos from "aos";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
 
 export default function Intro() {
-  useEffect(() => {
-    Aos.init({ duration: 1200 });
-  }, []);
   return (
     <div
       id="intro"
       className="min-h-[100vh] p-[8rem] flex flex-col-reverse md:flex-row gap-8 items-center justify-between "
     >
-      <div
-        className="flex-2 text-zinc-700 dark:text-zinc-400 text-sm md:text-lg text-center p-6 italic selection:text-teal-500"
-        data-aos="fade-down-left"
-        data-aos-anchor-placement="bottom-bottom"
-      >
+      <div className="flex-2 text-zinc-700 dark:text-zinc-400 text-sm md:text-lg text-center p-6 italic selection:text-teal-500">
         <div>
-          I&apos;m <span className="text-[2rem] font-bold font-serif">Pyare Lal,</span> a
+          I&apos;m{" "}
+          <span className="text-[2rem] font-bold font-serif">Pyare Lal,</span> a
           Ph.D. Scholar at the{" "}
           <b>
             Indian Institute of Science Education and Research, Bhopal (IISERB).
           </b>
         </div>
       </div>
-      <div
-        className="flex-3 flex flex-col justify-center items-center relative"
-        data-aos="fade-down-right"
-      >
+      <div className="flex-3 flex flex-col justify-center items-center relative">
         <div
           style={{
             clipPath:
