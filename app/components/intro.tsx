@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
+import profile from "@/public/images/profile.png";
 
 export default function Intro() {
   return (
@@ -27,7 +28,7 @@ export default function Intro() {
           className="relative h-[14rem] w-[14rem] bg-gradient-to-r from-[#cfd9df] to-[#e2ebf0]"
         >
           <Image
-            src="/images/profile.png"
+            src={profile}
             alt="profile-background"
             width={400}
             height={400}
