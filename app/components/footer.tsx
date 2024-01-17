@@ -9,7 +9,7 @@ const Footer = () => {
         </p>
         <div className=" flex gap-4">
           <a
-            href="mailto:pyare.lal.dse@gmail.com"
+            href="mailto:pyare22@iiserb.ac.in"
             aria-label="Twitter"
             target="_blank"
             rel="noopener noreferrer"
