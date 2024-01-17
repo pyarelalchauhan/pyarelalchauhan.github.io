@@ -8,10 +8,10 @@ export default function Publications() {
   }, []);
   return (
     <div id="publications" className="min-h-[100vh] p-[5rem] w-full">
-      <h3 className="text-center text-xl font-bold mb-2 italic">
+      <h3 className="text-center text-xl font-bold mb-2">
         Publications
       </h3>
-      <div data-aos="zoom-in-up" className="bg-zinc-300 rounded-md p-4 my-2">
+      <div data-aos="zoom-in-up" className="bg-zinc-300 text-black rounded-md p-4 my-2">
         <h2 className="text-md mb-2 font-bold italic">
           Performance Analysis of Subsampled LiDAR Point Clouds
           <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">
@@ -24,7 +24,7 @@ export default function Publications() {
           Clouds Using Deep Learning. Automation in Construction,2023
         </p>
       </div>
-      <div data-aos="zoom-in-up" className="bg-zinc-300 rounded-md p-4 my-2">
+      <div data-aos="zoom-in-up" className="bg-zinc-300 text-black rounded-md p-4 my-2">
         <h2 className="text-md mb-2 font-bold italic">
           Performance Analysis of Subsampled LiDAR Point Clouds
           <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">

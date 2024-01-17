@@ -126,7 +126,7 @@ export default function Awards() {
   ];
   return (
     <div id="awards" className="min-h-[100vh] p-[5rem] w-full">
-      <h3 className="text-center font-bold">Awards</h3>
+      <h3 className="text-center text-xl font-bold mb-2">Awards</h3>
       <div className="rounded-md shadow-lg border-2 p-2 dark:bg-zinc-500 dark:text-white">
         <h3 className="font-semibold text-md flex items-center justify-between">
           {awardsAndPresentations[0].title}{" "}

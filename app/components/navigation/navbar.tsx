@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 
 type Props = {};
 
-const navlist = [
+export const navlist = [
   { title: "About", link: "#about" },
   { title: "Publications", link: "#publications" },
   { title: "Education", link: "#education" },
