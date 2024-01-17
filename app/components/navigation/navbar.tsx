@@ -5,11 +5,23 @@ import Logo from "./Logo";
 import HamburgerButton from "./HamburgerButton";
 import Sidebar from "./sidebar";
 import ThemeSwitch from "../ThemeSwitch";
+import { useParams } from "next/navigation";
 
 type Props = {};
 
+export const navlist = [
+  { title: "About", link: "#about" },
+  { title: "Publications", link: "#publications" },
+  { title: "Education", link: "#education" },
+  { title: "Experience", link: "#experience" },
+  { title: "Awards", link: "#awards" },
+  { title: "Contact", link: "#contact" },
+];
+
 const Navbar = (props: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [hash, setHash] = useState<string>("");
+  const param = useParams();
   const toggleNavMenu = (value: boolean) => {
     setIsOpen(value);
   };
@@ -26,6 +38,11 @@ const Navbar = (props: Props) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    let loc = window.location.hash;
+    setHash(loc);
+  }, [hash,param]);
   return (
     <>
       <nav className="w-[80%] m-auto h-[60px] rounded-[24px] fixed left-[50%] -translate-x-1/2 top-2 shadow-[0_35px_100px_-15px_rgba(0,0,0,0.3)] dark:shadow-[] text-black dark:text-white bg-white dark:bg-zinc-700 px-12 z-10">
@@ -35,45 +52,33 @@ const Navbar = (props: Props) => {
               <Logo />
             </div>
             <ul className="hidden md:flex gap-x-6">
-              <li>
-                <Link href="#about">
-                  <p>About</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#education">
-                  <p>Education</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#projects">
-                  <p>Projects</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#skills">
-                  <p>Skills</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#experience">
-                  <p>Experience</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#contact">
-                  <p>Contact</p>
-                </Link>
-              </li>
+              {navlist.map((item, index) => (
+                <li key={index}>
+                  <Link href={item.link}>
+                    <p
+                      className={`${
+                        hash === item.link ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                      } px-2 rounded-lg hover:shadow-md`}
+                    >
+                      {item.title}
+                    </p>
+                  </Link>
+                </li>
+              ))}
             </ul>
             <button
               type="button"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 mx-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Resume
+              <a
+                href="https://drive.google.com/file/d/1P3tfaoqQnkW3193KEUn4X0WNQsSQwvUx/view"
+                target="_black"
+              >
+                Resume
+              </a>
             </button>
             <HamburgerButton toggleNavMenu={toggleNavMenu} isOpen={isOpen} />
-            {windowWidth < 768 && <Sidebar isOpen={isOpen} />}
+            <Sidebar isOpen={isOpen} />
             <ThemeSwitch />
           </div>
         </div>
