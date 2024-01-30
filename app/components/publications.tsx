@@ -13,7 +13,7 @@ export default function Publications() {
       </h3>
       <div data-aos="zoom-in-up" className="bg-zinc-300 text-black rounded-md p-4 my-2">
         <h2 className="text-md mb-2 font-bold italic">
-          Performance Analysis of Subsampled LiDAR Point Clouds
+          Paper 1
           <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">
             Deep Learning
           </span>
@@ -26,7 +26,7 @@ export default function Publications() {
       </div>
       <div data-aos="zoom-in-up" className="bg-zinc-300 text-black rounded-md p-4 my-2">
         <h2 className="text-md mb-2 font-bold italic">
-          Performance Analysis of Subsampled LiDAR Point Clouds
+          Paper 2
           <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">
             Deep Learning
           </span>

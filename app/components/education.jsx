@@ -12,7 +12,7 @@ const educationArray = [
     university: "Indian Institute of Science Education and Research",
     location: "Bhopal, Madhya Pradesh",
     department: "Data Science and Engineering",
-    grades: `${9.0}(Sem 1)`,
+    grades: `${9.0}`,
     timeline: {
       startTime: 2022,
       endTime: null,
