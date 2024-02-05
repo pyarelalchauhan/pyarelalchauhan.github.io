@@ -40,7 +40,7 @@ export default function Contact() {
               className="p-2 rounded-md w-full bg-cyan-700 text-white flex items-center gap-2"
             >
               <FaMessage size="1.5rem" />
-              <p className="hidden sm:block">pyare.lal.dse@gmail.com</p>
+              <p className="hidden sm:block">pyare22@iiserb.com</p>
             </Link>
             <Link
               href="#"
