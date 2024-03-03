@@ -52,7 +52,7 @@ const Navbar = (props: Props) => {
               <Logo />
             </div>
             <ul className="hidden md:flex gap-x-6">
-              {navlist.map((item, index) => (
+              {/* {navlist.map((item, index) => (
                 <li key={index}>
                   <Link href={item.link}>
                     <p
@@ -64,7 +64,73 @@ const Navbar = (props: Props) => {
                     </p>
                   </Link>
                 </li>
-              ))}
+              ))} */}
+              <li>
+                  <Link href="#about">
+                    <p
+                      className={`${
+                        hash === "#about" ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                      } px-2 rounded-lg hover:shadow-md`}
+                    >
+                      about
+                    </p>
+                  </Link>
+                </li>
+              <li>
+                  <Link href="#publications">
+                    <p
+                      className={`${
+                        hash === "#publications" ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                      } px-2 rounded-lg hover:shadow-md`}
+                    >
+                      publications
+                    </p>
+                  </Link>
+                </li>
+              <li>
+                  <Link href="#education">
+                    <p
+                      className={`${
+                        hash === "#education" ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                      } px-2 rounded-lg hover:shadow-md`}
+                    >
+                      education
+                    </p>
+                  </Link>
+                </li>
+              <li>
+                  <Link href="#experience">
+                    <p
+                      className={`${
+                        hash === "#experience" ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                      } px-2 rounded-lg hover:shadow-md`}
+                    >
+                      experience
+                    </p>
+                  </Link>
+                </li>
+              <li>
+                  <Link href="#awards">
+                    <p
+                      className={`${
+                        hash === "#awards" ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                      } px-2 rounded-lg hover:shadow-md`}
+                    >
+                      awards
+                    </p>
+                  </Link>
+                </li>
+              <li>
+                  <Link href="#contact">
+                    <p
+                      className={`${
+                        hash === "#contact" ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                      } px-2 rounded-lg hover:shadow-md`}
+                    >
+                      contact
+                    </p>
+                  </Link>
+                </li>
             </ul>
             <button
               type="button"
