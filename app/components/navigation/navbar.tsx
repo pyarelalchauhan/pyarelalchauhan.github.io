@@ -12,9 +12,9 @@ type Props = {};
 export const navlist = [
   { title: "about" },
   { title: "publications" },
+  { title: "news" },
   { title: "education" },
   { title: "experience" },
-  { title: "awards" },
   { title: "contact" },
 ];
 

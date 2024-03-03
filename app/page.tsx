@@ -12,9 +12,9 @@ export default function Home() {
       <Intro />
       <About />
       <Publications />
+      <Awards />
       <Education />
       <Experience />
-      <Awards />
       <Contact />
     </main>
   );
