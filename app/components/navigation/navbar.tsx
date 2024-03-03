@@ -51,7 +51,7 @@ const Navbar = (props: Props) => {
             <div className="flex-1">
               <Logo />
             </div>
-            <ul className="hidden md:flex gap-x-6">
+            <ul className="hidden sm:flex gap-x-6">
               {navlist.map((item, index) => (
                 <li key={index}>
                   <Link href={item.link}>
