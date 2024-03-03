@@ -62,7 +62,7 @@ export default function Experience() {
     });
   }, []);
   return (
-    <div id="experience" className="min-h-[100vh] p-[5rem] w-full">
+    <div id="experience" className="min-h-[100vh] px-[1rem] py-[5rem] sm:p-[5rem] mt-[4rem] w-full">
       <h3 className="text-2xl text-center mb-4">Experience</h3>
       {/* Experience */}
       {experience?.map((exp, i) => (
