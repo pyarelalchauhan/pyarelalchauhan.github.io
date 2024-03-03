@@ -8,7 +8,7 @@ export default function About() {
   }, []);
   return (
     <div id="about" className="min-h-[100vh] px-[1rem] py-[5rem] sm:p-[5rem] mt-[4rem] w-full">
-      <div className="bg-white dark:bg-zinc-600 shadow-lg rounded-lg overflow-hidden border-2 border-gray-200 py-12">
+      <div className="bg-gray-100 dark:bg-transparent shadow-lg rounded-lg overflow-hidden border-2 border-gray-200 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
