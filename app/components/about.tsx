@@ -18,34 +18,34 @@ export default function About() {
               data-aos="fade-down-left"
               className="mt-4 text-sm sm:text-lg dark:text-zinc-100 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
             >
-              a <b>Ph.D. Scholar</b> at the{" "}
+              <b>Ph.D. Scholar</b> at {" "}
               <b>
                 Indian Institute of Science Education and Research, Bhopal
                 (IISERB)
               </b>
-              , where I am pursuing my{" "}
+              , pursuing my{" "}
               <i>
                 <b>
                   doctoral studies in the Department of Data Science and
                   Engineering (DSE)
                 </b>
               </i>{" "}
-              within the GeoAI Lab. Under the guidance of Dr. Vaibhav Kumar, I
-              delve into the exciting realms of <b>Machine Learning</b> and{" "}
+              within the GeoAI Lab. Under the guidance of Dr. Vaibhav Kumar,
+              delved into the exciting realms of <b>Machine Learning</b> and{" "}
               <b>Deep Learning</b>, specializing in the field of <b>GeoAI</b>.
               My passion for research and my fascination with cutting-edge
               technologies have driven me to explore the vast potential of
               <b> Machine Learning and Deep Learning</b> in the context of
-              geospatial data analysis. I work extensively with{" "}
+              geospatial data analysis. Worked extensively with{" "}
               <b>satellite imagery, LiDAR data, and geospatial techniques</b> to
               uncover insights and address complex challenges in our
-              ever-changing world. In my Ph.D., I am primarily focused on
+              ever-changing world. Primarily focused on
               <b>
                 {" "}
                 tackling the issue of vehicle accessibility in dense urban
                 regions.
               </b>{" "}
-              By leveraging datasets such as LiDAR and images, I aim to develop
+              By leveraging datasets such as LiDAR and images, aiming to develop
               advanced deep-learning models to automate solutions for enhancing
               accessibility in these areas. Within this domain, my broad area of
               <b> interest lies in 3D Vision</b>, where I strive to unravel the
