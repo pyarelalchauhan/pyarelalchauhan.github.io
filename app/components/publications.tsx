@@ -8,7 +8,7 @@ export default function Publications() {
   }, []);
   return (
     <div id="publications" className="min-h-[100vh] p-[5rem] w-full">
-      <h3 className="text-center text-xl font-bold mb-2">
+      <h3 className="text-2xl text-center mb-4 text-black dark:text-white">
         Publications
       </h3>
       <div data-aos="zoom-in-up" className="bg-zinc-300 text-black rounded-md p-4 my-2">
