@@ -34,7 +34,7 @@ const Sidebar = ({ isOpen }: Props) => {
                   hash === item.link
                     ? "text-red-600 dark:text-white"
                     : "text-black dark:text-zinc-400"
-                } px-2 rounded-lg hover:shadow-md`}
+                } px-2 rounded-lg hover:shadow-md truncate`}
               >
                 {item.title}
               </p>
