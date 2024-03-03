@@ -52,7 +52,7 @@ const Navbar = (props: Props) => {
               <Logo />
             </div>
             <ul className="hidden md:flex gap-x-6">
-              {/* {navlist.map((item, index) => (
+              {navlist.map((item, index) => (
                 <li key={index}>
                   <Link href={item.link}>
                     <p
@@ -64,8 +64,8 @@ const Navbar = (props: Props) => {
                     </p>
                   </Link>
                 </li>
-              ))} */}
-              <li>
+              ))}
+              {/* <li>
                   <Link href="#about">
                     <p
                       className={`${
@@ -130,7 +130,7 @@ const Navbar = (props: Props) => {
                       contact
                     </p>
                   </Link>
-                </li>
+                </li> */ }
             </ul>
             <button
               type="button"

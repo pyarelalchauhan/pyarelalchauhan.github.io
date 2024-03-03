@@ -7,8 +7,8 @@ export default function About() {
     Aos.init({ duration: 1200 });
   }, []);
   return (
-    <div id="about" className="min-h-[100vh] p-[2rem] sm:p-[5rem] w-full">
-      <div className="bg-gray-100 dark:bg-black py-12">
+    <div id="about" className="min-h-[100vh] px-[1rem] py-[5rem] sm:p-[5rem] mt-[4rem] w-full">
+      <div className="bg-white dark:bg-zinc-600 shadow-lg rounded-lg overflow-hidden border-2 border-gray-200 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
@@ -16,13 +16,13 @@ export default function About() {
             </h2>
             <p
               data-aos="fade-down-right"
-              className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-zinc-400 sm:text-4xl transition-all duration-300 transform hover:scale-y-110 hover:scale-x-105"
+              className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-zinc-100 sm:text-4xl transition-all duration-300 transform hover:scale-y-110 hover:scale-x-105"
             >
               Hi, I&lsquo;m Pyare Lal
             </p>
             <p
               data-aos="fade-down-left"
-              className="mt-4 text-sm sm:text-lg dark:text-zinc-400 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
+              className="mt-4 text-sm sm:text-lg dark:text-zinc-100 lg:mx-auto transition-all duration-300 hover:text-gray-700f selection:text-orange-400"
             >
               a <b>Ph.D. Scholar</b> at the{" "}
               <b>

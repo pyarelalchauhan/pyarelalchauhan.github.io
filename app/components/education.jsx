@@ -12,7 +12,7 @@ const educationArray = [
     university: "Indian Institute of Science Education and Research",
     location: "Bhopal, Madhya Pradesh",
     department: "Data Science and Engineering",
-    grades: `${9.0}`,
+    grades: `${9.0}(Sem 1)`,
     timeline: {
       startTime: 2022,
       endTime: null,
@@ -51,7 +51,7 @@ export default function Education() {
   return (
     <div
       id="education"
-      className="min-h-[100vh] p-[5rem] w-full dark:text-black"
+      className="min-h-[100vh] px-[1rem] py-[5rem] sm:p-[5rem] mt-[4rem] w-full dark:text-white"
     >
        <h3 className="text-center text-xl font-bold">Education</h3>
       <div className={`${styles.timeline}`}>
@@ -60,10 +60,10 @@ export default function Education() {
             key={i}
             className={`${styles.container} ${
               i % 2 == 0 ? styles.left : styles.right
-            } drop-shadow-lg`}
+            } drop-shadow-lg bg-white dark:bg-zinc-600 shadow-lg rounded-lg overflow-hidden border-2 border-gray-200`}
             data-aos={i % 2 == 0 ? "fade-down-right" : "fade-down-left"}
           >
-            <div className={`${styles.content} text-zinc-800 bg-gray-200 dark:bg-black dark:text-white`}>
+            <div className={`${styles.content} text-zinc-800 bg-zinc-300 dark:text-white`}>
               <div>
                 <small className="text-blue-400 font-bold">
                   {education.timeline.startTime}

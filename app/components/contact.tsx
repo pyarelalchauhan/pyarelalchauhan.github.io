@@ -16,7 +16,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <div id="contact" className="min-h-[100vh] p-[5rem] w-full">
+    <div id="contact" className="min-h-[100vh] px-[1rem] py-[5rem] sm:p-[5rem] mt-[4rem] w-full">
       <p className="text-4xl text-center text-red-600 font-bold tracking-wider">
         Contact
       </p>
@@ -29,28 +29,31 @@ export default function Contact() {
         >
           <div className="flex flex-row sm:flex sm:flex-col sm:flex-1 gap-2 items-center justify-between">
             <Link
-              href="#"
+              href="tel:+919566095406"
               className="p-2 rounded-md w-full bg-blue-400 text-white flex items-center gap-2 "
             >
               <FaPhone size="1.5rem" />
               <p className="hidden sm:block">+91 9566065406</p>
             </Link>
             <Link
-              href="#"
+              href="mailto:pyare.lal.dse@gmail.com"
+              target="_blank"
               className="p-2 rounded-md w-full bg-cyan-700 text-white flex items-center gap-2"
             >
               <FaMessage size="1.5rem" />
-              <p className="hidden sm:block">pyare22@iiserb.com</p>
+              <p className="hidden sm:block">pyare.lal.dse@gmail.com</p>
             </Link>
             <Link
-              href="#"
+              href="https://github.com/pyarelalchauhan"
+              target="_blank"
               className="p-2 rounded-md w-full bg-gray-800 text-white flex items-center gap-2"
             >
               <FaGithub size="1.5rem" />
               <p className="hidden sm:block">pyarelalchauhan</p>
             </Link>
             <Link
-              href="#"
+              href="https://www.linkedin.com/in/pyarelaldse"
+              target="_blank"
               className="p-2 rounded-md w-full bg-cyan-700 text-white flex items-center gap-2"
             >
               <FaLinkedinIn size="1.5rem" />

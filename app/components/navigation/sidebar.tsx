@@ -23,7 +23,7 @@ const Sidebar = ({ isOpen }: Props) => {
       }`}
     >
       <ul className="flex-col w-full text-right text-white dark:text-black shadow-2xl bg-gradient-to-r from-indigo-500 dark:from-slate-400 to-blue-500 dark:to-gray-300 transition-all duration-500">
-        {/* {navlist.map((item, index) => (
+        {navlist.map((item, index) => (
           <li
             className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm"
             key={index}
@@ -40,8 +40,8 @@ const Sidebar = ({ isOpen }: Props) => {
               </p>
             </Link>
           </li>
-        ))} */}
-        <li
+        ))}
+        {/* <li
             className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm"
           >
             <Link href="#about">
@@ -130,7 +130,7 @@ const Sidebar = ({ isOpen }: Props) => {
                 contact
               </p>
             </Link>
-          </li>
+          </li> */}
       </ul>
     </div>
   );
