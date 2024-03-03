@@ -6,8 +6,8 @@ const Logo = () => {
     <>
       <Link href="#">
         <Image
-          width={30}
-          height={30}
+          width={50}
+          height={50}
           className="dark:bg-white dark:rounded-[50%] dark:mix-blend-lighten"
           src={logo}
           alt="logo"
