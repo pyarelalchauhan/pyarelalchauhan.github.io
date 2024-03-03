@@ -1,38 +1,34 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
-import profile from "@/public/images/profile.png"
+import pyareProfile from "@/public/images/Pyare-profile.png";
 
 export default function Intro() {
   return (
     <div
       id="intro"
-      className="min-h-[100vh] p-[8rem] flex flex-col-reverse md:flex-row gap-8 items-center justify-between bg-[url('/images/background1.png')] bg-center bg-no-repeat bg-cover"
+      className="min-h-[80vh] mt-[15dvh] bg-zinc-100 w-[80%] p-[1rem] flex flex-col-reverse md:flex-row gap-4 items-center justify-evenly"
     >
-      <div className="flex-2 text-zinc-700 dark:text-zinc-400 text-sm md:text-lg text-center p-6 italic selection:text-teal-500">
+      <div className="sm:flex-2 flex-2 text-zinc-700 dark:text-zinc-400 text-sm md:text-lg text-center p-6 italic selection:text-teal-500">
         <div>
           I&apos;m{" "}
-          <span className="text-[2rem] font-bold font-serif">Pyare Lal,</span> a
+          <span className="md:text-[3rem] text-[2rem] font-bold font-serif">Pyare Lal,</span> a
           Ph.D. Scholar at the{" "}
           <b>
             Indian Institute of Science Education and Research, Bhopal (IISERB).
           </b>
         </div>
       </div>
-      <div className="flex-3 flex flex-col justify-center items-center relative">
+      <div className=" sm:flex-3  flex-3 flex flex-col justify-center items-center relative">
         <div
-          style={{
-            clipPath:
-              "polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%)",
-          }}
-          className="relative h-[14rem] w-[14rem] bg-gradient-to-r from-[#cfd9df] to-[#e2ebf0]"
+          className="animate-float relative h-[14rem] w-[14rem]"
         >
           <Image
-            src={profile}
+            src={pyareProfile}
             alt="profile-background"
             width={400}
             height={400}
-            className="absolute top-[15%] left-[52%] -translate-x-1/2"
+            className="absolute top-0 left-[52%] -translate-x-1/2"
           />
         </div>
         <div className="flex flex-row items-center justify-between m-4">

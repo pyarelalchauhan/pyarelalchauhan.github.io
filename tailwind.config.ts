@@ -13,9 +13,25 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      boxShadow:{
-        'custom':'17px 17px 21px #bebebe -17px -17px 21px #ffffff'
-      }
+      boxShadow: {
+        custom: "17px 17px 21px #bebebe -17px -17px 21px #ffffff",
+      },
+      keyframes: {
+        floating: {
+          "0%": {
+            transform: "translate(0, 0px)",
+          },
+          "50%": {
+            transform: "translate(0, 10px)",
+          },
+          "100%": {
+            transform: "translate(0, -0px)",
+          },
+        }
+      },
+      animation: {
+        float: "floating 3s infinite ease-in-out",
+      },
     },
   },
   plugins: [],
