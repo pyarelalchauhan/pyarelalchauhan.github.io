@@ -10,12 +10,12 @@ import { useParams } from "next/navigation";
 type Props = {};
 
 export const navlist = [
-  { title: "About", link: "#about" },
-  { title: "Publications", link: "#publications" },
-  { title: "Education", link: "#education" },
-  { title: "Experience", link: "#experience" },
-  { title: "Awards", link: "#awards" },
-  { title: "Contact", link: "#contact" },
+  { title: "about" },
+  { title: "publications" },
+  { title: "education" },
+  { title: "experience" },
+  { title: "awards" },
+  { title: "contact" },
 ];
 
 const Navbar = (props: Props) => {
@@ -53,11 +53,11 @@ const Navbar = (props: Props) => {
             </div>
             <ul className="hidden sm:flex gap-x-6">
               {navlist.map((item, index) => (
-                <li key={index}>
-                  <Link href={item.link}>
+                <li key={`${index}-${item.title}`}>
+                  <Link href={`#${item.title}`}>
                     <p
                       className={`${
-                        hash === item.link ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
+                        hash === `#${item.title}` ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
                       } px-2 rounded-lg hover:shadow-md`}
                     >
                       {item.title}

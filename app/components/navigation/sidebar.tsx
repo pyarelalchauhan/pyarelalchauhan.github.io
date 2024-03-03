@@ -26,12 +26,12 @@ const Sidebar = ({ isOpen }: Props) => {
         {navlist.map((item, index) => (
           <li
             className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm"
-            key={index}
+            key={`${index}-${item.title}`}
           >
-            <Link href={item.link}>
+            <Link href={`#${item.title}`}>
               <p
                 className={`${
-                  hash === item.link
+                  hash === `#${item.title}`
                     ? "text-red-600 dark:text-white"
                     : "text-black dark:text-zinc-400"
                 } px-2 rounded-lg hover:shadow-md truncate`}
