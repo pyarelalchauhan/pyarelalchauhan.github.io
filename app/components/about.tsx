@@ -8,11 +8,11 @@ export default function About() {
   }, []);
   return (
     <div id="about" className="min-h-[100vh] px-[1rem] py-[5rem] sm:p-[5rem] mt-[4rem] w-full">
+      <h2 className="text-2xl text-center mb-4 text-black dark:text-white">
+        About Me
+      </h2>
       <div className="bg-gray-100 dark:bg-transparent shadow-lg rounded-lg overflow-hidden py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl text-center mb-4 text-white dark:text-black">
-            About Me
-          </h2>
           <div className="lg:text-center">
             <p
               data-aos="fade-down-left"
