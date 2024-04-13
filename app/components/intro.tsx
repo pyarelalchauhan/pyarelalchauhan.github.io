@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
-import pyareProfile from "@/public/images/Pyare-profile-1.png";
+import pyareProfile from "@/public/images/Pyare-Profile-2.png";
 
 export default function Intro() {
   return (
