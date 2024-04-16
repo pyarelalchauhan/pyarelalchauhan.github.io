@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
+import { AiOutlineGoogle } from "react-icons/ai"; // Import Google Scholar icon
 import pyareProfile from "@/public/images/Pyare-Profile-2.png";
 
 export default function Intro() {
@@ -88,6 +89,20 @@ export default function Intro() {
                 <FaLinkedin size="1.5rem" />
                 <span className="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
                   LinkedIn
+                </span>
+              </a>
+            </section>
+            <section className="flex justify-center items-center">
+              <a
+                href="https://scholar.google.com/citations?user=ybKOBzkAAAAJ&hl=en&authuser=1"
+                aria-label="Google Scholar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="m-4 group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
+              >
+                <AiOutlineGoogle size="1.5rem" />
+                <span className="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
+                  Google Scholar
                 </span>
               </a>
             </section>
