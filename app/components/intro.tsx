@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
-import GoogleScholarIcon from "@/public/images/google-scholar-square.svg"; // Import Google Scholar icon
+import GoogleScholarIcon from "@/public/images/gs.svg"; // Import Google Scholar icon
 import pyareProfile from "@/public/images/Pyare-Profile-2.png";
 
 export default function Intro() {
