@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdAttachEmail } from "react-icons/md";
-import { AiOutlineGoogleScholar } from "react-icons/ai"; // Import Google Scholar icon
+import GoogleScholarIcon from "@/public/images/google-scholar-square.svg"; // Import Google Scholar icon
 import pyareProfile from "@/public/images/Pyare-Profile-2.png";
 
 export default function Intro() {
@@ -100,7 +100,7 @@ export default function Intro() {
                 rel="noopener noreferrer"
                 className="m-4 group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
               >
-                <AiOutlineGoogleScholar size="1.5rem" /> {/* Use AiOutlineGoogleScholar for the Google Scholar icon */}
+                <GoogleScholarIcon width="24" height="24" /> {/* Display Google Scholar SVG icon */}
                 <span className="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
                   Google Scholar
                 </span>
