@@ -13,7 +13,7 @@ export default function Publications() {
       </h3>
       <div data-aos="zoom-in-up" className="bg-zinc-300 text-black rounded-md p-4 my-2">
         <h2 className="text-md mb-2 font-bold italic">
-          1. P. L. Chauhan, J. Vijaywargiya and A. M. Ramiya, "Addressing class imbalance challenge in Semantic Segmentation of ALS data through performance analysis of RandLA-NET and PointNET ++," 2023 IEEE India Geoscience and Remote Sensing Symposium (InGARSS), Bangalore, India, 2023, pp. 1-4, doi: 10.1109/InGARSS59135.2023.10490326.
+          1. P. L. Chauhan, J. Vijaywargiya and A. M. Ramiya, "Addressing class imbalance challenge in Semantic Segmentation of ALS data through performance analysis of RandLA-NET and PointNET ++," 2023 IEEE India Geoscience and Remote Sensing Symposium (InGARSS), Bangalore, India, 2023, pp. 1-4, <a href="https://ieeexplore.ieee.org/document/10490326" target="_blank" rel="noopener noreferrer">doi: 10.1109/InGARSS59135.2023.10490326</a>.
           <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">
 
           </span>
