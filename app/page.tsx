@@ -5,16 +5,18 @@ import Intro from "./components/intro";
 import Education from "./components/education";
 import Publications from "./components/publications";
 import Awards from "./components/awards";
+import Blogs from "./components/blogs";
 
 export default function Home() {
   return (
     <main className="relative dark:text-white h-full flex flex-col items-center overflow-x-hidden">
       <Intro />
-      <About />
+      {/* <About /> */}
       <Publications />
       <Awards />
       <Education />
       <Experience />
+      <Blogs />
       <Contact />
     </main>
   );

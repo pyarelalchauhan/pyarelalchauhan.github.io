@@ -23,8 +23,9 @@ const Sidebar = ({ isOpen }: Props) => {
       }`}
     >
       <ul className="flex-col w-full text-right text-white dark:text-black shadow-2xl bg-gradient-to-r from-indigo-500 dark:from-slate-400 to-blue-500 dark:to-gray-300 transition-all duration-500">
-        {navlist.map((item, index) => (
-          <li
+        {navlist.map((item, index) => {
+        const heading = item.title.charAt(0).toUpperCase() + item.title.slice(1);
+         return  <li
             className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm"
             key={`${index}-${item.title}`}
           >
@@ -36,11 +37,11 @@ const Sidebar = ({ isOpen }: Props) => {
                     : "text-black dark:text-zinc-400"
                 } px-2 rounded-lg hover:shadow-md truncate`}
               >
-                {item.title}
+                {heading}
               </p>
             </Link>
           </li>
-        ))}
+         })}
         {/* <li
             className="m-4 p-2 bg-zinc-300 dark:bg-zinc-500 rounded-sm"
           >

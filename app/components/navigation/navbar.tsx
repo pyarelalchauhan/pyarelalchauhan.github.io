@@ -10,11 +10,12 @@ import { useParams } from "next/navigation";
 type Props = {};
 
 export const navlist = [
-  { title: "about" },
+  // { title: "About" },
   { title: "publications" },
   { title: "news" },
   { title: "education" },
   { title: "experience" },
+  { title: "blogs" },
   { title: "contact" },
 ];
 
@@ -52,19 +53,20 @@ const Navbar = (props: Props) => {
               <Logo />
             </div>
             <ul className="hidden sm:flex gap-x-6">
-              {navlist.map((item, index) => (
-                <li key={`${index}-${item.title}`}>
+              {navlist.map((item, index) => {
+                const heading = item.title.charAt(0).toUpperCase() + item.title.slice(1);
+                return <li key={`${index}-${item.title}`}>
                   <Link href={`#${item.title}`}>
                     <p
                       className={`${
                         hash === `#${item.title}` ? "text-red-600 dark:text-white" : "text-black dark:text-zinc-400"
                       } px-2 rounded-lg hover:shadow-md`}
                     >
-                      {item.title}
+                      {heading}
                     </p>
                   </Link>
                 </li>
-              ))}
+              })}
               {/* <li>
                   <Link href="#about">
                     <p

@@ -7,7 +7,7 @@ export default function Publications() {
     Aos.init({ duration: 1200 });
   }, []);
   return (
-    <div id="publications" className="min-h-[100vh] px-[1rem] py-[5rem] sm:p-[5rem] mt-[4rem] w-full">
+    <div id="publications" className="min-h-[50vh] px-[1rem] py-[3rem] sm:px-[5rem] mt-[4rem] w-full">
       <h3 className="text-2xl text-center mb-4 text-black dark:text-white">
         Publications
       </h3>
