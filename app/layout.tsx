@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning >
-      <body className={`${roboto.className} font-sans`}>
+      <body className={`${roboto.className} font-sans max-w-screen-2xl m-auto`}>
         <Providers>
           <Navbar />
           {children}
