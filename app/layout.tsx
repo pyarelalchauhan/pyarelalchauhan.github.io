@@ -4,13 +4,14 @@ import "./globals.css";
 import { Providers } from "./providers";
 import Navbar from "./components/navigation/navbar";
 import Footer from "./components/footer";
+import Link from "next/link";
 
 const roboto = Roboto({
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap',
-})
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Pyare Lal",
@@ -23,12 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning >
+    <html lang="en" suppressHydrationWarning>
       <body className={`${roboto.className} font-sans max-w-screen-2xl m-auto`}>
         <Providers>
-          <Navbar />
+          {/* <Navbar /> */}
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </Providers>
       </body>
     </html>
