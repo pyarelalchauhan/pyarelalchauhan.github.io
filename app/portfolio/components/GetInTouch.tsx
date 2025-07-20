@@ -15,7 +15,7 @@ const GetInTouch: React.FC = () => {
         Please feel free to reach out, looking forward to hearing from you!
       </p>
 
-      <div className="mt-6 space-y-2 text-xs md:text-base text-gray-400 flex items-center justify-between">
+      <div className="mt-6 space-y-2 text-xs md:text-base text-gray-400 flex md:flex-row flex-col md:items-center items-start justify-between">
         <p className="flex items-center justify-center gap-2">
           <FaMailBulk />
           <a href="mailto:pyare45@gmail.com" className="text-gray-400 underline">

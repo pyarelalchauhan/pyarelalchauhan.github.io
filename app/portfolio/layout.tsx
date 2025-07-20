@@ -28,29 +28,17 @@ export default function PortfolioLayout({
   children: React.ReactNode;
 }) {
   return (
-    // <html lang="en">
-    //   <body className="max-w-[1440px] mx-auto">
-    //     <main className="flex flex-col md:flex-row min-h-screen font-sans">
-    //       <Navbar sections={sections} isMobile />
-    //       <Sidebar />
-    //       <div className="flex-1 scroll-smooth">
-    //         <Navbar sections={sections} />
-    //         {children} {/* <-- this changes per route */}
-    //       </div>
-    //     </main>
-    //     <Footer />
-    //   </body>
-    // </html>
-    <>
-      <div className="flex flex-col md:flex-row min-h-screen font-sans max-w-[1440px] mx-auto">
-        <Navbar sections={sections} isMobile />
+    <div className="min-h-screen font-sans mx-auto max-w-[1440px] w-full flex flex-col">
+      <div className="flex flex-col md:flex-row flex-1">
         <Sidebar />
-        <div className="flex-1 scroll-smooth">
+        {/* Main content area */}
+        <div className="flex flex-col flex-1">
           <Navbar sections={sections} />
-          {children}
+          <div className="flex-1 scroll-smooth">{children}</div>
         </div>
       </div>
+
       <Footer />
-    </>
+    </div>
   );
 }

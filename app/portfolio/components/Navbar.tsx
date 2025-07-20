@@ -34,21 +34,17 @@ const Navbar: React.FC<NavbarProps> = ({ sections, isMobile = false }) => {
 
   return (
     <nav
-      className={`h-14 sticky bg-white shadow-sm top-0 z-50 p-4 transition-colors duration-300 ${
-        isMobile
-          ? "flex items-center justify-between md:hidden"
-          : "hidden md:flex justify-between"
-      } space-x-4`}
+      className="w-full sticky top-0 z-50 bg-white shadow-sm py-2 flex items-center justify-evenly flex-wrap gap-2"
     >
       {sections.map((section) => (
         <Link
           key={section.id}
           href={`/portfolio/${section.id.replace(/\s+/g, "-").toLowerCase()}`} // for 'about me' → 'about-me'
-          className={`flex items-center gap-2 font-medium text-xs md:text-base px-2 py-1 rounded transition-colors duration-300 
+          className={`flex items-center md:gap-2 font-medium text-xs md:text-sm md:px-2 md:py-1 rounded transition-colors duration-300 
     ${activeSection === section.id ? "text-black font-bold" : "text-gray-400"}
     hover:text-gray-600`}
         >
-          <span className="text-base md:text-lg p-2 rounded-full bg-gray-200 text-gray-700 text-lg">{iconMap[section.id]}</span>
+          <span className="text-sm sm:text-base md:text-lg lg:text-xl rounded-full bg-gray-200 text-gray-700 p-[2px]">{iconMap[section.id]}</span>
           <span>{section.label}</span>
         </Link>
       ))}
