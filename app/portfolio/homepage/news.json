@@ -1,0 +1,32 @@
+[
+  {
+    "imageSrc": "/images/awards/3dVision.png",
+    "altText": "MIT SPARK Lab new project",
+    "subtitle": "Launched a new 3D perception project at SPARK Lab",
+    "date": "2025-06-12"
+  },
+  {
+    "imageSrc": "/images/awards/3dVisionCertificate.png",
+    "altText": "Conference presentation at ICRA 2025",
+    "subtitle": "Presented our latest research at ICRA 2025",
+    "date": "2025-05-25"
+  },
+  {
+    "imageSrc": "/images/awards/3dVisionGroup.png",
+    "altText": "Robotics seminar keynote",
+    "subtitle": "Delivered keynote on autonomous systems at Robotics Seminar",
+    "date": "2025-04-10"
+  },
+  {
+    "imageSrc": "/images/awards/IEEEHackathon.jpeg",
+    "altText": "Publication in Science Robotics",
+    "subtitle": "Published new paper in Science Robotics",
+    "date": "2025-03-18"
+  },
+  {
+    "imageSrc": "/images/awards/openHouseHall.png",
+    "altText": "New dataset release",
+    "subtitle": "Released open-source dataset for dynamic SLAM",
+    "date": "2025-02-02"
+  }
+]

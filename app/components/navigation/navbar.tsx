@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import HamburgerButton from "./HamburgerButton";
 import Sidebar from "./sidebar";
 import ThemeSwitch from "../ThemeSwitch";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 type Props = {};
 
@@ -23,6 +23,7 @@ const Navbar = (props: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [hash, setHash] = useState<string>("");
   const param = useParams();
+  const pathname = usePathname();
   const toggleNavMenu = (value: boolean) => {
     setIsOpen(value);
   };
@@ -44,6 +45,11 @@ const Navbar = (props: Props) => {
     let loc = window.location.hash;
     setHash(loc);
   }, [hash,param]);
+
+  const pathParts = pathname.split('/').filter(Boolean);
+  if (pathParts?.length && pathParts[0] === 'portfolio') {
+    return null;
+  }
   return (
     <>
       <nav className="w-[80%] m-auto h-[60px] rounded-[24px] fixed left-[50%] -translate-x-1/2 top-2 shadow-[0_35px_100px_-15px_rgba(0,0,0,0.3)] dark:shadow-[] text-black dark:text-white bg-white dark:bg-zinc-700 px-12 z-10">
