@@ -16,7 +16,7 @@ export default function HOMEPAGE() {
         </h2>
         <br />
         <p className="mb-4">
-          I'm a research scientist working with <b>Prof. Luca Carlone</b> at the{" "}
+          I&apos;m a research scientist working with <b>Prof. Luca Carlone</b> at the{" "}
           <b>
             <a href="#">MIT SPARK Lab</a>
           </b>{" "}
@@ -38,7 +38,7 @@ export default function HOMEPAGE() {
           semantic scene representations, scene abstraction and understanding,
           detection and prediction of moving and changing entities, lifelong
           learning, as well as active perception to enable continuous and
-          autonomous improvement of a robot's scene model and perception
+          autonomous improvement of a robot&apos;s scene model and perception
           capabilities.
         </p>
       </div>

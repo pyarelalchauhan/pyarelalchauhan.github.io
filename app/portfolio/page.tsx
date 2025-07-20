@@ -20,7 +20,7 @@ export default function PortfolioLandingPage() {
   return (
     <>
       {sections.map((section) => (
-        <Section key={section.id} id={section.id} children={<></>} />
+        <Section key={section.id} id={section.id}><></></Section>
       ))}
     </>
   );

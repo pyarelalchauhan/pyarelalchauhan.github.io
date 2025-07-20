@@ -4,5 +4,9 @@
 import Section from "../components/Section";
 
 export default function OPENSOURCECODE() {
-  return <Section id="open-source" label="OPEN SOURCE CODE" />;
+  return (
+    <Section id="open-source">
+      <div></div>
+    </Section>
+  );
 }

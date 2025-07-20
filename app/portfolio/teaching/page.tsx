@@ -4,5 +4,9 @@
 import Section from "../components/Section";
 
 export default function SKILLS() {
-  return <Section id="teaching" label="SKILLS" />;
+  return (
+    <Section id="teaching">
+      <div></div>
+    </Section>
+  );
 }

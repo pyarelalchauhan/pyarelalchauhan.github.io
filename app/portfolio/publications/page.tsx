@@ -4,5 +4,9 @@
 import Section from "../components/Section";
 
 export default function PUBLICATIONS() {
-  return <Section id="publications" label="PUBLICATIONS" />;
+  return (
+    <Section id="publications">
+      <div></div>
+    </Section>
+  );
 }

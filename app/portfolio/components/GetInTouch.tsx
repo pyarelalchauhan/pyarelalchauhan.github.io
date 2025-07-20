@@ -9,8 +9,8 @@ const GetInTouch: React.FC = () => {
       </h2>
 
       <p className="mb-4 text-xs md:text-base text-gray-400 leading-relaxed">
-        If you're interested in any of the topics, have questions, suggestions,
-        ideas, comments, or just want to chat, I'm happy to get in touch! The
+        If you&apos;re interested in any of the topics, have questions, suggestions,
+        ideas, comments, or just want to chat, I&apos;m happy to get in touch! The
         easiest way is via <a className="underline text-blue-600" href="mailto:pyare45@gmail.com">email</a> — I do my best to get back to you quickly.
         Please feel free to reach out, looking forward to hearing from you!
       </p>
