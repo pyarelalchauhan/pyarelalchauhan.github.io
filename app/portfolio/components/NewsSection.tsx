@@ -23,7 +23,7 @@ const NewsSection: React.FC = () => {
             title="Show more"
             aria-label="Show more button"
             onClick={() => setShowAll((prev) => !prev)}
-            className="text-gray-400 font-bold text-sm sm:text-base hover:underline rounded bg-gray-200 p-2 w-full"
+            className="text-gray-600 font-bold text-sm sm:text-base hover:underline rounded bg-gray-200 p-2 w-full"
           >
             {showAll ? "Show Less" : "Show More"}
           </button>

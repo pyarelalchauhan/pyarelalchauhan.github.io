@@ -7,20 +7,14 @@ import { MdEmail } from "react-icons/md";
 
 const Sidebar = () => (
   <aside
-    className="w-full md:w-1/5 2xl:w-[18%] text-white p-6 md:sticky md:top-0 md:left-0 md:h-screen flex flex-col justify-start gap-10 pt-10 items-end"
-    style={{
-      background:
-        "linear-gradient(0deg,rgba(243, 188, 231, 0.96) 0%, rgb(76, 145, 249) 100%)",
-    }}
+    className="w-full md:w-1/5 2xl:w-[18%] text-white p-6 md:sticky md:top-0 md:left-0 md:h-screen flex flex-col justify-start gap-10 pt-10 items-end bg-gradient-to-b from-blue-800 to-gray-600"
   >
     <div className="w-full flex justify-between items-center md:justify-center md:items-end md:flex-col md:gap-12">
       <div className="flex justify-center md:justify-center items-center">
         <Image
           src={pyareProfile}
           alt="Profile picture"
-          width={50}
-          height={50}
-          className="object-cover w-32 h-32 md:w-64 md:h-64"
+          className="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover border border-white"
         />
       </div>
       <div className="font-medium text-xs md:text-base flex flex-col gap-x-2 text-left md:text-right">
