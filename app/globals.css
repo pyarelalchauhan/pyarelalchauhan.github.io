@@ -27,3 +27,12 @@ body {
   /* color: rgb(var(--foreground-rgb)); */
   
 }
+
+.about-me-markdown-content h1,
+.about-me-markdown-content h2,
+.about-me-markdown-content h3,
+.about-me-markdown-content h4,
+.about-me-markdown-content h5,
+.about-me-markdown-content h6 {
+  scroll-margin-top: 80px; /* Adjust to match your navbar height */
+}

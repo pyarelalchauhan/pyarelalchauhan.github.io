@@ -40,11 +40,11 @@ const Navbar: React.FC<NavbarProps> = ({ sections, isMobile = false }) => {
         <Link
           key={section.id}
           href={`/portfolio/${section.id.replace(/\s+/g, "-").toLowerCase()}`} // for 'about me' → 'about-me'
-          className={`flex items-center md:gap-2 font-medium text-xs md:text-sm md:px-2 md:py-1 rounded transition-colors duration-300 
+          className={`flex items-center md:gap-2 font-medium text-[10px] sm:text-base md:text-lg lg:text-xl md:px-2 md:py-1 rounded transition-colors duration-300 
     ${activeSection === section.id ? "text-black font-bold" : "text-gray-400"}
     hover:text-gray-600`}
         >
-          <span className="text-sm sm:text-base md:text-lg lg:text-xl rounded-full bg-gray-200 text-gray-700 p-[2px]">{iconMap[section.id]}</span>
+          <span className="rounded-full bg-gray-200 text-gray-700 p-[2px]">{iconMap[section.id]}</span>
           <span>{section.label}</span>
         </Link>
       ))}
