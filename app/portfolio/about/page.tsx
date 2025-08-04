@@ -23,7 +23,7 @@ export default function ABOUT() {
 
   return (
     <Section id="about">
-      <div className="prose dark:prose-invert max-w-none about-me-markdown-content">
+      <div className="prose dark:prose-invert max-w-none text-sm sm:text-base md:text-lg lg:text-base about-me-markdown-content">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeSlug]} // this adds IDs to headings

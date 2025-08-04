@@ -28,6 +28,13 @@ body {
   
 }
 
+.about-me-markdown-content a,
+.about-me-markdown-content strong,
+.about-me-markdown-content em,
+.about-me-markdown-content b,
+.about-me-markdown-content hr,
+.about-me-markdown-content p,
+.about-me-markdown-content ul,
 .about-me-markdown-content h1,
 .about-me-markdown-content h2,
 .about-me-markdown-content h3,
@@ -35,4 +42,14 @@ body {
 .about-me-markdown-content h5,
 .about-me-markdown-content h6 {
   scroll-margin-top: 80px; /* Adjust to match your navbar height */
+  @apply text-gray-600;
+}
+
+.about-me-markdown-content h1,
+.about-me-markdown-content h2,
+.about-me-markdown-content h3,
+.about-me-markdown-content h4,
+.about-me-markdown-content h5,
+.about-me-markdown-content h6 {
+  @apply font-medium; /* Or font-normal, font-light as needed */
 }

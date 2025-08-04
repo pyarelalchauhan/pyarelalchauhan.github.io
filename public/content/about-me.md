@@ -1,10 +1,10 @@
-## About Me
+# About Me
 
 A brief overview of my academic bio, full CV, selected awards, recognitions, and invited talks, as well as personal interests.
 
 ---
 
-### Navigation
+## Navigation
 
 - [Biography](#biography)
 - [Awards and Recognitions](#awards-and-recognitions)
@@ -13,7 +13,7 @@ A brief overview of my academic bio, full CV, selected awards, recognitions, and
 
 ---
 
-### Biography
+## Biography
 
 Lukas Schmid is currently a research scientist at the MIT SPARK Lab lead by Prof. Luca Carlone at the Massachusetts Institute of Technology (MIT). Before that, he was a postdoctoral fellow at MIT SPARK and briefly a postdoctoral researcher at the Autonomous Systems Lab (ASL) lead by Prof. Roland Siegwart at ETH Zürich. He earned his PhD in 2022 from ETH Zürich, advised by Prof. Roland Siegwart, Dr. Cesar Cadena, and Dr. Juan Nieto, where he also obtained his M.Sc. in Robotics, Systems, and Control (RSC) in 2019. During his PhD, he was a visiting researcher at the Microsoft Mixed Reality and AI Lab lead by Prof. Marc Pollefeys.
 
@@ -25,7 +25,7 @@ His main research interests is in autonomy for intelligent mobile systems, where
 
 ---
 
-### Awards and Recognitions
+## Awards and Recognitions
 
 **Selected awards and recognitions:**
 
@@ -39,7 +39,7 @@ His main research interests is in autonomy for intelligent mobile systems, where
 
 ---
 
-### Invited Talks
+## Invited Talks
 
 📩 If you would like me to give a talk, please reach out to **lschmid@mit.edu**!
 
@@ -60,7 +60,7 @@ Recent talks:
 
 ---
 
-### Personal Interests
+## Personal Interests
 
 🎹 Passionate classical pianist – four-time winner of the 1st prize at the Thurgau Youth Music Competition, also performed in piano trios and jazz ensembles.
 
