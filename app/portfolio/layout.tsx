@@ -18,7 +18,7 @@ const sections = [
   { id: "homepage", label: "HOME PAGE" },
   { id: "about", label: "ABOUT ME" },
   { id: "publications", label: "PUBLICATIONS" },
-  { id: "teaching", label: "SKILLS" },
+  { id: "teaching", label: "TEACHING" },
   { id: "open-source", label: "OPEN SOURCE CODE" },
 ];
 
