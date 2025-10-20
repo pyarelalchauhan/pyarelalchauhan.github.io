@@ -1,0 +1,14 @@
+{
+    "teachingExpImages": [
+        {
+            "title": "A Sample Image",
+            "alt": "A sample image",
+            "imagePath": "/images/teaching/sample.webp"
+        },
+        {
+            "title": "A Sample Image",
+            "alt": "A sample image",
+            "imagePath": "/images/teaching/sample.webp"
+        }
+    ]
+}
