@@ -66,7 +66,7 @@ export default function HOMEPAGE() {
               .
             </p>
             <p>
-              My research focuses on utilizing 3D Vision, LiDAR, Deep Learning,
+              My research currently focuses on 3D Vision, LiDAR, Deep Learning,
               and geospatial data.
             </p>
           </div>
