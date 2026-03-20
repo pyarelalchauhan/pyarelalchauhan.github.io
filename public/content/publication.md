@@ -13,6 +13,10 @@
 ---
 
 ## Journals
+- **Ke-MLS: A large-scale labeled mobile Lidar data set from Indian urban region**  
+  Vaibhav Kumar, Bharat Lohani, **Pyare Lal**, Aakash Singh Bais, and Aditya 
+  *Environment and Planning B: Urban Analytics and City Science, 2026*  
+  🔗 https://doi.org/10.1177/23998083261430812
 
 - **A Data-Driven Framework for Pedestrian Oriented Route Planning Leveraging Deep Learning and Spatial Perception**  
   **Pyare Lal Chauhan**, T. Kumar Baswal, and V. Kumar  
