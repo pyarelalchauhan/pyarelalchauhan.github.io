@@ -8,6 +8,7 @@ interface NewsCardProps {
   altText: string;
   subtitle: string;
   date: string;
+  url?: string;
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({
@@ -15,6 +16,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   altText = "Sample Alt Text",
   subtitle = "Sample subtitle for the image card",
   date = "Oct 24, 2025",
+  url,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -35,7 +37,18 @@ const NewsCard: React.FC<NewsCardProps> = ({
             <span className="rounded bg-gray-200 px-1.5 py-0.5 mr-2 text-sm text-gray-600">
               {date}
             </span>
-            {subtitle}
+            {url ? (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline text-blue-700"
+              >
+                {subtitle}
+              </a>
+            ) : (
+              subtitle
+            )}
           </h4>
           <button
             aria-label="Open image modal"

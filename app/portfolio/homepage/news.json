@@ -1,5 +1,12 @@
 [
   {
+    "imageSrc": "/images/awards/jagran-news.jpg",
+    "altText": "Jagran news coverage on IISERB navigation app",
+    "subtitle": "Featured in Dainik Jagran: IISER Bhopal's new app for safer, scenic navigation routes",
+    "date": "2025-11-01",
+    "url": "https://www.jagran.com/madhya-pradesh/bhopal-iiser-bhopal-new-app-safer-scenic-navigation-routes-new-app-40197032.html"
+  },
+  {
     "imageSrc": "/images/awards/3dVision.png",
     "altText": "MIT SPARK Lab new project",
     "subtitle": "Launched a new 3D perception project at SPARK Lab",
