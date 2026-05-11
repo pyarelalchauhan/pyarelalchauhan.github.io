@@ -20,7 +20,7 @@ const Sidebar = () => (
       <div className="font-medium text-xs md:text-base flex flex-col gap-x-2 text-left md:text-right">
         <p>Pyare Lal,</p>
         <p>Phd</p>
-        <p>Research Scientist</p>
+        <p>Research Scholar</p>
         <p>@IISERB, Bhopal</p>
       </div>
     </div>
