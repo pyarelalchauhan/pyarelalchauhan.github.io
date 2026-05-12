@@ -95,7 +95,7 @@ export default function Intro() {
             </section>
 
             <section className="flex justify-center items-center" >
-              <a href="https://scholar.google.com/citations?hl=en&user=ybKOBzkAAAAJ&view_op=list_works&authuser=2&gmla=AIqSsVtTnebXdBgsMKu_QuPfB1ZyVUHha6AIcNzULsnmkRDdx07qMpxJZAjvSIWqESzJmcirwpKR-4AtGgBGQ-BxmnRAGjJ7xPfyiPgGdMCkzxZ6diwuoAS7bLzopaDLsYA"
+              <a href="https://scholar.google.com/citations?user=ybKOBzkAAAAJ&hl=en&authuser=2"
               aria-label="Google Scholar"
               target="_blank"
               rel="noopener noreferrer"
