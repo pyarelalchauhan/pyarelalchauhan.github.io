@@ -13,6 +13,11 @@
 ---
 
 ## Journals
+- **Performance analysis of subsampled LiDAR point clouds using deep learning based semantic segmentation**  
+  **Pyare Lal Chauhan**, Aakash Singh Bais, and V. Kumar  
+  *Applied Intelligence, vol. 56, Article 273, 2026*  
+  🔗 https://doi.org/10.1007/s10489-026-07282-2
+
 - **Ke-MLS: A large-scale labeled mobile Lidar data set from Indian urban region**  
   Vaibhav Kumar, Bharat Lohani, **Pyare Lal**, Aakash Singh Bais, and Aditya 
   *Environment and Planning B: Urban Analytics and City Science, 2026*  

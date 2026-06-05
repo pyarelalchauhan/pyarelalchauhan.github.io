@@ -168,6 +168,35 @@ export default function Publications() {
           {/* Optional short description here */}
         </p>
       </div>
+
+      {/* 6. Subsampled LiDAR semantic segmentation – Applied Intelligence */}
+      <div
+        data-aos="zoom-in-up"
+        className="bg-zinc-300 text-black rounded-md p-4 my-2"
+      >
+        <h2 className="text-md mb-2 italic">
+          6. <span className="font-bold">Pyare Lal Chauhan</span>, Aakash Singh
+          Bais and Vaibhav Kumar, &quot;Performance analysis of subsampled LiDAR
+          point clouds using deep learning based semantic segmentation,&quot;
+          <span className="ml-1 italic">Applied Intelligence</span>, Volume 56,
+          2026, Article 273,
+          <a
+            href="https://doi.org/10.1007/s10489-026-07282-2"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline ml-1"
+          >
+            doi: 10.1007/s10489-026-07282-2
+          </a>
+          .
+          <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">
+            Journal • 2026
+          </span>
+        </h2>
+        <p className="p-4 font-medium text-sm md:text-md">
+          {/* Optional short description here */}
+        </p>
+      </div>
     </div>
   );
 }
