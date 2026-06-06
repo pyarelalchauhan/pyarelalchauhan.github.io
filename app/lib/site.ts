@@ -26,8 +26,9 @@ export const profile = {
   email: "pyare22@iiserb.ac.in",
   phone: "+91 9566095406",
   orcid: "0009-0002-0793-9240",
-  // Default CV. A version with citation metrics lives at /resume_with_metrics.pdf
+  // Default CV, plus a version that includes citation metrics.
   resume: "/resume.pdf",
+  resumeWithMetrics: "/resume_with_metrics.pdf",
   // Headshot lives in /public/images
   photo: "/images/pyare-headshot.jpg",
   founderOf: "Netrica.AI",
@@ -107,6 +108,7 @@ export interface Publication {
   code?: string;
   image?: string; // teaser thumbnail in /public/images
   imageFit?: "cover" | "contain"; // "contain" shows the whole figure (use for wide diagrams); defaults to "cover"
+  summary?: string; // one-line "what we did" shown under the venue
 }
 
 // Newest first.
@@ -123,6 +125,8 @@ export const publications: Publication[] = [
     url: "https://doi.org/10.1007/s10489-026-07282-2",
     code: "https://github.com/geoai4cities/LiDAR-Subsampling-Benchmark",
     image: "/images/lidar_subsampling_pointclouds.png",
+    summary:
+      "Benchmarks how point-cloud subsampling and compression strategies trade off semantic-segmentation accuracy against compute cost for airborne and mobile LiDAR.",
   },
   {
     authors: "Vaibhav Kumar, Bharat Lohani, **Pyare Lal**, Aakash Singh Bais, Aditya",
@@ -135,6 +139,8 @@ export const publications: Publication[] = [
     doi: "10.1177/23998083261430812",
     url: "https://doi.org/10.1177/23998083261430812",
     image: "/images/kemls_seg.png",
+    summary:
+      "Introduces Ke-MLS, a large-scale labeled mobile-LiDAR dataset of Indian urban streetscapes for point-cloud segmentation research.",
   },
   {
     authors: "**Pyare Lal Chauhan**, Tanishq Kumar Baswal, Vaibhav Kumar",
@@ -149,6 +155,8 @@ export const publications: Publication[] = [
     url: "https://doi.org/10.1016/j.jag.2025.104932",
     code: "https://github.com/geoai4cities/svi_perception",
     image: "/images/pedestrian_route_planning.png",
+    summary:
+      "Plans pedestrian routes optimized for human perception (safe, lively, beautiful) by combining street-view imagery with deep learning and spatial data.",
   },
   {
     authors: "Ayush Dabra, **Pyare Lal Chauhan**, Vaibhav Kumar",
@@ -162,6 +170,8 @@ export const publications: Publication[] = [
     doi: "10.1016/j.jag.2025.104838",
     url: "https://doi.org/10.1016/j.jag.2025.104838",
     image: "/images/uqol_methodology.png",
+    summary:
+      "Fuses multi-source 2D and 3D geospatial data with deep learning to map and assess urban quality of life.",
   },
   {
     authors: "Anurag Nihal*, **Pyare Lal***, Vaibhav Kumar",
@@ -176,6 +186,8 @@ export const publications: Publication[] = [
     code: "https://github.com/geoai4cities/umdmix-uda",
     image: "/images/umdmix_mixing.png",
     imageFit: "contain",
+    summary:
+      "Proposes UMDMix, an unsupervised domain-adaptation method that mixes urban LiDAR domains to transfer semantic segmentation across cities.",
   },
   {
     authors: "**Pyare Lal Chauhan**, J. Vijaywargiya, A. M. Ramiya",
@@ -188,6 +200,8 @@ export const publications: Publication[] = [
     doi: "10.1109/InGARSS59135.2023.10490326",
     url: "https://ieeexplore.ieee.org/document/10490326",
     image: "/images/point_cloud_seg.png",
+    summary:
+      "Examines class imbalance in airborne-LiDAR (ALS) semantic segmentation, comparing RandLA-Net and PointNet++.",
   },
 ];
 
@@ -240,8 +254,6 @@ export const venture = {
   period: "Feb 2026 - Present",
   tagline:
     "An early-stage AI venture building applied-intelligence solutions for urban planning, incubated at IISER Bhopal and IISER Pune.",
-  description:
-    "Founded Netrica.AI (Netrica Pvt. Ltd.), an early-stage artificial-intelligence startup building applied-intelligence solutions for urban planning, incubated at the IISER Bhopal (IICE) and IISER Pune (AIC) incubation centres.",
   // Photos of the venture's early journey.
   images: [
     {
@@ -265,15 +277,22 @@ export const venture = {
 export interface Experience {
   title: string;
   org: string;
+  orgUrl?: string;
   period: string;
   points: string[];
+  advisor?: { name: string; url?: string };
 }
 
 export const experience: Experience[] = [
   {
     title: "Doctoral Researcher",
     org: "GeoAI4Cities Lab, IISER Bhopal",
+    orgUrl: profile.affiliation.labUrl,
     period: "Aug 2022 - Present",
+    advisor: {
+      name: profile.affiliation.advisor,
+      url: profile.affiliation.advisorUrl,
+    },
     points: [
       "Deep learning for LiDAR semantic segmentation in urban environments; emergency-vehicle accessibility mapping using 3D geospatial data.",
       "Cross-city perception modeling (Mumbai-Paris) and multi-source 2D/3D fusion for urban quality-of-life with a Global-South corrective framing.",
@@ -282,26 +301,33 @@ export const experience: Experience[] = [
   },
   {
     title: "M.Tech. Research",
-    org: "IIST Thiruvananthapuram · Advisor: Dr. A. M. Ramiya",
+    org: "IIST Thiruvananthapuram",
+    orgUrl: "https://iist.ac.in/",
     period: "2020 - 2022",
+    advisor: {
+      name: "Dr. A. M. Ramiya",
+      url: "https://sites.google.com/view/ramiya-iist",
+    },
     points: [
       "Semantic segmentation of airborne LiDAR with deep learning (RandLA-Net, PointNet++); addressed class-imbalance in ALS classification.",
     ],
   },
   {
-    title: "Data Science Intern",
-    org: "GalaxEye Pvt. Ltd. (IIT Madras startup), Chennai",
-    period: "Feb 2022 - May 2022",
-    points: [
-      "Road-network detection and pre-fire risk prediction using Sentinel-1 (SAR) and Sentinel-2 (optical) imagery; vegetation-cover-change pipelines in Python.",
-    ],
-  },
-  {
     title: "Research Intern",
     org: "Indian Institute of Soil & Water Conservation (IISWC), Dehradun",
+    orgUrl: "https://iiswc.icar.gov.in/",
     period: "Jun 2022 - Aug 2022",
     points: [
       "Land-use / land-cover classification and change detection on Sentinel-2 and Landsat imagery; NDVI/EVI time-series workflows on Google Earth Engine.",
+    ],
+  },
+  {
+    title: "Data Science Intern",
+    org: "GalaxEye Pvt. Ltd., Chennai",
+    orgUrl: "https://galaxeye.space/",
+    period: "Feb 2022 - May 2022",
+    points: [
+      "Road-network detection and pre-fire risk prediction using Sentinel-1 (SAR) and Sentinel-2 (optical) imagery; vegetation-cover-change pipelines in Python.",
     ],
   },
 ];

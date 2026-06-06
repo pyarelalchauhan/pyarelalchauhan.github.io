@@ -84,6 +84,11 @@ function PubEntry({ pub }: { pub: (typeof publications)[number] }) {
                 <Authors value={pub.authors} />
               </p>
               <p className="mt-1 text-sm italic text-slate-500">{pub.venue}</p>
+              {pub.summary && (
+                <p className="mt-1.5 text-sm text-slate-600 dark:text-slate-400">
+                  {pub.summary}
+                </p>
+              )}
               <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
                 <span
                   className={`rounded-full px-2 py-0.5 font-medium ${

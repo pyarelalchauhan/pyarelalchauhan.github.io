@@ -14,7 +14,37 @@ export default function Experience() {
               </h3>
               <span className="shrink-0 text-sm text-slate-500">{e.period}</span>
             </div>
-            <p className="text-sm text-accent-700 dark:text-accent-400">{e.org}</p>
+            <p className="text-sm text-accent-700 dark:text-accent-400">
+              {e.orgUrl ? (
+                <a
+                  href={e.orgUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  {e.org}
+                </a>
+              ) : (
+                e.org
+              )}
+              {e.advisor && (
+                <span className="text-slate-500 dark:text-slate-400">
+                  {" · Advisor: "}
+                  {e.advisor.url ? (
+                    <a
+                      href={e.advisor.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-underline"
+                    >
+                      {e.advisor.name}
+                    </a>
+                  ) : (
+                    e.advisor.name
+                  )}
+                </span>
+              )}
+            </p>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-400">
               {e.points.map((p, j) => (
                 <li key={j}>{p}</li>

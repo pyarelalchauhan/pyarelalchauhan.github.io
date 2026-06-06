@@ -71,6 +71,14 @@ export default function Sidebar() {
         >
           View CV
         </a>
+        <a
+          href={profile.resumeWithMetrics}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 text-xs text-slate-500 hover:text-accent-700 dark:text-slate-400 dark:hover:text-accent-400"
+        >
+          CV with citation metrics
+        </a>
       </div>
     </aside>
   );
