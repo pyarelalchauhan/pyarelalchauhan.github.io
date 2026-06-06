@@ -56,6 +56,11 @@ export const news: NewsItem[] = [
     url: "https://doi.org/10.1007/s10489-026-07282-2",
   },
   {
+    date: "Apr 2026",
+    text: "Our pedestrian-oriented route planning work (IJAEOG 2025) was featured by Dainik Jagran, covering the data-driven framework leveraging deep learning and spatial perception for safer, scenic navigation routes.",
+    url: "https://www.jagran.com/madhya-pradesh/bhopal-iiser-bhopal-new-app-safer-scenic-navigation-routes-new-app-40197032.html",
+  },
+  {
     date: "Feb 2026",
     text: "Founded Netrica.AI (Netrica Pvt. Ltd.), an applied-AI venture for urban planning, incubated at IISER Bhopal and IISER Pune.",
     url: "#venture",
