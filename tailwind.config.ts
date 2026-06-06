@@ -1,41 +1,39 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx,mdx}"],
+  darkMode: "class",
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
       },
-      boxShadow: {
-        custom: "17px 17px 21px #bebebe -17px -17px 21px #ffffff",
+      colors: {
+        // Single restrained accent for an academic feel
+        accent: {
+          50: "#f0fdfa",
+          100: "#ccfbf1",
+          200: "#99f6e4",
+          300: "#5eead4",
+          400: "#2dd4bf",
+          500: "#14b8a6",
+          600: "#0d9488",
+          700: "#0f766e",
+          800: "#115e59",
+          900: "#134e4a",
+        },
       },
-      keyframes: {
-        floating: {
-          "0%": {
-            transform: "translate(0, 0px)",
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: "none",
           },
-          "50%": {
-            transform: "translate(0, 10px)",
-          },
-          "100%": {
-            transform: "translate(0, -0px)",
-          },
-        }
-      },
-      animation: {
-        float: "floating 3s infinite ease-in-out",
+        },
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
-
-  darkMode: "class",
+  plugins: [require("@tailwindcss/typography")],
 };
+
 export default config;

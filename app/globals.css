@@ -2,54 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  scroll-behavior: smooth;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  body {
+    @apply bg-white text-slate-700 antialiased dark:bg-slate-950 dark:text-slate-300;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-slate-900 dark:text-white;
+  }
+  /* Offset anchor scrolling for the fixed header */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+  a {
+    @apply transition-colors;
+  }
+  /* Visible keyboard focus for all interactive elements */
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    @apply outline-none ring-2 ring-accent-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950 rounded-sm;
   }
 }
 
-body {
-  /* color: rgb(var(--foreground-rgb)); */
-  
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.about-me-markdown-content a,
-.about-me-markdown-content strong,
-.about-me-markdown-content em,
-.about-me-markdown-content b,
-.about-me-markdown-content hr,
-.about-me-markdown-content p,
-.about-me-markdown-content ul,
-.about-me-markdown-content h1,
-.about-me-markdown-content h2,
-.about-me-markdown-content h3,
-.about-me-markdown-content h4,
-.about-me-markdown-content h5,
-.about-me-markdown-content h6 {
-  scroll-margin-top: 80px; /* Adjust to match your navbar height */
-  @apply text-gray-600;
-}
-
-.about-me-markdown-content h1,
-.about-me-markdown-content h2,
-.about-me-markdown-content h3,
-.about-me-markdown-content h4,
-.about-me-markdown-content h5,
-.about-me-markdown-content h6 {
-  @apply font-medium; /* Or font-normal, font-light as needed */
+@layer components {
+  .link-underline {
+    @apply text-accent-700 underline decoration-accent-300 underline-offset-2 hover:decoration-accent-600 dark:text-accent-400 dark:decoration-accent-700;
+  }
 }

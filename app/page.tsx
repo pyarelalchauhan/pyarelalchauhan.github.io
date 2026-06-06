@@ -1,23 +1,29 @@
-import About from "./components/about";
-import Contact from "./components/contact";
-import Experience from "./components/experience";
-import Intro from "./components/intro";
-import Education from "./components/education";
-import Publications from "./components/publications";
-import Awards from "./components/awards";
-import Blogs from "./components/blogs";
+import About from "./components/About";
+import News from "./components/News";
+import Publications from "./components/Publications";
+import OpenSource from "./components/OpenSource";
+import Experience from "./components/Experience";
+import Venture from "./components/Venture";
+import Education from "./components/Education";
+import Skills from "./components/Skills";
+import Awards from "./components/Awards";
+import Writing from "./components/Writing";
+import Contact from "./components/Contact";
 
 export default function Home() {
   return (
-    <main className="relative dark:text-white h-full flex flex-col items-center overflow-x-hidden">
-      <Intro />
-      {/* <About /> */}
+    <>
+      <About />
+      <News />
       <Publications />
-      <Awards />
-      <Education />
+      <OpenSource />
       <Experience />
-      <Blogs />
+      <Venture />
+      <Education />
+      <Skills />
+      <Awards />
+      <Writing />
       <Contact />
-    </main>
+    </>
   );
 }
