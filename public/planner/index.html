@@ -9,7 +9,8 @@
 <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg">
-<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Plan It">
 <script>
@@ -83,11 +84,11 @@ input,textarea,select{font-family:inherit;}
 }
 .topbar-right{display:flex;align-items:center;gap:8px;flex:none;margin-left:auto;}
 .icon-btn{
-  background:rgba(255,255,255,0.18);border:none;color:#fff;border-radius:10px;
+  background:rgba(15,23,42,0.34);border:1px solid rgba(255,255,255,0.28);color:#fff;border-radius:10px;
   width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:18px;
   transition:background .15s;flex:none;
 }
-.icon-btn:hover{background:rgba(255,255,255,0.32);}
+.icon-btn:hover{background:rgba(15,23,42,0.52);}
 
 .tabs{
   display:flex;gap:6px;background:var(--card);padding:8px 16px;overflow-x:auto;
@@ -242,6 +243,20 @@ input,textarea,select{font-family:inherit;}
 .subtask-add button{
   background:var(--field);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-weight:700;font-size:13px;padding:0 14px;
 }
+.detail-due{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.detail-due-label{font-size:12px;font-weight:700;color:var(--ink-soft);}
+.due-input{border:1px solid var(--line);border-radius:9px;background:var(--field);color:var(--ink);font-size:12.5px;padding:6px 9px;}
+.due-input:focus{outline:none;border-color:var(--ink-soft);}
+.due-clear{background:transparent;border:none;color:var(--ink-soft);font-size:12px;text-decoration:underline;cursor:pointer;}
+
+/* ---------- Due-date badges ---------- */
+.tag.due{background:#EEF1FF;color:#4A47B5;border-color:#DDE1FF;}
+.tag.due.soon{background:#FFF3CD;color:#8A6D00;border-color:#FFE69C;}
+.tag.due.overdue{background:#FFE3E9;color:#C4265A;border-color:#FFC7D6;}
+.tag.due.wasdue{background:var(--card);color:var(--ink-soft);}
+[data-theme="dark"] .tag.due{background:#1e2340;color:#b7b9ff;border-color:#2c2f55;}
+[data-theme="dark"] .tag.due.soon{background:#332a0c;color:#f0d060;border-color:#4a3d14;}
+[data-theme="dark"] .tag.due.overdue{background:#3a1720;color:#ff9db4;border-color:#57202e;}
 
 /* ---------- Progress bar ---------- */
 .progress-wrap{background:var(--line);border-radius:999px;height:10px;overflow:hidden;}
@@ -566,6 +581,7 @@ function normalizeItems(data){
       return { id: s.id || uid(), title: String(s.title||""), done: !!s.done };
     });
     i.priority = !!i.priority;
+    i.due = (typeof i.due==="string" && i.due) ? i.due : null;
     if(!Array.isArray(i.history)) i.history = [];
     if(typeof i.carried!=="number") i.carried = 0;
   });
@@ -678,7 +694,7 @@ function addItem(level, periodKey, title, parentId, trackId, startTime, endTime)
     startTime: startTime || null, endTime: endTime || null,
     status: "pending", createdAt: Date.now(), completedAt: null,
     carried: 0, history: [], order: siblings.length,
-    subtasks: [], priority: false
+    subtasks: [], priority: false, due: null
   };
   state.items.push(item);
   saveState();
@@ -710,6 +726,25 @@ function updateNotes(id, val){
   var item = getItem(id); if(!item) return;
   item.notes = val || "";
   saveState();
+}
+function setDue(id, val){
+  var item = getItem(id); if(!item) return;
+  item.due = val || null;
+  saveState();
+}
+function dueInfo(item){
+  if(!item.due) return null;
+  var today = parseDateKey(formatDateKey(new Date()));
+  var d = parseDateKey(item.due);
+  if(isNaN(d.getTime())) return null;
+  var days = Math.round((d - today)/86400000);
+  var md = MONTH_SHORT[d.getMonth()]+" "+d.getDate()+(d.getFullYear()!==today.getFullYear()?(", "+d.getFullYear()):"");
+  if(item.status==="done") return { cls:"wasdue", label:"was due "+md };
+  if(days<0) return { cls:"overdue", label:"Overdue · "+md };
+  if(days===0) return { cls:"soon", label:"Due today" };
+  if(days===1) return { cls:"soon", label:"Due tomorrow" };
+  if(days<=3) return { cls:"soon", label:"Due "+md };
+  return { cls:"due", label:"Due "+md };
 }
 function addSubtask(id, title){
   var item = getItem(id); if(!item) return;
@@ -955,6 +990,7 @@ function matchesFilter(item){
     case "done": return item.status==="done";
     case "priority": return !!item.priority;
     case "carried": return (item.carried||0)>0;
+    case "overdue": { var di = dueInfo(item); return !!di && di.cls==="overdue"; }
     default: return true;
   }
 }
@@ -1006,6 +1042,8 @@ function renderItemList(items, level, opts){
     if(!opts.compact && childrenOf(item.id).length>0) metaBits.push('<span class="tag">'+pct+'% complete</span>');
     if(item.subtasks.length) metaBits.push('<span class="tag subs">☑ '+subDone+'/'+item.subtasks.length+'</span>');
     if(item.notes && item.notes.trim()) metaBits.push('<span class="tag note-ic" title="Has notes">📝</span>');
+    var di = dueInfo(item);
+    if(di) metaBits.push('<span class="tag due '+di.cls+'">⏰ '+di.label+'</span>');
     if(item.carried>0) metaBits.push('<span class="tag carried">↷ carried '+item.carried+'x</span>');
     if(metaBits.length) html += '<div class="item-meta">'+metaBits.join("")+'</div>';
     if(expanded) html += renderDetail(item);
@@ -1023,6 +1061,11 @@ function renderItemList(items, level, opts){
 
 function renderDetail(item){
   var html = '<div class="item-detail">';
+  html += '<div class="detail-due">'+
+    '<span class="detail-due-label">📅 Deadline</span>'+
+    '<input type="date" class="due-input" data-action="edit-due" data-id="'+item.id+'" value="'+(item.due||"")+'">'+
+    (item.due?'<button class="due-clear" data-action="clear-due" data-id="'+item.id+'">clear</button>':'')+
+  '</div>';
   html += '<textarea class="notes-input" data-action="edit-notes" data-id="'+item.id+'" placeholder="Notes, links, context...">'+escapeHtml(item.notes||"")+'</textarea>';
   html += '<div class="subtasks">';
   item.subtasks.forEach(function(s){
@@ -1049,6 +1092,7 @@ function renderFilterBar(){
     {k:"pending", label:"Pending"},
     {k:"done", label:"Done"},
     {k:"priority", label:"★ Priority"},
+    {k:"overdue", label:"⏰ Overdue"},
     {k:"carried", label:"↷ Carried"}
   ];
   var html = '<div class="filter-bar">';
@@ -1245,6 +1289,9 @@ app.addEventListener("click", function(e){
   } else if(action==="delete-sub"){
     deleteSubtask(id, el.dataset.sub);
     render();
+  } else if(action==="clear-due"){
+    setDue(id, "");
+    render();
   } else if(action==="goto"){
     nav.view = el.dataset.view;
     render();
@@ -1330,6 +1377,9 @@ app.addEventListener("change", function(e){
 
   var notesInput = e.target.closest('[data-action="edit-notes"]');
   if(notesInput){ updateNotes(notesInput.dataset.id, notesInput.value); return; }
+
+  var dueInput = e.target.closest('[data-action="edit-due"]');
+  if(dueInput){ setDue(dueInput.dataset.id, dueInput.value); render(); return; }
 
   var subInput = e.target.closest('[data-action="edit-sub"]');
   if(subInput){ updateSubtaskTitle(subInput.dataset.id, subInput.dataset.sub, subInput.value); return; }
