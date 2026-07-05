@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Plan It — Goal Planning Dashboard</title>
+<meta name="description" content="A private, offline-first goal planner: Yearly → Monthly → Weekly → Daily, with tracks, streaks, notes, subtasks and priorities.">
+<meta name="theme-color" content="#6C63FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Plan It">
+<script>
+/* Set theme before paint to avoid a flash. */
+(function(){
+  try{
+    var t = localStorage.getItem("planItTheme");
+    if(t!=="light" && t!=="dark"){
+      t = (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  }catch(e){ document.documentElement.setAttribute("data-theme","light"); }
+})();
+</script>
+<style>
+:root{
+  --grad: linear-gradient(135deg,#6C63FF 0%,#FF6584 55%,#FFB020 100%);
+  --bg: #F6F5FB;
+  --card: #FFFFFF;
+  --field: #F6F5FB;
+  --ink: #2A2A3C;
+  --ink-soft: #6B6B80;
+  --line: #ECEBF5;
+  --good: #2ECC8F;
+  --warn: #FF6584;
+  --star: #FFB020;
+  --shadow: 0 6px 20px rgba(60,50,110,0.08);
+  --radius: 16px;
+  color-scheme: light;
+}
+[data-theme="dark"]{
+  --bg: #020617;
+  --card: #0f172a;
+  --field: #0b1222;
+  --ink: #e2e8f0;
+  --ink-soft: #94a3b8;
+  --line: #1e293b;
+  --shadow: 0 6px 20px rgba(0,0,0,0.45);
+  color-scheme: dark;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{margin:0;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);transition:background .2s ease,color .2s ease;}
+button{font-family:inherit;cursor:pointer;}
+input,textarea,select{font-family:inherit;}
+
+/* ---------- Header ---------- */
+.topbar{
+  background:var(--grad);
+  color:#fff;
+  padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:var(--shadow);
+  position:sticky;top:0;z-index:50;
+  padding-top:max(14px, env(safe-area-inset-top));
+}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;flex:none;}
+.brand .emoji{font-size:23px;}
+.search-wrap{
+  display:flex;align-items:center;gap:6px;flex:1;min-width:0;max-width:340px;
+  background:rgba(255,255,255,0.20);border-radius:11px;padding:0 10px;height:38px;
+}
+.search-wrap .search-ic{font-size:14px;opacity:.9;}
+#searchInput{
+  flex:1;min-width:0;border:none;background:transparent;color:#fff;font-size:14px;height:100%;padding:0;
+}
+#searchInput::placeholder{color:rgba(255,255,255,0.8);}
+#searchInput:focus{outline:none;}
+#searchClear{
+  display:none;background:transparent;border:none;color:#fff;font-size:14px;opacity:.85;padding:2px 4px;
+}
+.topbar-right{display:flex;align-items:center;gap:8px;flex:none;margin-left:auto;}
+.icon-btn{
+  background:rgba(255,255,255,0.18);border:none;color:#fff;border-radius:10px;
+  width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:18px;
+  transition:background .15s;flex:none;
+}
+.icon-btn:hover{background:rgba(255,255,255,0.32);}
+
+.tabs{
+  display:flex;gap:6px;background:var(--card);padding:8px 16px;overflow-x:auto;
+  border-bottom:1px solid var(--line);position:sticky;top:66px;z-index:40;
+}
+.tab{
+  border:none;background:transparent;padding:9px 16px;border-radius:999px;
+  font-weight:600;color:var(--ink-soft);white-space:nowrap;font-size:14px;
+  transition:all .15s;
+}
+.tab.active{background:var(--grad);color:#fff;}
+.tab:hover:not(.active){background:var(--bg);}
+
+.container{max-width:920px;margin:0 auto;padding:20px 16px 80px;}
+
+/* ---------- Track tabs ---------- */
+.track-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
+.track-tab{
+  display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700;color:var(--ink-soft);
+}
+.track-tab.active{border-color:transparent;}
+.track-tab.manage{background:var(--bg);color:var(--ink-soft);margin-left:auto;}
+.track-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none;}
+.tag.track{color:#fff;}
+
+/* ---------- Filter bar ---------- */
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.filter-chip{
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;
+}
+.filter-chip.active{background:var(--grad);color:#fff;border-color:transparent;}
+
+/* ---------- Cards ---------- */
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:18px;}
+.card h2{margin:0 0 4px;font-size:18px;}
+.card .sub{color:var(--ink-soft);font-size:13px;margin-bottom:14px;}
+
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px;}
+.section-title h2{margin:0;}
+
+/* ---------- Period nav ---------- */
+.period-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
+.period-nav button{
+  background:var(--card);border:1px solid var(--line);border-radius:10px;width:36px;height:36px;
+  font-size:16px;color:var(--ink);box-shadow:var(--shadow);
+}
+.period-nav .period-label{font-weight:700;font-size:16px;min-width:180px;text-align:center;}
+.today-btn{
+  background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:6px 14px;
+  font-size:12px;font-weight:600;color:var(--ink-soft);
+}
+
+/* ---------- Add form ---------- */
+.add-form{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.add-form input[type=text]{
+  flex:1;min-width:160px;padding:11px 14px;border-radius:12px;border:1px solid var(--line);
+  font-size:14px;background:var(--field);color:var(--ink);
+}
+.add-form select{
+  padding:11px 10px;border-radius:12px;border:1px solid var(--line);font-size:13px;background:var(--field);color:var(--ink);max-width:160px;
+}
+.add-form button{
+  background:var(--grad);color:#fff;border:none;border-radius:12px;padding:11px 18px;font-weight:700;font-size:14px;
+}
+
+/* ---------- Optional time-of-day fields ---------- */
+.time-field-group{
+  display:inline-flex;align-items:center;gap:4px;background:var(--field);border:1px solid var(--line);
+  border-radius:12px;padding:2px 8px;
+}
+.add-form .time-field-group{padding:5px 10px;}
+.time-input{border:none;background:transparent;font-family:inherit;font-size:12.5px;color:var(--ink-soft);padding:0;}
+.time-input:focus{outline:none;color:var(--ink);}
+.time-sep{font-size:11px;color:var(--ink-soft);}
+.time-range-tag{background:var(--card);}
+.list-divider{font-size:11px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin:6px 2px 0;}
+
+/* ---------- Task rows ---------- */
+.item-list{display:flex;flex-direction:column;gap:8px;}
+.item-row{
+  display:flex;align-items:flex-start;gap:9px;background:var(--field);border-radius:12px;
+  padding:12px 14px;border-left:4px solid var(--line);transition:transform .12s,box-shadow .12s;
+}
+.item-row.done{opacity:0.55;}
+.item-row.priority{box-shadow:inset 3px 0 0 var(--star);}
+.item-row.dragging{opacity:.4;}
+.item-row.drag-over{box-shadow:0 -2px 0 0 #6C63FF;transform:translateY(1px);}
+.drag-handle{
+  cursor:grab;color:var(--ink-soft);font-size:14px;line-height:22px;flex:none;user-select:none;
+  opacity:.5;margin-top:1px;letter-spacing:-2px;
+}
+.drag-handle:active{cursor:grabbing;}
+.item-row .chk{
+  width:22px;height:22px;border-radius:50%;border:2px solid var(--ink-soft);flex:none;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;background:var(--card);font-size:13px;color:#fff;
+  transition:all .15s;cursor:pointer;
+}
+.item-row .chk.checked{background:var(--good);border-color:var(--good);}
+.item-row .chk.pop{animation:pop .35s ease;}
+@keyframes pop{0%{transform:scale(1);}40%{transform:scale(1.35);}100%{transform:scale(1);}}
+.item-main{flex:1;min-width:0;}
+.item-title{
+  font-weight:600;font-size:14.5px;border:none;background:transparent;width:100%;padding:2px 0;
+  color:var(--ink);
+}
+.item-title:focus{outline:none;border-bottom:1px dashed var(--ink-soft);}
+.item-title.done{text-decoration:line-through;color:var(--ink-soft);}
+.item-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;align-items:center;}
+.tag{
+  font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--card);color:var(--ink-soft);
+  border:1px solid var(--line);
+}
+.tag.parent{color:#fff;}
+.tag.carried{background:#FFF3CD;color:#8A6D00;border-color:#FFE69C;}
+.tag.subs{background:var(--card);}
+.tag.note-ic{background:var(--card);}
+.item-actions{display:flex;gap:2px;flex:none;}
+.item-actions button{
+  background:transparent;border:none;font-size:15px;color:var(--ink-soft);width:26px;height:26px;border-radius:8px;line-height:1;
+}
+.item-actions button:hover{background:var(--card);}
+.item-actions button.star.on{color:var(--star);}
+.empty-note{color:var(--ink-soft);font-size:13.5px;text-align:center;padding:20px 0;}
+
+/* ---------- Detail panel (notes + subtasks) ---------- */
+.item-detail{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
+.notes-input{
+  width:100%;min-height:48px;resize:vertical;border:1px solid var(--line);border-radius:10px;
+  background:var(--card);color:var(--ink);font-size:13px;padding:8px 10px;line-height:1.5;
+}
+.notes-input:focus{outline:none;border-color:var(--ink-soft);}
+.subtasks{margin-top:10px;display:flex;flex-direction:column;gap:5px;}
+.subtask-row{display:flex;align-items:center;gap:8px;}
+.subtask-row .schk{
+  width:17px;height:17px;border-radius:5px;border:2px solid var(--ink-soft);flex:none;
+  display:flex;align-items:center;justify-content:center;background:var(--card);font-size:11px;color:#fff;cursor:pointer;
+}
+.subtask-row .schk.checked{background:var(--good);border-color:var(--good);}
+.subtask-title{flex:1;border:none;background:transparent;font-size:13px;color:var(--ink);padding:2px 0;}
+.subtask-title:focus{outline:none;border-bottom:1px dashed var(--ink-soft);}
+.subtask-title.done{text-decoration:line-through;color:var(--ink-soft);}
+.subtask-del{background:transparent;border:none;color:var(--ink-soft);font-size:13px;width:22px;height:22px;border-radius:6px;flex:none;}
+.subtask-del:hover{background:var(--card);}
+.subtask-add{display:flex;gap:8px;margin-top:4px;}
+.subtask-add input{
+  flex:1;border:1px solid var(--line);border-radius:9px;background:var(--field);color:var(--ink);
+  font-size:12.5px;padding:7px 10px;
+}
+.subtask-add input:focus{outline:none;border-color:var(--ink-soft);}
+.subtask-add button{
+  background:var(--field);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-weight:700;font-size:13px;padding:0 14px;
+}
+
+/* ---------- Progress bar ---------- */
+.progress-wrap{background:var(--line);border-radius:999px;height:10px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:999px;background:var(--grad);transition:width .4s ease;}
+.progress-row{display:flex;align-items:center;gap:10px;}
+.progress-row .progress-wrap{flex:1;}
+.progress-pct{font-weight:800;font-size:13px;min-width:38px;text-align:right;}
+
+/* ---------- Dashboard ---------- */
+.greeting{font-size:22px;font-weight:800;margin-bottom:2px;}
+.greeting .sub{font-size:14px;color:var(--ink-soft);font-weight:500;}
+.streak-card{
+  background:var(--grad);color:#fff;display:flex;align-items:center;gap:16px;
+}
+.streak-flame{font-size:42px;}
+.streak-num{font-size:30px;font-weight:900;line-height:1;}
+.streak-label{font-size:13px;opacity:0.9;margin-top:2px;}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.mini-progress-card .label{font-size:12.5px;color:var(--ink-soft);font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em;}
+.track-progress-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.track-progress-card{background:var(--field);border-radius:12px;padding:14px;cursor:pointer;transition:transform .12s;}
+.track-progress-card:hover{transform:translateY(-2px);}
+.track-progress-head{display:flex;align-items:center;gap:6px;font-weight:700;font-size:13.5px;margin-bottom:8px;}
+.badges-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.badge{
+  display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--field);border-radius:12px;
+  padding:10px 12px;min-width:76px;text-align:center;
+}
+.badge .icon{font-size:24px;filter:grayscale(1);opacity:.35;}
+.badge.earned .icon{filter:none;opacity:1;}
+.badge .name{font-size:10.5px;font-weight:700;color:var(--ink-soft);}
+
+/* ---------- Search results ---------- */
+.search-head{font-size:14px;color:var(--ink-soft);margin-bottom:14px;}
+.search-result{
+  display:flex;align-items:center;gap:10px;background:var(--field);border-radius:12px;padding:12px 14px;
+  border-left:4px solid var(--line);margin-bottom:8px;
+}
+.search-result .result-main{flex:1;min-width:0;}
+.search-result .result-title{font-weight:600;font-size:14.5px;}
+.search-result .result-title.done{text-decoration:line-through;color:var(--ink-soft);}
+.search-result .result-context{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;}
+.result-go{
+  background:var(--card);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-weight:700;
+  font-size:12.5px;padding:7px 12px;white-space:nowrap;flex:none;
+}
+
+@media (max-width:640px){
+  .dash-grid{grid-template-columns:1fr;}
+  .track-progress-grid{grid-template-columns:1fr;}
+  .container{padding:14px 10px 80px;}
+  .search-wrap{max-width:none;}
+  .brand span.label{display:none;}
+}
+
+/* ---------- Modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(20,15,40,0.55);display:none;align-items:center;justify-content:center;
+  z-index:100;padding:16px;overflow-y:auto;
+}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);color:var(--ink);border-radius:18px;padding:24px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.35);margin:auto;}
+.modal h3{margin-top:0;}
+.modal h4{margin:18px 0 8px;font-size:14px;}
+.modal .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+.modal button.primary{background:var(--grad);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-weight:700;}
+.modal button.secondary{background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-weight:600;color:var(--ink);}
+.modal button.danger{background:#FFE3E9;color:#C4265A;border:none;border-radius:10px;padding:10px 16px;font-weight:700;}
+[data-theme="dark"] .modal button.danger{background:#3a1720;color:#ff9db4;}
+.modal p{font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
+.modal code{background:var(--field);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12px;}
+.file-input-label{
+  display:inline-block;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 16px;
+  font-weight:600;font-size:13.5px;cursor:pointer;color:var(--ink);
+}
+.track-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);}
+.track-name-input{flex:1;border:none;background:transparent;font-weight:600;font-size:13.5px;padding:4px;border-radius:6px;min-width:0;color:var(--ink);}
+.track-name-input:focus{outline:none;background:var(--field);}
+.track-row .tag{cursor:pointer;white-space:nowrap;}
+.track-row .track-dot{width:16px;height:16px;cursor:pointer;}
+#newTrackEmoji{width:52px;padding:10px;border-radius:10px;border:1px solid var(--line);text-align:center;background:var(--field);color:var(--ink);}
+#newTrackName{flex:1;min-width:140px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--field);color:var(--ink);}
+
+/* ---------- Sync / storage section ---------- */
+.sync-modes{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
+.mode-card{
+  border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px;
+}
+.mode-card.active{border-color:transparent;box-shadow:0 0 0 2px var(--good) inset;}
+.mode-ic{font-size:22px;flex:none;line-height:1.3;}
+.mode-body{flex:1;min-width:0;}
+.mode-title{font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.mode-desc{font-size:12.5px;color:var(--ink-soft);margin-top:3px;line-height:1.5;}
+.mode-actions{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap;}
+.mode-actions button{
+  background:var(--field);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-weight:700;font-size:12.5px;padding:8px 12px;
+}
+.mode-actions button.go{background:var(--grad);color:#fff;border:none;}
+.pill{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;}
+.pill.on{background:#DCF7EC;color:#0C7A54;}
+.pill.warn{background:#FFF3CD;color:#8A6D00;}
+.pill.off{background:var(--field);color:var(--ink-soft);}
+[data-theme="dark"] .pill.on{background:#0c3025;color:#5fe0b0;}
+[data-theme="dark"] .pill.warn{background:#332a0c;color:#f0d060;}
+.note-box{background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin-top:8px;}
+
+/* ---------- Toast ---------- */
+#toast-container{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;padding:0 12px;}
+.toast{
+  background:var(--card);color:var(--ink);padding:12px 20px;border-radius:12px;font-size:13.5px;font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,0.28);border:1px solid var(--line);
+  animation:toastIn .25s ease, toastOut .3s ease 2.6s forwards;
+}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-6px);}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="emoji">🎯</span> <span class="label">Plan It</span></div>
+  <label class="search-wrap">
+    <span class="search-ic">🔍</span>
+    <input id="searchInput" type="text" placeholder="Search tasks..." autocomplete="off" aria-label="Search tasks">
+    <button id="searchClear" title="Clear search" aria-label="Clear search">✕</button>
+  </label>
+  <div class="topbar-right">
+    <button class="icon-btn" id="themeBtn" title="Toggle light / dark" aria-label="Toggle theme">🌙</button>
+    <button class="icon-btn" id="tracksBtn" title="Manage Tracks" aria-label="Manage tracks">🗂️</button>
+    <button class="icon-btn" id="settingsBtn" title="Settings &amp; Sync" aria-label="Settings">⚙️</button>
+  </div>
+</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab" data-view="dashboard">🏠 Dashboard</button>
+  <button class="tab" data-view="year">📅 Yearly</button>
+  <button class="tab" data-view="month">🗓️ Monthly</button>
+  <button class="tab" data-view="week">📆 Weekly</button>
+  <button class="tab" data-view="day">☀️ Daily</button>
+</div>
+
+<div class="container" id="app"></div>
+
+<div class="modal-overlay" id="tracksModal">
+  <div class="modal">
+    <h3>🗂️ Manage Tracks</h3>
+    <p>Tracks keep separate areas of your life — PhD, Startup, Learning, whatever you need — independent from each other. Each gets its own Yearly → Monthly → Weekly → Daily goals, but the Dashboard still shows everything together.</p>
+    <div id="tracksListContainer"></div>
+    <div class="row" style="flex-wrap:wrap;">
+      <input type="text" id="newTrackEmoji" placeholder="🙂" maxlength="4">
+      <input type="text" id="newTrackName" placeholder="Track name (e.g. Fitness)">
+      <button class="primary" id="addTrackBtn">+ Add Track</button>
+    </div>
+    <div class="row">
+      <button class="secondary" id="closeTracks" style="margin-left:auto;">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <h3>⚙️ Settings &amp; Sync</h3>
+
+    <h4>Where your data is stored</h4>
+    <div id="syncContainer"></div>
+
+    <h4>Backup file</h4>
+    <p>Download a one-off snapshot, or restore one. Works in every browser and on every device.</p>
+    <div class="row">
+      <button class="secondary" id="exportBtn">⬇️ Export backup (.json)</button>
+      <label class="file-input-label">⬆️ Import backup
+        <input type="file" id="importInput" accept="application/json" style="display:none;">
+      </label>
+    </div>
+
+    <h4>Danger zone</h4>
+    <p>Starting over? This permanently deletes every goal and task on this device.</p>
+    <div class="row">
+      <button class="danger" id="resetBtn">🗑️ Reset all data</button>
+      <button class="secondary" id="closeSettings" style="margin-left:auto;">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ Constants ============ */
+var COLORS = ["#6C63FF","#FF6584","#FFB020","#2ECC8F","#42A5F5","#AB47BC","#FF8A65","#00BFA6"];
+var STREAK_BADGES = [
+  {n:3, icon:"🔥", name:"3-Day"},
+  {n:7, icon:"🔥🔥", name:"7-Day"},
+  {n:14, icon:"🏅", name:"14-Day"},
+  {n:30, icon:"🏆", name:"30-Day"},
+  {n:60, icon:"💎", name:"60-Day"},
+  {n:100, icon:"👑", name:"100-Day"}
+];
+var DONE_BADGES = [
+  {n:1, icon:"🌱", name:"1st Win"},
+  {n:10, icon:"🌿", name:"10 Done"},
+  {n:25, icon:"🌳", name:"25 Done"},
+  {n:50, icon:"🎉", name:"50 Done"},
+  {n:100, icon:"⭐", name:"100 Done"}
+];
+var STORE_KEY = "planItDashboardData_v1";
+var THEME_KEY = "planItTheme";
+var MODE_KEY = "planItStorageMode"; // "local" | "folder"
+var DEFAULT_TRACKS = [
+  {name:"PhD", emoji:"🎓", color:"#6C63FF"},
+  {name:"Startup", emoji:"🚀", color:"#FF6584"},
+  {name:"Learning", emoji:"📚", color:"#2ECC8F"},
+  {name:"Personal", emoji:"🌱", color:"#FFB020"}
+];
+
+/* ============ Date helpers ============ */
+function pad(n){ return String(n).padStart(2,"0"); }
+function formatDateKey(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+function parseDateKey(key){ var p=key.split("-").map(Number); return new Date(p[0],p[1]-1,p[2]); }
+function addDays(d,n){ var r=new Date(d); r.setDate(r.getDate()+n); return r; }
+
+function getMonthKey(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1); }
+function parseMonthKey(key){ var p=key.split("-").map(Number); return new Date(p[0],p[1]-1,1); }
+function shiftMonthKey(key,n){ var d=parseMonthKey(key); d.setMonth(d.getMonth()+n); return getMonthKey(d); }
+
+function getYearKey(d){ return String(d.getFullYear()); }
+function shiftYearKey(key,n){ return String(Number(key)+n); }
+
+function getISOWeek(date){
+  var d=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()));
+  var dayNum=(d.getUTCDay()+6)%7;
+  d.setUTCDate(d.getUTCDate()-dayNum+3);
+  var firstThursday=new Date(Date.UTC(d.getUTCFullYear(),0,4));
+  var weekNum=1+Math.round(((d-firstThursday)/86400000-3+((firstThursday.getUTCDay()+6)%7))/7);
+  return {year:d.getUTCFullYear(), week:weekNum};
+}
+function getWeekKey(d){ var w=getISOWeek(d); return w.year+"-W"+pad(w.week); }
+function isoWeekToMonday(year,week){
+  var simple=new Date(year,0,1+(week-1)*7);
+  var dow=simple.getDay();
+  var monday=new Date(simple);
+  if(dow<=4){ monday.setDate(simple.getDate()-dow+1); } else { monday.setDate(simple.getDate()+8-dow); }
+  return monday;
+}
+function parseWeekKeyToMonday(key){
+  var parts=key.split("-W"); return isoWeekToMonday(Number(parts[0]),Number(parts[1]));
+}
+function shiftWeekKey(key,n){ var m=parseWeekKeyToMonday(key); m.setDate(m.getDate()+7*n); return getWeekKey(m); }
+
+var MONTH_NAMES=["January","February","March","April","May","June","July","August","September","October","November","December"];
+var MONTH_SHORT=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var DAY_NAMES=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+function formatMonthLabel(key){ var d=parseMonthKey(key); return MONTH_NAMES[d.getMonth()]+" "+d.getFullYear(); }
+function formatWeekLabel(key){
+  var mon=parseWeekKeyToMonday(key); var sun=addDays(mon,6);
+  var sameMonth = mon.getMonth()===sun.getMonth();
+  var left = MONTH_SHORT[mon.getMonth()]+" "+mon.getDate();
+  var right = (sameMonth?"":MONTH_SHORT[sun.getMonth()]+" ")+sun.getDate()+", "+sun.getFullYear();
+  return left+" – "+right;
+}
+function formatDayLabel(key){ var d=parseDateKey(key); return DAY_NAMES[d.getDay()]+", "+MONTH_SHORT[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear(); }
+function periodLabel(level, key){
+  if(level==="year") return key;
+  if(level==="month") return formatMonthLabel(key);
+  if(level==="week") return formatWeekLabel(key);
+  if(level==="day") return formatDayLabel(key);
+  return key;
+}
+
+/* ============ Parent-period helpers ============ */
+function getParentPeriodKey(level, periodKey){
+  if(level==="month") return periodKey.split("-")[0];
+  if(level==="week") return getMonthKey(parseWeekKeyToMonday(periodKey));
+  if(level==="day") return getWeekKey(parseDateKey(periodKey));
+  return null;
+}
+var PARENT_LEVEL = { month:"year", week:"month", day:"week", year:null };
+var LEVEL_LABEL = { year:"Yearly", month:"Monthly", week:"Weekly", day:"Daily" };
+var LEVEL_SINGULAR = { year:"year", month:"month", week:"week", day:"day" };
+var LEVEL_EMOJI = { year:"📅", month:"🗓️", week:"📆", day:"☀️" };
+
+/* ============ UI state ============ */
+var ui = { expanded:{}, filter:"all", query:"" };
+var pendingFocus = null;
+
+/* ============ State ============ */
+var state = loadState();
+var nav = {
+  view: "dashboard",
+  trackId: "all",
+  yearKey: getYearKey(new Date()),
+  monthKey: getMonthKey(new Date()),
+  weekKey: getWeekKey(new Date()),
+  dayKey: formatDateKey(new Date())
+};
+
+function loadState(){
+  var data;
+  try{
+    var raw = localStorage.getItem(STORE_KEY);
+    data = raw ? JSON.parse(raw) : { items: [] };
+  }catch(e){ data = { items: [] }; }
+  if(!data || typeof data!=="object") data = { items: [] };
+  if(!Array.isArray(data.items)) data.items = [];
+  if(!Array.isArray(data.tracks)) data.tracks = [];
+  normalizeItems(data);
+  migrateTracks(data);
+  return data;
+}
+function normalizeItems(data){
+  (data.items||[]).forEach(function(i){
+    if(typeof i.notes!=="string") i.notes = "";
+    if(!Array.isArray(i.subtasks)) i.subtasks = [];
+    i.subtasks = i.subtasks.filter(function(s){ return s && typeof s==="object"; }).map(function(s){
+      return { id: s.id || uid(), title: String(s.title||""), done: !!s.done };
+    });
+    i.priority = !!i.priority;
+    if(!Array.isArray(i.history)) i.history = [];
+    if(typeof i.carried!=="number") i.carried = 0;
+  });
+}
+function migrateTracks(data){
+  var existingNames = data.tracks.map(function(t){ return t.name.toLowerCase(); });
+  var hasLegacyItems = data.items.some(function(i){ return !i.trackId; });
+  if(hasLegacyItems && existingNames.indexOf("general")===-1){
+    data.tracks.push({id:"general", name:"General", emoji:"📌", color:"#B9B6D6", archived:false, order:data.tracks.length});
+    existingNames.push("general");
+  }
+  data.items.forEach(function(i){ if(!i.trackId) i.trackId = "general"; });
+  DEFAULT_TRACKS.forEach(function(dt){
+    if(existingNames.indexOf(dt.name.toLowerCase())===-1){
+      data.tracks.push({id:uid(), name:dt.name, emoji:dt.emoji, color:dt.color, archived:false, order:data.tracks.length});
+      existingNames.push(dt.name.toLowerCase());
+    }
+  });
+}
+function saveLocal(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+}
+function saveState(){
+  saveLocal();
+  scheduleFolderSync();
+}
+function uid(){ return "id-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8); }
+
+/* ============ Item helpers ============ */
+function itemsAt(level, periodKey){
+  return state.items.filter(function(i){ return i.level===level && i.periodKey===periodKey; })
+    .sort(function(a,b){ return a.order-b.order; });
+}
+function itemsAtTrack(level, periodKey, trackId){
+  var list = itemsAt(level, periodKey);
+  if(!trackId || trackId==="all") return list;
+  return list.filter(function(i){ return i.trackId===trackId; });
+}
+function childrenOf(id){ return state.items.filter(function(i){ return i.parentId===id; }); }
+function getItem(id){ return state.items.find(function(i){ return i.id===id; }); }
+
+function computeProgress(item){
+  var kids = childrenOf(item.id);
+  if(kids.length!==0){
+    var sum = 0;
+    kids.forEach(function(k){ sum += computeProgress(k); });
+    return Math.round(sum / kids.length);
+  }
+  if(item.status==="done") return 100;
+  var subs = item.subtasks || [];
+  if(subs.length){
+    var done = subs.filter(function(s){ return s.done; }).length;
+    return Math.round(done / subs.length * 100);
+  }
+  return 0;
+}
+function getEffectiveColor(item){
+  if(item.color) return item.color;
+  var track = getTrack(item.trackId);
+  return track ? track.color : "#B9B6D6";
+}
+
+/* ============ Track helpers ============ */
+function getTracks(includeArchived){
+  return state.tracks.filter(function(t){ return includeArchived || !t.archived; })
+    .sort(function(a,b){ return a.order-b.order; });
+}
+function getTrack(id){ return state.tracks.find(function(t){ return t.id===id; }); }
+function countItemsInTrack(id){ return state.items.filter(function(i){ return i.trackId===id; }).length; }
+function addTrack(name, emoji, color){
+  name = (name||"").trim();
+  if(!name) return null;
+  var track = { id: uid(), name: name, emoji: (emoji||"📌").trim()||"📌", color: color || COLORS[0], archived:false, order: state.tracks.length };
+  state.tracks.push(track);
+  saveState();
+  return track;
+}
+function renameTrack(id, name){
+  var t = getTrack(id); if(!t) return;
+  name = (name||"").trim();
+  if(name) t.name = name;
+  saveState();
+}
+function setTrackColor(id, color){
+  var t = getTrack(id); if(!t) return;
+  t.color = color; saveState();
+}
+function toggleArchiveTrack(id){
+  var t = getTrack(id); if(!t) return;
+  t.archived = !t.archived;
+  saveState();
+}
+function deleteTrack(id){
+  if(countItemsInTrack(id)>0){
+    alert("This track still has goals or tasks in it. Archive it instead, or delete its items first.");
+    return false;
+  }
+  state.tracks = state.tracks.filter(function(t){ return t.id!==id; });
+  saveState();
+  return true;
+}
+
+function addItem(level, periodKey, title, parentId, trackId, startTime, endTime){
+  title = (title||"").trim();
+  if(!title) return null;
+  var siblings = itemsAt(level, periodKey);
+  var item = {
+    id: uid(), level: level, periodKey: periodKey, title: title, notes: "",
+    parentId: parentId || null, trackId: trackId || null, color: null,
+    startTime: startTime || null, endTime: endTime || null,
+    status: "pending", createdAt: Date.now(), completedAt: null,
+    carried: 0, history: [], order: siblings.length,
+    subtasks: [], priority: false
+  };
+  state.items.push(item);
+  saveState();
+  return item;
+}
+function updateItemTime(id, field, value){
+  var item = getItem(id); if(!item) return;
+  item[field] = value || null;
+  saveState();
+}
+function toggleDone(id){
+  var item = getItem(id);
+  if(!item) return;
+  var wasFull = computeProgress(item)>=100;
+  item.status = item.status==="done" ? "pending" : "done";
+  item.completedAt = item.status==="done" ? Date.now() : null;
+  saveState();
+  if(item.status==="done"){
+    var nowFull = computeProgress(item)>=100;
+    if(!wasFull && nowFull) showToast("🎉 Nice! \""+item.title+"\" complete!");
+  }
+}
+function togglePriority(id){
+  var item = getItem(id); if(!item) return;
+  item.priority = !item.priority;
+  saveState();
+}
+function updateNotes(id, val){
+  var item = getItem(id); if(!item) return;
+  item.notes = val || "";
+  saveState();
+}
+function addSubtask(id, title){
+  var item = getItem(id); if(!item) return;
+  title = (title||"").trim(); if(!title) return;
+  item.subtasks.push({ id: uid(), title: title, done: false });
+  saveState();
+}
+function toggleSubtask(id, subId){
+  var item = getItem(id); if(!item) return;
+  var s = item.subtasks.find(function(x){ return x.id===subId; });
+  if(s) s.done = !s.done;
+  saveState();
+}
+function updateSubtaskTitle(id, subId, title){
+  var item = getItem(id); if(!item) return;
+  var s = item.subtasks.find(function(x){ return x.id===subId; });
+  title = (title||"").trim();
+  if(s && title) s.title = title;
+  saveState();
+}
+function deleteSubtask(id, subId){
+  var item = getItem(id); if(!item) return;
+  item.subtasks = item.subtasks.filter(function(x){ return x.id!==subId; });
+  saveState();
+}
+function deleteItem(id){
+  state.items.forEach(function(i){ if(i.parentId===id) i.parentId=null; });
+  state.items = state.items.filter(function(i){ return i.id!==id; });
+  delete ui.expanded[id];
+  saveState();
+}
+function updateTitle(id, title){
+  var item=getItem(id); if(!item) return;
+  title=(title||"").trim();
+  if(title) item.title = title;
+  saveState();
+}
+function nextKeyFor(level, key){
+  if(level==="day") return formatDateKey(addDays(parseDateKey(key),1));
+  if(level==="week") return shiftWeekKey(key,1);
+  if(level==="month") return shiftMonthKey(key,1);
+  if(level==="year") return shiftYearKey(key,1);
+}
+function moveItemForward(id){
+  var item=getItem(id); if(!item) return;
+  var newKey = nextKeyFor(item.level, item.periodKey);
+  item.history.push({from:item.periodKey, movedAt:Date.now()});
+  item.periodKey = newKey;
+  item.carried = (item.carried||0)+1;
+  saveState();
+  render();
+}
+
+/* ============ Reorder ============ */
+function displaySort(a,b){
+  var pa = a.priority?1:0, pb = b.priority?1:0;
+  if(pa!==pb) return pb-pa;
+  return a.order-b.order;
+}
+function reorderItem(draggedId, targetId, after){
+  if(draggedId===targetId) return;
+  var dragged=getItem(draggedId), target=getItem(targetId);
+  if(!dragged||!target) return;
+  if(dragged.level!==target.level || dragged.periodKey!==target.periodKey) return;
+  var list = state.items.filter(function(i){ return i.level===dragged.level && i.periodKey===dragged.periodKey; }).sort(displaySort);
+  var fromIdx = list.indexOf(dragged);
+  if(fromIdx!==-1) list.splice(fromIdx,1);
+  var targetIdx = list.indexOf(target);
+  if(targetIdx===-1) targetIdx = list.length-1;
+  list.splice(targetIdx + (after?1:0), 0, dragged);
+  list.forEach(function(i,idx){ i.order = idx; });
+  saveState();
+}
+
+/* ============ Auto rollover on load ============ */
+function runAutoRollover(){
+  var today = new Date();
+  var currentKeys = { day: formatDateKey(today), week: getWeekKey(today), month: getMonthKey(today) };
+  ["day","week","month"].forEach(function(level){
+    var curKey = currentKeys[level];
+    state.items.forEach(function(item){
+      if(item.level===level && item.status==="pending" && item.periodKey < curKey){
+        item.history.push({from:item.periodKey, movedAt:Date.now()});
+        item.periodKey = curKey;
+        item.carried = (item.carried||0)+1;
+      }
+    });
+  });
+  saveState();
+}
+runAutoRollover();
+
+/* ============ Streak & badges ============ */
+function computeStreak(){
+  var streak=0;
+  var cursor = addDays(new Date(),-1);
+  var guard=0;
+  while(guard<3650){
+    var key = formatDateKey(cursor);
+    var dayItems = state.items.filter(function(i){ return i.level==="day" && i.periodKey===key; });
+    if(dayItems.length===0) break;
+    var allDone = dayItems.every(function(i){ return i.status==="done"; });
+    if(!allDone) break;
+    streak++;
+    cursor = addDays(cursor,-1);
+    guard++;
+  }
+  return streak;
+}
+function totalCompleted(){
+  return state.items.filter(function(i){ return i.status==="done"; }).length;
+}
+
+/* ============ Toast ============ */
+function showToast(msg){
+  var c = document.getElementById("toast-container");
+  var t = document.createElement("div");
+  t.className="toast"; t.textContent=msg;
+  c.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 3000);
+}
+
+/* ============ Rendering ============ */
+var app = document.getElementById("app");
+
+function render(){
+  if(nav.trackId!=="all" && !getTracks(false).some(function(t){ return t.id===nav.trackId; })){
+    nav.trackId = "all";
+  }
+  var searching = ui.query.trim().length>0;
+  document.querySelectorAll(".tab").forEach(function(t){
+    t.classList.toggle("active", !searching && t.dataset.view===nav.view);
+  });
+  if(searching) app.innerHTML = renderSearchResults();
+  else if(nav.view==="dashboard") app.innerHTML = renderDashboard();
+  else app.innerHTML = renderPeriodView(nav.view);
+
+  if(pendingFocus){
+    var el = document.querySelector('[data-focus="'+pendingFocus+'"]');
+    if(el){ el.focus(); }
+    pendingFocus = null;
+  }
+}
+
+function progressBar(pct, colorOverride){
+  return '<div class="progress-row"><div class="progress-wrap"><div class="progress-fill" style="width:'+pct+'%;'+(colorOverride?('background:'+colorOverride+';'):'')+'"></div></div><div class="progress-pct">'+pct+'%</div></div>';
+}
+
+function renderDashboard(){
+  var today = new Date();
+  var todayKey = formatDateKey(today);
+  var weekKey = getWeekKey(today);
+  var monthKey = getMonthKey(today);
+  var yearKey = getYearKey(today);
+  var hour = today.getHours();
+  var greet = hour<12 ? "Good morning" : (hour<18 ? "Good afternoon" : "Good evening");
+
+  var streak = computeStreak();
+  var doneCount = totalCompleted();
+
+  var todayItems = itemsAt("day", todayKey);
+  var weekItems = itemsAt("week", weekKey);
+  var monthItems = itemsAt("month", monthKey);
+  var yearItems = itemsAt("year", yearKey);
+
+  function avgProgress(list){
+    if(list.length===0) return 0;
+    var sum=0; list.forEach(function(i){ sum+=computeProgress(i); });
+    return Math.round(sum/list.length);
+  }
+
+  var weekPct = avgProgress(weekItems), monthPct = avgProgress(monthItems), yearPct = avgProgress(yearItems);
+
+  var streakLabel = streak===0 ? "Complete today's tasks to start a streak!" : "Keep the momentum going!";
+
+  var badgesHtml = '<div class="badges-grid">';
+  STREAK_BADGES.forEach(function(b){
+    badgesHtml += '<div class="badge '+(streak>=b.n?"earned":"")+'"><div class="icon">'+b.icon+'</div><div class="name">'+b.name+' Streak</div></div>';
+  });
+  DONE_BADGES.forEach(function(b){
+    badgesHtml += '<div class="badge '+(doneCount>=b.n?"earned":"")+'"><div class="icon">'+b.icon+'</div><div class="name">'+b.name+'</div></div>';
+  });
+  badgesHtml += '</div>';
+
+  var todayListHtml = renderItemList(todayItems, "day", {compact:true, showTrack:true});
+
+  var trackCards = getTracks(false).map(function(t){
+    var p = computeTrackProgress(t.id, todayKey, weekKey, monthKey, yearKey);
+    return '<div class="track-progress-card" data-action="focus-track" data-track="'+t.id+'">'+
+      '<div class="track-progress-head"><span class="track-dot" style="background:'+t.color+';"></span>'+escapeHtml(t.emoji)+' '+escapeHtml(t.name)+'</div>'+
+      (p===null ? '<div class="empty-note" style="padding:2px 0;text-align:left;">No goals yet — tap to add one</div>' : progressBar(p, t.color))+
+    '</div>';
+  }).join("");
+
+  return ''+
+  '<div class="greeting">'+greet+', Pyare 👋</div>'+
+  '<div class="sub" style="margin-bottom:16px;color:var(--ink-soft);font-size:14px;">'+formatDayLabel(todayKey)+'</div>'+
+
+  '<div class="card streak-card">'+
+    '<div class="streak-flame">🔥</div>'+
+    '<div><div class="streak-num">'+streak+' day'+(streak===1?"":"s")+'</div><div class="streak-label">'+streakLabel+'</div></div>'+
+  '</div>'+
+
+  '<div class="card">'+
+    '<div class="section-title"><h2>☀️ Today</h2><span class="today-btn" data-action="goto" data-view="day">Open Daily view →</span></div>'+
+    renderAddForm("day", todayKey, {actionName:"quick-add", placeholder:"Quick add a task for today..."})+
+    (todayItems.length ? todayListHtml : '<div class="empty-note">Nothing planned yet today — add your first task above ✨</div>')+
+  '</div>'+
+
+  '<div class="dash-grid">'+
+    '<div class="card mini-progress-card"><div class="label">This Week</div>'+progressBar(weekPct)+'</div>'+
+    '<div class="card mini-progress-card"><div class="label">This Month</div>'+progressBar(monthPct)+'</div>'+
+    '<div class="card mini-progress-card"><div class="label">This Year</div>'+progressBar(yearPct)+'</div>'+
+  '</div>'+
+
+  '<div class="card">'+
+    '<div class="section-title"><h2>🗂️ By Track</h2><span class="today-btn" data-action="open-tracks">Manage tracks</span></div>'+
+    '<div class="track-progress-grid">'+(trackCards || '<div class="empty-note">No tracks yet — add one via Manage tracks.</div>')+'</div>'+
+  '</div>'+
+
+  '<div class="card">'+
+    '<div class="section-title"><h2>🏆 Badges</h2></div>'+
+    badgesHtml+
+  '</div>';
+}
+
+function computeTrackProgress(trackId, todayKey, weekKey, monthKey, yearKey){
+  var list = [].concat(
+    itemsAtTrack("day", todayKey, trackId),
+    itemsAtTrack("week", weekKey, trackId),
+    itemsAtTrack("month", monthKey, trackId),
+    itemsAtTrack("year", yearKey, trackId)
+  );
+  if(list.length===0) return null;
+  var sum = 0;
+  list.forEach(function(i){ sum += computeProgress(i); });
+  return Math.round(sum/list.length);
+}
+
+function matchesFilter(item){
+  switch(ui.filter){
+    case "pending": return item.status!=="done";
+    case "done": return item.status==="done";
+    case "priority": return !!item.priority;
+    case "carried": return (item.carried||0)>0;
+    default: return true;
+  }
+}
+
+function renderItemList(items, level, opts){
+  opts = opts || {};
+  if(opts.filter) items = items.filter(matchesFilter);
+  if(items.length===0) return opts.filter ? '<div class="empty-note">Nothing matches this filter.</div>' : '';
+  var showTimes = level==="day";
+  var reorderable = !opts.compact && !opts.search;
+  var ordered, scheduledCount = 0, scheduledSet = {};
+  if(showTimes){
+    var scheduled = items.filter(function(i){ return i.startTime; })
+      .sort(function(a,b){ return a.startTime.localeCompare(b.startTime); });
+    var unscheduled = items.filter(function(i){ return !i.startTime; }).sort(displaySort);
+    scheduled.forEach(function(i){ scheduledSet[i.id]=true; });
+    scheduledCount = scheduled.length;
+    ordered = scheduled.concat(unscheduled);
+  } else {
+    ordered = items.slice().sort(displaySort);
+  }
+  var html = '<div class="item-list">';
+  ordered.forEach(function(item, idx){
+    if(showTimes && scheduledCount>0 && idx===scheduledCount && idx<ordered.length){
+      html += '<div class="list-divider">Anytime</div>';
+    }
+    var pct = computeProgress(item);
+    var color = getEffectiveColor(item);
+    var parent = item.parentId ? getItem(item.parentId) : null;
+    var track = getTrack(item.trackId);
+    var canDrag = reorderable && !scheduledSet[item.id];
+    var expanded = !!ui.expanded[item.id];
+    var subDone = item.subtasks.filter(function(s){ return s.done; }).length;
+    html += '<div class="item-row '+(item.status==="done"?"done ":"")+(item.priority?"priority ":"")+'" style="border-left-color:'+color+';" data-item-id="'+item.id+'">';
+    if(canDrag) html += '<span class="drag-handle" draggable="true" data-drag-id="'+item.id+'" title="Drag to reorder">⋮⋮</span>';
+    html += '<div class="chk '+(item.status==="done"?"checked":"")+'" data-action="toggle" data-id="'+item.id+'" title="Mark done">'+(item.status==="done"?"✓":"")+'</div>';
+    html += '<div class="item-main">';
+    html += '<input class="item-title '+(item.status==="done"?"done":"")+'" data-action="edit-title" data-id="'+item.id+'" value="'+escapeAttr(item.title)+'">';
+    var metaBits = [];
+    if(showTimes){
+      metaBits.push('<span class="time-field-group time-range-tag">'+
+        '<input type="time" class="time-input" data-action="edit-start" data-id="'+item.id+'" value="'+(item.startTime||"")+'">'+
+        '<span class="time-sep">to</span>'+
+        '<input type="time" class="time-input" data-action="edit-end" data-id="'+item.id+'" value="'+(item.endTime||"")+'">'+
+      '</span>');
+    }
+    if(opts.showTrack && track) metaBits.push('<span class="tag track" style="background:'+track.color+';">'+escapeHtml(track.emoji)+' '+escapeHtml(track.name)+'</span>');
+    if(parent) metaBits.push('<span class="tag parent" style="background:'+getEffectiveColor(parent)+';">'+escapeHtml(parent.title)+'</span>');
+    if(!opts.compact && childrenOf(item.id).length>0) metaBits.push('<span class="tag">'+pct+'% complete</span>');
+    if(item.subtasks.length) metaBits.push('<span class="tag subs">☑ '+subDone+'/'+item.subtasks.length+'</span>');
+    if(item.notes && item.notes.trim()) metaBits.push('<span class="tag note-ic" title="Has notes">📝</span>');
+    if(item.carried>0) metaBits.push('<span class="tag carried">↷ carried '+item.carried+'x</span>');
+    if(metaBits.length) html += '<div class="item-meta">'+metaBits.join("")+'</div>';
+    if(expanded) html += renderDetail(item);
+    html += '</div>';
+    html += '<div class="item-actions">';
+    html += '<button class="star '+(item.priority?"on":"")+'" data-action="toggle-priority" data-id="'+item.id+'" title="'+(item.priority?"Remove priority":"Mark priority")+'">'+(item.priority?"★":"☆")+'</button>';
+    html += '<button data-action="toggle-expand" data-id="'+item.id+'" title="Notes &amp; subtasks">'+(expanded?"▾":"›")+'</button>';
+    if(item.status!=="done") html += '<button data-action="move-next" data-id="'+item.id+'" title="Move to next '+LEVEL_SINGULAR[level]+'">→</button>';
+    html += '<button data-action="delete" data-id="'+item.id+'" title="Delete">✕</button>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderDetail(item){
+  var html = '<div class="item-detail">';
+  html += '<textarea class="notes-input" data-action="edit-notes" data-id="'+item.id+'" placeholder="Notes, links, context...">'+escapeHtml(item.notes||"")+'</textarea>';
+  html += '<div class="subtasks">';
+  item.subtasks.forEach(function(s){
+    html += '<div class="subtask-row">'+
+      '<div class="schk '+(s.done?"checked":"")+'" data-action="toggle-sub" data-id="'+item.id+'" data-sub="'+s.id+'">'+(s.done?"✓":"")+'</div>'+
+      '<input class="subtask-title '+(s.done?"done":"")+'" data-action="edit-sub" data-id="'+item.id+'" data-sub="'+s.id+'" value="'+escapeAttr(s.title)+'">'+
+      '<button class="subtask-del" data-action="delete-sub" data-id="'+item.id+'" data-sub="'+s.id+'" title="Delete subtask">✕</button>'+
+    '</div>';
+  });
+  html += '<div class="subtask-add">'+
+    '<input type="text" data-role="sub-title" data-id="'+item.id+'" data-focus="subadd-'+item.id+'" placeholder="Add a subtask...">'+
+    '<button data-action="add-sub" data-id="'+item.id+'">+</button>'+
+  '</div>';
+  html += '</div></div>';
+  return html;
+}
+
+function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function escapeAttr(s){ return escapeHtml(s); }
+
+function renderFilterBar(){
+  var filters = [
+    {k:"all", label:"All"},
+    {k:"pending", label:"Pending"},
+    {k:"done", label:"Done"},
+    {k:"priority", label:"★ Priority"},
+    {k:"carried", label:"↷ Carried"}
+  ];
+  var html = '<div class="filter-bar">';
+  filters.forEach(function(f){
+    html += '<button class="filter-chip '+(ui.filter===f.k?"active":"")+'" data-action="set-filter" data-filter="'+f.k+'">'+f.label+'</button>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderTrackTabs(){
+  var tracks = getTracks(false);
+  var html = '<div class="track-tabs">';
+  html += '<button class="track-tab '+(nav.trackId==="all"?"active":"")+'" style="'+(nav.trackId==="all"?"background:var(--grad);color:#fff;":"")+'" data-action="set-track" data-track="all">🗂️ All</button>';
+  tracks.forEach(function(t){
+    var active = nav.trackId===t.id;
+    html += '<button class="track-tab '+(active?"active":"")+'" style="'+(active?("background:"+t.color+";color:#fff;"):"")+'" data-action="set-track" data-track="'+t.id+'">'+
+      '<span class="track-dot" style="background:'+(active?"#fff":t.color)+';"></span>'+escapeHtml(t.emoji)+' '+escapeHtml(t.name)+'</button>';
+  });
+  html += '<button class="track-tab manage" data-action="open-tracks" title="Manage tracks">⚙️ Tracks</button>';
+  html += '</div>';
+  return html;
+}
+
+function buildParentOptionsHtml(parentLevel, parentPeriodKey, trackId){
+  var parentItems = itemsAtTrack(parentLevel, parentPeriodKey, trackId);
+  var html = '<select data-role="add-parent"><option value="">No parent goal</option>';
+  parentItems.forEach(function(p){
+    html += '<option value="'+p.id+'">'+escapeHtml(p.title)+'</option>';
+  });
+  html += '</select>';
+  return html;
+}
+
+function renderAddForm(level, periodKey, opts){
+  opts = opts || {};
+  var fixedTrackId = opts.fixedTrackId || null;
+  var placeholder = opts.placeholder || ('Add a '+LEVEL_SINGULAR[level]+' goal or task...');
+  var activeTracks = getTracks(false);
+  var trackSelectHtml = "";
+  var effectiveTrackId = fixedTrackId;
+  if(!fixedTrackId){
+    if(activeTracks.length===0){
+      return '<div class="empty-note">Create a track first using the 🗂️ button above.</div>';
+    }
+    trackSelectHtml = '<select data-role="add-track">';
+    activeTracks.forEach(function(t){
+      trackSelectHtml += '<option value="'+t.id+'">'+escapeHtml(t.emoji)+' '+escapeHtml(t.name)+'</option>';
+    });
+    trackSelectHtml += '</select>';
+    effectiveTrackId = activeTracks[0].id;
+  }
+  var parentLevel = PARENT_LEVEL[level];
+  var parentHtml = "";
+  if(parentLevel){
+    var parentPeriodKey = getParentPeriodKey(level, periodKey);
+    parentHtml = buildParentOptionsHtml(parentLevel, parentPeriodKey, effectiveTrackId);
+  }
+  var timeHtml = "";
+  if(level==="day"){
+    timeHtml = '<span class="time-field-group" title="Optional — plan when this happens today">'+
+      '<input type="time" class="time-input" data-role="add-start">'+
+      '<span class="time-sep">to</span>'+
+      '<input type="time" class="time-input" data-role="add-end">'+
+    '</span>';
+  }
+  var html = '<div class="add-form" data-add-level="'+level+'" data-add-period="'+periodKey+'"'+(fixedTrackId?(' data-fixed-track="'+fixedTrackId+'"'):'')+'>';
+  html += '<input type="text" placeholder="'+escapeAttr(placeholder)+'" data-role="add-title">';
+  if(timeHtml) html += timeHtml;
+  if(trackSelectHtml) html += trackSelectHtml;
+  if(parentHtml) html += parentHtml;
+  html += '<button data-action="'+(opts.actionName||"add-item")+'">+ Add</button>';
+  html += '</div>';
+  return html;
+}
+
+function renderPeriodView(level){
+  var keyField = level+"Key";
+  var curKey = nav[keyField];
+  var label = periodLabel(level, curKey);
+
+  var items = itemsAtTrack(level, curKey, nav.trackId);
+  var pct = items.length ? Math.round(items.reduce(function(s,i){return s+computeProgress(i);},0)/items.length) : 0;
+
+  var todayBtnKey = { year:getYearKey(new Date()), month:getMonthKey(new Date()), week:getWeekKey(new Date()), day:formatDateKey(new Date()) }[level];
+  var isToday = curKey===todayBtnKey;
+
+  var html = '';
+  html += '<div class="period-nav">';
+  html += '<button data-action="nav-prev" data-level="'+level+'" title="Previous">‹</button>';
+  html += '<div class="period-label">'+label+'</div>';
+  html += '<button data-action="nav-next" data-level="'+level+'" title="Next">›</button>';
+  if(!isToday) html += '<button class="today-btn" data-action="nav-today" data-level="'+level+'" style="margin-left:6px;">Today</button>';
+  html += '</div>';
+
+  html += renderTrackTabs();
+  html += renderFilterBar();
+
+  html += '<div class="card">';
+  html += '<div class="section-title"><h2>'+LEVEL_LABEL[level]+' Goals</h2></div>';
+  if(items.length) html += progressBar(pct) + '<div style="height:14px;"></div>';
+  html += renderAddForm(level, curKey, { fixedTrackId: nav.trackId!=="all" ? nav.trackId : null });
+  html += items.length ? renderItemList(items, level, {compact:false, showTrack: nav.trackId==="all", filter:true}) : '<div class="empty-note">Nothing here yet. Add your first '+LEVEL_SINGULAR[level]+' goal above 🎯</div>';
+  html += '</div>';
+
+  return html;
+}
+
+/* ============ Search ============ */
+function renderSearchResults(){
+  var q = ui.query.trim().toLowerCase();
+  var matches = state.items.filter(function(i){
+    if((i.title||"").toLowerCase().indexOf(q)!==-1) return true;
+    if((i.notes||"").toLowerCase().indexOf(q)!==-1) return true;
+    if(i.subtasks.some(function(s){ return (s.title||"").toLowerCase().indexOf(q)!==-1; })) return true;
+    var tr = getTrack(i.trackId);
+    if(tr && (tr.name||"").toLowerCase().indexOf(q)!==-1) return true;
+    return false;
+  });
+  var levelRank = { day:0, week:1, month:2, year:3 };
+  matches.sort(function(a,b){
+    if(levelRank[a.level]!==levelRank[b.level]) return levelRank[a.level]-levelRank[b.level];
+    if(a.periodKey!==b.periodKey) return a.periodKey>b.periodKey?-1:1;
+    return displaySort(a,b);
+  });
+
+  var html = '<div class="search-head">'+matches.length+' result'+(matches.length===1?"":"s")+' for &ldquo;'+escapeHtml(ui.query.trim())+'&rdquo;</div>';
+  if(matches.length===0){
+    return html + '<div class="card"><div class="empty-note">No tasks match your search.</div></div>';
+  }
+  html += '<div class="card">';
+  matches.forEach(function(item){
+    var color = getEffectiveColor(item);
+    var track = getTrack(item.trackId);
+    html += '<div class="search-result" style="border-left-color:'+color+';">'+
+      '<div class="chk '+(item.status==="done"?"checked":"")+'" data-action="toggle" data-id="'+item.id+'" title="Mark done">'+(item.status==="done"?"✓":"")+'</div>'+
+      '<div class="result-main">'+
+        '<div class="result-title '+(item.status==="done"?"done":"")+'">'+escapeHtml(item.title)+'</div>'+
+        '<div class="result-context">'+
+          (track?('<span class="tag track" style="background:'+track.color+';">'+escapeHtml(track.emoji)+' '+escapeHtml(track.name)+'</span>'):'')+
+          '<span class="tag">'+LEVEL_EMOJI[item.level]+' '+LEVEL_LABEL[item.level]+'</span>'+
+          '<span class="tag">'+escapeHtml(periodLabel(item.level, item.periodKey))+'</span>'+
+          (item.priority?'<span class="tag" style="color:var(--star);">★</span>':'')+
+        '</div>'+
+      '</div>'+
+      '<button class="result-go" data-action="go-to-item" data-id="'+item.id+'">Open →</button>'+
+    '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+/* ============ Event handling ============ */
+document.getElementById("tabs").addEventListener("click", function(e){
+  var btn = e.target.closest(".tab");
+  if(!btn) return;
+  clearSearch();
+  nav.view = btn.dataset.view;
+  render();
+});
+
+app.addEventListener("click", function(e){
+  var el = e.target.closest("[data-action]");
+  if(!el) return;
+  var action = el.dataset.action;
+  var id = el.dataset.id;
+
+  if(action==="toggle"){
+    toggleDone(id);
+    el.classList.add("pop");
+    render();
+  } else if(action==="delete"){
+    deleteItem(id);
+    render();
+  } else if(action==="move-next"){
+    moveItemForward(id);
+  } else if(action==="toggle-priority"){
+    togglePriority(id);
+    render();
+  } else if(action==="toggle-expand"){
+    ui.expanded[id] = !ui.expanded[id];
+    render();
+  } else if(action==="add-sub"){
+    var subForm = el.closest(".subtask-add");
+    var subInput = subForm.querySelector('[data-role="sub-title"]');
+    if(subInput && subInput.value.trim()){
+      addSubtask(id, subInput.value);
+      pendingFocus = "subadd-"+id;
+      render();
+    }
+  } else if(action==="toggle-sub"){
+    toggleSubtask(id, el.dataset.sub);
+    render();
+  } else if(action==="delete-sub"){
+    deleteSubtask(id, el.dataset.sub);
+    render();
+  } else if(action==="goto"){
+    nav.view = el.dataset.view;
+    render();
+  } else if(action==="go-to-item"){
+    var it = getItem(id);
+    if(it){
+      clearSearch();
+      nav.view = it.level;
+      nav[it.level+"Key"] = it.periodKey;
+      nav.trackId = "all";
+      ui.filter = "all";
+      ui.expanded[id] = true;
+      render();
+    }
+  } else if(action==="set-filter"){
+    ui.filter = el.dataset.filter;
+    render();
+  } else if(action==="add-item" || action==="quick-add"){
+    var form = el.closest(".add-form");
+    var level = form.dataset.addLevel;
+    var period = form.dataset.addPeriod;
+    var titleInput = form.querySelector('[data-role="add-title"]');
+    var trackSelect = form.querySelector('[data-role="add-track"]');
+    var parentSelect = form.querySelector('[data-role="add-parent"]');
+    var startInput = form.querySelector('[data-role="add-start"]');
+    var endInput = form.querySelector('[data-role="add-end"]');
+    var trackId = trackSelect ? trackSelect.value : form.dataset.fixedTrack;
+    var parentId = parentSelect ? (parentSelect.value || null) : null;
+    if(!trackId){ alert("Create a track first (🗂️ button, top right)."); return; }
+    if(!titleInput.value.trim()) return;
+    addItem(level, period, titleInput.value, parentId, trackId,
+      startInput ? startInput.value : null, endInput ? endInput.value : null);
+    titleInput.value = "";
+    if(startInput) startInput.value = "";
+    if(endInput) endInput.value = "";
+    render();
+  } else if(action==="nav-today"){
+    var lvl2 = el.dataset.level;
+    var now = new Date();
+    var map = { year:getYearKey(now), month:getMonthKey(now), week:getWeekKey(now), day:formatDateKey(now) };
+    nav[lvl2+"Key"] = map[lvl2];
+    render();
+  } else if(action==="set-track"){
+    nav.trackId = el.dataset.track;
+    render();
+  } else if(action==="focus-track"){
+    nav.trackId = el.dataset.track;
+    nav.view = "day";
+    render();
+  } else if(action==="open-tracks"){
+    openTracksModal();
+  }
+});
+
+// dynamically refresh the parent-goal dropdown when the track selector changes
+app.addEventListener("change", function(e){
+  var trackSelect = e.target.closest('[data-role="add-track"]');
+  if(!trackSelect) return;
+  var form = trackSelect.closest(".add-form");
+  var level = form.dataset.addLevel;
+  var period = form.dataset.addPeriod;
+  var parentLevel = PARENT_LEVEL[level];
+  if(!parentLevel) return;
+  var parentPeriodKey = getParentPeriodKey(level, period);
+  var newHtml = buildParentOptionsHtml(parentLevel, parentPeriodKey, trackSelect.value);
+  var oldParentSelect = form.querySelector('[data-role="add-parent"]');
+  if(oldParentSelect){
+    var wrapper = document.createElement("div");
+    wrapper.innerHTML = newHtml;
+    oldParentSelect.replaceWith(wrapper.firstElementChild);
+  }
+});
+
+// inline edits (title, times, notes, subtasks) — save without a full re-render where possible
+app.addEventListener("change", function(e){
+  var titleInput = e.target.closest('[data-action="edit-title"]');
+  if(titleInput){ updateTitle(titleInput.dataset.id, titleInput.value); return; }
+
+  var startInput = e.target.closest('[data-action="edit-start"]');
+  if(startInput){ updateItemTime(startInput.dataset.id, "startTime", startInput.value); render(); return; }
+  var endInput = e.target.closest('[data-action="edit-end"]');
+  if(endInput){ updateItemTime(endInput.dataset.id, "endTime", endInput.value); render(); return; }
+
+  var notesInput = e.target.closest('[data-action="edit-notes"]');
+  if(notesInput){ updateNotes(notesInput.dataset.id, notesInput.value); return; }
+
+  var subInput = e.target.closest('[data-action="edit-sub"]');
+  if(subInput){ updateSubtaskTitle(subInput.dataset.id, subInput.dataset.sub, subInput.value); return; }
+});
+
+app.addEventListener("keydown", function(e){
+  if(e.target.matches('[data-action="edit-title"]') && e.key==="Enter"){
+    e.target.blur();
+  }
+  if(e.target.matches('[data-action="edit-sub"]') && e.key==="Enter"){
+    e.target.blur();
+  }
+  if(e.target.matches('[data-role="add-title"]') && e.key==="Enter"){
+    e.preventDefault();
+    var form = e.target.closest(".add-form");
+    var btn = form.querySelector('[data-action="add-item"], [data-action="quick-add"]');
+    if(btn) btn.click();
+  }
+  if(e.target.matches('[data-role="sub-title"]') && e.key==="Enter"){
+    e.preventDefault();
+    var addBtn = e.target.closest(".subtask-add").querySelector('[data-action="add-sub"]');
+    if(addBtn) addBtn.click();
+  }
+});
+
+function shiftNavKey(level, key, dir){
+  if(level==="day") return formatDateKey(addDays(parseDateKey(key), dir));
+  if(level==="week") return shiftWeekKey(key, dir);
+  if(level==="month") return shiftMonthKey(key, dir);
+  if(level==="year") return shiftYearKey(key, dir);
+}
+app.addEventListener("click", function(e){
+  var el = e.target.closest('[data-action="nav-prev"], [data-action="nav-next"]');
+  if(!el) return;
+  var lvl = el.dataset.level;
+  var dir = el.dataset.action==="nav-prev" ? -1 : 1;
+  var keyField = lvl+"Key";
+  nav[keyField] = shiftNavKey(lvl, nav[keyField], dir);
+  render();
+});
+
+/* ============ Drag to reorder ============ */
+var dragId = null;
+app.addEventListener("dragstart", function(e){
+  var handle = e.target.closest(".drag-handle");
+  if(!handle){ return; }
+  dragId = handle.dataset.dragId;
+  var row = handle.closest(".item-row");
+  try{ e.dataTransfer.setData("text/plain", dragId); }catch(_){}
+  e.dataTransfer.effectAllowed = "move";
+  if(row){ row.classList.add("dragging"); try{ e.dataTransfer.setDragImage(row, 20, 20); }catch(_){} }
+});
+app.addEventListener("dragover", function(e){
+  if(!dragId) return;
+  var row = e.target.closest(".item-row");
+  if(!row) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+  document.querySelectorAll(".item-row.drag-over").forEach(function(el){ el.classList.remove("drag-over"); });
+  row.classList.add("drag-over");
+});
+app.addEventListener("drop", function(e){
+  if(!dragId) return;
+  var row = e.target.closest(".item-row");
+  if(!row){ dragId=null; return; }
+  e.preventDefault();
+  var targetId = row.dataset.itemId;
+  var rect = row.getBoundingClientRect();
+  var after = (e.clientY - rect.top) > rect.height/2;
+  reorderItem(dragId, targetId, after);
+  dragId = null;
+  render();
+});
+app.addEventListener("dragend", function(){
+  dragId = null;
+  document.querySelectorAll(".item-row.dragging, .item-row.drag-over").forEach(function(el){ el.classList.remove("dragging","drag-over"); });
+});
+
+/* ============ Search box ============ */
+var searchInput = document.getElementById("searchInput");
+var searchClear = document.getElementById("searchClear");
+searchInput.addEventListener("input", function(){
+  ui.query = searchInput.value;
+  searchClear.style.display = ui.query ? "block" : "none";
+  render();
+});
+searchClear.addEventListener("click", function(){ clearSearch(); render(); searchInput.focus(); });
+searchInput.addEventListener("keydown", function(e){ if(e.key==="Escape"){ clearSearch(); render(); } });
+function clearSearch(){
+  ui.query = "";
+  searchInput.value = "";
+  searchClear.style.display = "none";
+}
+
+/* ============ Theme ============ */
+var themeBtn = document.getElementById("themeBtn");
+function syncThemeBtn(){
+  var t = document.documentElement.getAttribute("data-theme");
+  themeBtn.textContent = t==="dark" ? "☀️" : "🌙";
+  themeBtn.title = t==="dark" ? "Switch to light" : "Switch to dark";
+}
+themeBtn.addEventListener("click", function(){
+  var cur = document.documentElement.getAttribute("data-theme");
+  var next = cur==="dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+  syncThemeBtn();
+});
+syncThemeBtn();
+
+/* ============ Tracks modal ============ */
+var tracksModal = document.getElementById("tracksModal");
+function openTracksModal(){
+  renderTracksModalBody();
+  tracksModal.classList.add("open");
+}
+function renderTracksModalBody(){
+  var container = document.getElementById("tracksListContainer");
+  var html = "";
+  getTracks(true).forEach(function(t){
+    var count = countItemsInTrack(t.id);
+    html += '<div class="track-row">'+
+      '<span class="track-dot" data-action="cycle-track-color" data-id="'+t.id+'" style="background:'+t.color+';" title="Click to change color"></span>'+
+      '<input type="text" class="track-name-input" data-track-id="'+t.id+'" value="'+escapeAttr(t.name)+'">'+
+      '<span style="font-size:11px;color:var(--ink-soft);white-space:nowrap;">'+count+' item'+(count===1?"":"s")+'</span>'+
+      '<span class="tag" data-action="toggle-archive-track" data-id="'+t.id+'">'+(t.archived?"Unarchive":"Archive")+'</span>'+
+      '<span class="tag" data-action="delete-track" data-id="'+t.id+'" style="color:#C4265A;">Delete</span>'+
+    '</div>';
+  });
+  container.innerHTML = html || "<p>No tracks yet — add one below.</p>";
+}
+document.getElementById("tracksBtn").addEventListener("click", openTracksModal);
+document.getElementById("closeTracks").addEventListener("click", function(){ tracksModal.classList.remove("open"); });
+tracksModal.addEventListener("click", function(e){
+  if(e.target===tracksModal){ tracksModal.classList.remove("open"); return; }
+
+  var dotBtn = e.target.closest('[data-action="cycle-track-color"]');
+  if(dotBtn){
+    var t1 = getTrack(dotBtn.dataset.id);
+    var idx = COLORS.indexOf(t1.color);
+    var nextColor = COLORS[(idx+1+COLORS.length)%COLORS.length];
+    setTrackColor(t1.id, nextColor);
+    renderTracksModalBody(); render();
+    return;
+  }
+  var archBtn = e.target.closest('[data-action="toggle-archive-track"]');
+  if(archBtn){
+    toggleArchiveTrack(archBtn.dataset.id);
+    renderTracksModalBody(); render();
+    return;
+  }
+  var delBtn = e.target.closest('[data-action="delete-track"]');
+  if(delBtn){
+    if(countItemsInTrack(delBtn.dataset.id)>0){
+      alert("This track still has goals or tasks in it. Archive it instead, or delete its items first.");
+    } else if(confirm("Delete this track? This can't be undone.")){
+      deleteTrack(delBtn.dataset.id);
+      renderTracksModalBody(); render();
+    }
+    return;
+  }
+});
+tracksModal.addEventListener("change", function(e){
+  var nameInput = e.target.closest(".track-name-input");
+  if(!nameInput) return;
+  renameTrack(nameInput.dataset.trackId, nameInput.value);
+  render();
+});
+document.getElementById("addTrackBtn").addEventListener("click", function(){
+  var emojiInput = document.getElementById("newTrackEmoji");
+  var nameInput = document.getElementById("newTrackName");
+  if(!nameInput.value.trim()) return;
+  var color = COLORS[state.tracks.length % COLORS.length];
+  var t = addTrack(nameInput.value, emojiInput.value, color);
+  if(t){
+    nameInput.value = ""; emojiInput.value = "";
+    renderTracksModalBody(); render();
+    showToast("Track \""+t.name+"\" added 🗂️");
+  }
+});
+
+/* ============ Storage: this device + offline folder ============ */
+var storageMode = "local";
+try{ storageMode = localStorage.getItem(MODE_KEY) || "local"; }catch(e){}
+var dirHandle = null;
+var folderStatus = "idle"; // idle | ok | reconnect | error
+var folderSyncTimer = null;
+var fsaSupported = (typeof window.showDirectoryPicker === "function");
+
+/* Tiny IndexedDB store for the directory handle (survives reloads). */
+function idbOpen(){
+  return new Promise(function(resolve, reject){
+    var req = indexedDB.open("planItStore", 1);
+    req.onupgradeneeded = function(){ req.result.createObjectStore("handles"); };
+    req.onsuccess = function(){ resolve(req.result); };
+    req.onerror = function(){ reject(req.error); };
+  });
+}
+function idbSet(key, val){
+  return idbOpen().then(function(db){
+    return new Promise(function(resolve, reject){
+      var tx = db.transaction("handles","readwrite");
+      tx.objectStore("handles").put(val, key);
+      tx.oncomplete = resolve; tx.onerror = function(){ reject(tx.error); };
+    });
+  });
+}
+function idbGet(key){
+  return idbOpen().then(function(db){
+    return new Promise(function(resolve, reject){
+      var tx = db.transaction("handles","readonly");
+      var r = tx.objectStore("handles").get(key);
+      r.onsuccess = function(){ resolve(r.result); };
+      r.onerror = function(){ reject(r.error); };
+    });
+  });
+}
+function idbDel(key){
+  return idbOpen().then(function(db){
+    return new Promise(function(resolve, reject){
+      var tx = db.transaction("handles","readwrite");
+      tx.objectStore("handles").delete(key);
+      tx.oncomplete = resolve; tx.onerror = function(){ reject(tx.error); };
+    });
+  });
+}
+
+function scheduleFolderSync(){
+  if(storageMode!=="folder" || !dirHandle) return;
+  clearTimeout(folderSyncTimer);
+  folderSyncTimer = setTimeout(writeFolder, 700);
+}
+function setFolderStatus(s){
+  folderStatus = s;
+  if(settingsModal.classList.contains("open")) renderSyncSection();
+}
+function writeFolder(){
+  if(!dirHandle) return Promise.resolve();
+  return dirHandle.queryPermission({mode:"readwrite"}).then(function(p){
+    if(p!=="granted"){ setFolderStatus("reconnect"); return; }
+    return dirHandle.getFileHandle("plan-it.json", {create:true}).then(function(fh){
+      return fh.createWritable().then(function(w){
+        return w.write(JSON.stringify(state,null,2)).then(function(){ return w.close(); });
+      });
+    }).then(function(){ setFolderStatus("ok"); });
+  }).catch(function(){ setFolderStatus("error"); });
+}
+function importData(data){
+  if(!data || typeof data!=="object" || !Array.isArray(data.items)) return false;
+  if(!Array.isArray(data.tracks)) data.tracks = [];
+  normalizeItems(data);
+  migrateTracks(data);
+  state = data;
+  nav.trackId = "all";
+  ui.expanded = {};
+  saveLocal();
+  runAutoRollover();
+  return true;
+}
+function pickFolder(){
+  if(!fsaSupported){ alert("This browser doesn't support choosing a folder. Use Export/Import instead, or try Chrome/Edge on desktop."); return; }
+  window.showDirectoryPicker({mode:"readwrite"}).then(function(h){
+    dirHandle = h;
+    return idbSet("dirHandle", h).then(function(){
+      storageMode = "folder";
+      try{ localStorage.setItem(MODE_KEY, "folder"); }catch(e){}
+      // If a plan-it.json already lives in that folder, offer to load it.
+      return h.getFileHandle("plan-it.json").then(function(fh){
+        return fh.getFile().then(function(f){ return f.text(); });
+      }).then(function(txt){
+        if(txt && txt.trim() && confirm("Found plan-it.json in this folder.\n\nLoad it? (Cancel keeps this device's current data and overwrites the file.)")){
+          try{ importData(JSON.parse(txt)); }catch(e){}
+        }
+        return writeFolder();
+      }).catch(function(){ return writeFolder(); });
+    });
+  }).then(function(){
+    setFolderStatus("ok");
+    renderSyncSection(); render();
+    showToast("Linked offline folder 📁");
+  }).catch(function(err){
+    if(err && err.name==="AbortError") return; // user cancelled
+    setFolderStatus("error");
+    renderSyncSection();
+  });
+}
+function reconnectFolder(){
+  if(!dirHandle) return;
+  dirHandle.requestPermission({mode:"readwrite"}).then(function(p){
+    if(p!=="granted"){ setFolderStatus("reconnect"); return; }
+    // Pull the latest from disk, then resume auto-save.
+    dirHandle.getFileHandle("plan-it.json").then(function(fh){
+      return fh.getFile().then(function(f){ return f.text(); });
+    }).then(function(txt){
+      if(txt && txt.trim()){
+        try{ importData(JSON.parse(txt)); }catch(e){}
+      }
+      setFolderStatus("ok");
+      renderSyncSection(); render();
+      showToast("Folder reconnected 📁");
+    }).catch(function(){ setFolderStatus("ok"); renderSyncSection(); writeFolder(); });
+  });
+}
+function unlinkFolder(){
+  dirHandle = null;
+  storageMode = "local";
+  try{ localStorage.setItem(MODE_KEY, "local"); }catch(e){}
+  idbDel("dirHandle");
+  setFolderStatus("idle");
+  renderSyncSection();
+  showToast("Back to this-device storage");
+}
+
+/* Restore a previously linked folder handle on load. */
+if(storageMode==="folder" && fsaSupported){
+  idbGet("dirHandle").then(function(h){
+    if(!h){ storageMode="local"; try{ localStorage.setItem(MODE_KEY,"local"); }catch(e){} return; }
+    dirHandle = h;
+    return h.queryPermission({mode:"readwrite"}).then(function(p){
+      setFolderStatus(p==="granted" ? "ok" : "reconnect");
+      if(p!=="granted"){
+        showToast("📁 Open Settings to reconnect your folder");
+      }
+    });
+  }).catch(function(){});
+}
+
+/* ============ Settings modal ============ */
+var settingsModal = document.getElementById("settingsModal");
+var syncContainer = document.getElementById("syncContainer");
+
+function statusPill(){
+  if(storageMode!=="folder") return '';
+  if(folderStatus==="ok") return '<span class="pill on">Auto-saving ✓</span>';
+  if(folderStatus==="reconnect") return '<span class="pill warn">Tap reconnect</span>';
+  if(folderStatus==="error") return '<span class="pill warn">Write error</span>';
+  return '<span class="pill off">Linked</span>';
+}
+function renderSyncSection(){
+  var localActive = storageMode==="local";
+  var folderActive = storageMode==="folder";
+  var html = '<div class="sync-modes">';
+
+  // This device
+  html += '<div class="mode-card '+(localActive?"active":"")+'">'+
+    '<div class="mode-ic">💻</div>'+
+    '<div class="mode-body">'+
+      '<div class="mode-title">This device '+(localActive?'<span class="pill on">Active</span>':'')+'</div>'+
+      '<div class="mode-desc">Saved privately in this browser (localStorage). Always on, works offline, nothing leaves your machine. Doesn\'t sync to other devices on its own.</div>'+
+      (localActive?'':'<div class="mode-actions"><button data-sync="use-local">Use this device</button></div>')+
+    '</div>'+
+  '</div>';
+
+  // Offline folder
+  html += '<div class="mode-card '+(folderActive?"active":"")+'">'+
+    '<div class="mode-ic">📁</div>'+
+    '<div class="mode-body">'+
+      '<div class="mode-title">Offline folder '+statusPill()+'</div>'+
+      '<div class="mode-desc">Pick a folder on your disk — every change auto-saves to <code>plan-it.json</code> inside it. '+
+        'Choose a folder inside your <b>Google Drive / Dropbox / OneDrive</b> and it syncs to your other devices for free.</div>';
+  if(!fsaSupported){
+    html += '<div class="note-box">Your browser can\'t pick folders. This works in Chrome, Edge or Brave on desktop. Everywhere else, use the Export / Import backup below.</div>';
+  } else {
+    html += '<div class="mode-actions">';
+    if(!folderActive){
+      html += '<button class="go" data-sync="pick-folder">Choose folder…</button>';
+    } else {
+      if(folderStatus==="reconnect") html += '<button class="go" data-sync="reconnect-folder">Reconnect &amp; load</button>';
+      html += '<button data-sync="pick-folder">Change folder…</button>';
+      html += '<button data-sync="unlink-folder">Unlink</button>';
+    }
+    html += '</div>';
+  }
+  html += '</div></div>';
+
+  html += '</div>';
+  syncContainer.innerHTML = html;
+}
+syncContainer.addEventListener("click", function(e){
+  var btn = e.target.closest("[data-sync]");
+  if(!btn) return;
+  var a = btn.dataset.sync;
+  if(a==="use-local"){
+    storageMode="local"; try{ localStorage.setItem(MODE_KEY,"local"); }catch(e){}
+    renderSyncSection(); showToast("Saving to this device");
+  } else if(a==="pick-folder"){ pickFolder(); }
+  else if(a==="reconnect-folder"){ reconnectFolder(); }
+  else if(a==="unlink-folder"){ unlinkFolder(); }
+});
+
+document.getElementById("settingsBtn").addEventListener("click", function(){ renderSyncSection(); settingsModal.classList.add("open"); });
+document.getElementById("closeSettings").addEventListener("click", function(){ settingsModal.classList.remove("open"); });
+settingsModal.addEventListener("click", function(e){ if(e.target===settingsModal) settingsModal.classList.remove("open"); });
+
+document.getElementById("exportBtn").addEventListener("click", function(){
+  var blob = new Blob([JSON.stringify(state,null,2)], {type:"application/json"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "plan-it-backup-"+formatDateKey(new Date())+".json";
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("Backup downloaded ⬇️");
+});
+
+document.getElementById("importInput").addEventListener("change", function(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    try{
+      var data = JSON.parse(ev.target.result);
+      if(!importData(data)) throw new Error("bad format");
+      saveState();
+      render();
+      settingsModal.classList.remove("open");
+      showToast("Backup restored ✅");
+    }catch(err){
+      alert("Couldn't read that file — make sure it's a Plan It backup .json file.");
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+document.getElementById("resetBtn").addEventListener("click", function(){
+  if(confirm("This will permanently delete all goals, tasks, and tracks on this device. Are you sure?")){
+    state = { items: [], tracks: [] };
+    migrateTracks(state);
+    nav.trackId = "all";
+    ui.expanded = {};
+    saveState();
+    render();
+    settingsModal.classList.remove("open");
+    showToast("All data cleared");
+  }
+});
+
+/* ============ Service worker (offline / installable) ============ */
+if("serviceWorker" in navigator && location.protocol!=="file:"){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("sw.js").catch(function(){});
+  });
+}
+
+/* ============ Init ============ */
+render();
+
+})();
+</script>
+</body>
+</html>
