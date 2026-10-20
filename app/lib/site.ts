@@ -56,6 +56,11 @@ export const news: NewsItem[] = [
     url: "https://geoai4cities.github.io/bhopalmls/",
   },
   {
+    date: "Aug 2026",
+    text: "Founded the IEEE GRSS Student Branch Chapter at IISER Bhopal and serving as its founding Chair.",
+    url: "#experience",
+  },
+  {
     date: "Jun 2026",
     text: "New journal paper in Applied Intelligence on deep-learning semantic segmentation of subsampled LiDAR point clouds.",
     url: "https://doi.org/10.1007/s10489-026-07282-2",
@@ -319,6 +324,19 @@ export interface Experience {
 }
 
 export const experience: Experience[] = [
+  {
+    title: "Founding Chair",
+    org: "IEEE GRSS Student Branch Chapter, IISER Bhopal",
+    period: "Aug 2026 - Present",
+    advisor: {
+      name: profile.affiliation.advisor,
+      url: profile.affiliation.advisorUrl,
+    },
+    points: [
+      "Led the petition to found the chapter under the IEEE Madhya Pradesh Section (Region 10), approved in Aug 2026, and oversaw the election of its first officer team.",
+      "Building its first-year programme: distinguished lectures, hands-on workshops in remote sensing and 3D vision, a paper-discussion group and an annual geospatial data challenge.",
+    ],
+  },
   {
     title: "Doctoral Researcher",
     org: "GeoAI4Cities Lab, IISER Bhopal",
