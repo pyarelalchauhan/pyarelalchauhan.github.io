@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { heroFigure, profile } from "../lib/site";
 import { socials } from "./socials";
+import HeroVideo from "./HeroVideo";
 
 export default function Hero() {
   return (
@@ -72,19 +73,16 @@ export default function Hero() {
       </div>
 
       <figure className="mt-8 sm:mt-10">
-        {/* The figure is a crop, so its side edges fade out instead of ending in a hard cut. */}
-        <Image
-          src={heroFigure.src}
-          alt={heroFigure.alt}
+        <HeroVideo
+          src={heroFigure.video}
+          poster={heroFigure.poster}
           width={heroFigure.width}
           height={heroFigure.height}
-          priority
-          sizes="(min-width: 896px) 848px, calc(100vw - 48px)"
-          className="h-auto w-full [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]"
+          label={heroFigure.label}
         />
         <figcaption className="mt-3 flex flex-col gap-2 text-sm text-slate-500 dark:text-slate-400">
           <span>
-            A street in Bhopal from the{" "}
+            Moving along a street in Bhopal in the{" "}
             <a
               href={heroFigure.datasetUrl}
               target="_blank"
@@ -100,7 +98,7 @@ export default function Hero() {
               <li key={c.label} className="inline-flex items-center gap-1.5">
                 <span
                   aria-hidden="true"
-                  className="h-2 w-2 rounded-full"
+                  className="h-2 w-2 rounded-full ring-1 ring-black/10 dark:ring-white/25"
                   style={{ backgroundColor: c.color }}
                 />
                 {c.label}
