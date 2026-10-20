@@ -69,6 +69,8 @@ const jsonLd = {
     name: profile.affiliation.institute,
     url: profile.affiliation.instituteUrl,
   },
+  workLocation: { "@type": "Place", name: profile.location },
+  homeLocation: { "@type": "Place", name: profile.hometown },
   knowsAbout: [
     "3D Computer Vision",
     "LiDAR",

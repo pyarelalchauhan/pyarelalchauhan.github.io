@@ -34,7 +34,8 @@ export default function Hero() {
         <Link href="/#venture" className="link-underline">
           {profile.founderOf}
         </Link>
-        . Based in {profile.location}.
+        . Based in {profile.location.replace(/, India$/, "")}. Originally from{" "}
+        {profile.hometown}.
       </p>
 
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">

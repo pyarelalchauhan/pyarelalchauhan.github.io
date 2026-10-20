@@ -22,7 +22,8 @@ export const profile = {
   // One-line research statement shown in the hero.
   tagline:
     "I develop deep learning methods for 3D point clouds, LiDAR, and multi-source geospatial data to better understand and plan urban environments.",
-  location: "Bhopal, Madhya Pradesh, India",
+  location: "Bhopal, Madhya Pradesh, India", // current
+  hometown: "Bilaspur, Himachal Pradesh, India", // permanent
   email: "pyare22@iiserb.ac.in",
   orcid: "0009-0002-0793-9240",
   // Default CV, plus a version that includes citation metrics.
