@@ -93,7 +93,7 @@ export const news: NewsItem[] = [
 
 // Short bio paragraphs for the About section.
 export const about: string[] = [
-  `My work sits at the intersection of 3D computer vision and geospatial science. Most recently, BhopalMLS, my first-author mobile-LiDAR dataset of dense, unplanned Indian streets, was accepted at WACV 2027, and I founded ${profile.founderOf}, an applied-AI venture for urban planning.`,
+  "My work sits at the intersection of 3D computer vision and geospatial science.",
   `My doctoral research, "${profile.thesis}", develops deep learning models for semantic segmentation of mobile LiDAR point clouds, domain adaptation across urban scenes, and the fusion of LiDAR, street-view imagery, and other 2D and 3D geospatial data for applications such as pedestrian-oriented route planning and urban quality-of-life assessment.`,
 ];
 
