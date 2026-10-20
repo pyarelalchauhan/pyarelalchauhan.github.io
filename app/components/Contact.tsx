@@ -1,7 +1,8 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiGooglescholar } from "react-icons/si";
-import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
+import { HiOutlineMail } from "react-icons/hi";
 import { Section } from "./ui";
+import Locations from "./Locations";
 import { profile } from "../lib/site";
 
 export default function Contact() {
@@ -27,15 +28,7 @@ export default function Contact() {
         opportunities. Feel free to reach out.
       </p>
 
-      <div className="mt-6 flex items-start gap-2 text-sm text-slate-500">
-        <HiOutlineLocationMarker size="1.1rem" className="mt-0.5 shrink-0" />
-        <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
-          <dt className="font-medium text-slate-600 dark:text-slate-400">Current</dt>
-          <dd>{profile.location}</dd>
-          <dt className="font-medium text-slate-600 dark:text-slate-400">Permanent</dt>
-          <dd>{profile.hometown}</dd>
-        </dl>
-      </div>
+      <Locations className="mt-6" />
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {items.map(({ Icon, label, href }) => (

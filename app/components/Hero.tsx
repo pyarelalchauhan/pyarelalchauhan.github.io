@@ -3,6 +3,7 @@ import Link from "next/link";
 import { heroFigure, profile } from "../lib/site";
 import { socials } from "./socials";
 import HeroVideo from "./HeroVideo";
+import Locations from "./Locations";
 
 export default function Hero() {
   return (
@@ -34,9 +35,9 @@ export default function Hero() {
         <Link href="/#venture" className="link-underline">
           {profile.founderOf}
         </Link>
-        . Based in {profile.location.replace(/, India$/, "")}. Originally from{" "}
-        {profile.hometown}.
+        .
       </p>
+      <Locations className="mt-3" />
 
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
         <a
