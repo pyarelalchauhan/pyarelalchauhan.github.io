@@ -5,7 +5,7 @@ import { venture } from "../lib/site";
 
 export default function Venture() {
   return (
-    <Section id="venture" title="Venture">
+    <Section id="venture" title="Venture" wide>
       <div className="rounded-xl border border-slate-200 p-6 dark:border-slate-800">
         <div className="flex items-start gap-4">
           <Image

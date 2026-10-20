@@ -3,7 +3,6 @@ import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import TopNav from "./components/TopNav";
-import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import { profile, siteUrl } from "./lib/site";
 
@@ -108,13 +107,8 @@ export default function RootLayout({
             Skip to content
           </a>
           <TopNav />
-          <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
-            <Sidebar />
-            <div className="min-w-0 flex-1">
-              <main id="main-content">{children}</main>
-              <Footer />
-            </div>
-          </div>
+          <main id="main-content">{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>

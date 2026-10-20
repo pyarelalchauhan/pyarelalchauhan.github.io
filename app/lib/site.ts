@@ -41,6 +41,25 @@ export const profile = {
   },
 };
 
+// Point-cloud figure at the top of the home page (from the BhopalMLS supplementary, Fig. S3).
+export const heroFigure = {
+  src: "/images/bhopalmls_street.webp",
+  width: 1169,
+  height: 581,
+  alt: "Point cloud of a street in Bhopal: buildings, a large tree, overhead wires, poles and parked vehicles, each coloured by its class.",
+  dataset: "BhopalMLS",
+  datasetUrl: "https://geoai4cities.github.io/bhopalmls/",
+  // Class colours as drawn in the figure.
+  legend: [
+    { label: "Building", color: "#c8202a" },
+    { label: "Vegetation", color: "#2a8a2a" },
+    { label: "Wire", color: "#fcc80c" },
+    { label: "Pole", color: "#4b0a82" },
+    { label: "Vehicle", color: "#2496f8" },
+    { label: "Road", color: "#848484" },
+  ],
+};
+
 export interface NewsItem {
   date: string; // display string, e.g. "Jun 2026"
   text: string;

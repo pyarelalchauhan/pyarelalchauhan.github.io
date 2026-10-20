@@ -55,7 +55,7 @@ export default function Experience() {
       </div>
 
       <div className="mt-8">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <h3 className="text-lg font-semibold">
           Teaching
         </h3>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
@@ -86,7 +86,7 @@ export default function Experience() {
       </div>
 
       <div className="mt-8">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <h3 className="text-lg font-semibold">
           Service
         </h3>
         {service.map((s) => (

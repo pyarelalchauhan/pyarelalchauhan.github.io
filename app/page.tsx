@@ -1,3 +1,4 @@
+import Hero from "./components/Hero";
 import About from "./components/About";
 import News from "./components/News";
 import Publications from "./components/Publications";
@@ -13,6 +14,7 @@ import Contact from "./components/Contact";
 export default function Home() {
   return (
     <>
+      <Hero />
       <About />
       <News />
       <Publications />

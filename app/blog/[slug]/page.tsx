@@ -32,7 +32,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
+    <div className="mx-auto max-w-4xl px-6 py-16">
       <Link
         href="/blog"
         className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-accent-700 dark:hover:text-accent-400"
@@ -40,7 +40,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <FiArrowLeft size="0.9rem" /> All posts
       </Link>
 
-      <article className="mt-6">
+      <article className="mt-6 max-w-3xl">
         <time className="text-sm text-slate-500">{formatDate(post.date)}</time>
         <h1 className="mt-1 text-3xl font-bold tracking-tight">{post.title}</h1>
 

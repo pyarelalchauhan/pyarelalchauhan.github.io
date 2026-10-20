@@ -1,22 +1,12 @@
-import { FaGithub, FaLinkedin, FaOrcid, FaResearchgate } from "react-icons/fa";
-import { SiGooglescholar } from "react-icons/si";
-import { HiOutlineMail } from "react-icons/hi";
 import { profile } from "../lib/site";
+import { socials } from "./socials";
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const socials = [
-    { href: profile.socials.googleScholar, label: "Google Scholar", Icon: SiGooglescholar },
-    { href: profile.socials.orcid, label: "ORCID", Icon: FaOrcid },
-    { href: profile.socials.researchgate, label: "ResearchGate", Icon: FaResearchgate },
-    { href: profile.socials.github, label: "GitHub", Icon: FaGithub },
-    { href: profile.socials.linkedin, label: "LinkedIn", Icon: FaLinkedin },
-    { href: `mailto:${profile.email}`, label: "Email", Icon: HiOutlineMail },
-  ];
 
   return (
     <footer className="border-t border-slate-200 dark:border-slate-800">
-      <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
+      <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
         <p className="text-sm text-slate-500">
           © {year} {profile.name}
         </p>

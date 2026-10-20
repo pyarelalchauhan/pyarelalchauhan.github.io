@@ -11,13 +11,13 @@ export default function BlogIndex() {
   const posts = getAllPosts();
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
+    <div className="mx-auto max-w-4xl px-6 py-16">
       <h1 className="text-3xl font-bold tracking-tight">Blog</h1>
       <p className="mt-2 text-slate-600 dark:text-slate-400">
         Notes on 3D vision, LiDAR, and geospatial deep learning.
       </p>
 
-      <div className="mt-10 space-y-8">
+      <div className="mt-10 max-w-3xl space-y-8">
         {posts.length === 0 && (
           <p className="text-slate-500">No posts yet. Check back soon.</p>
         )}

@@ -274,7 +274,7 @@ export default function Publications() {
   if (order === "Oldest") list.reverse();
 
   return (
-    <Section id="publications" title="Publications">
+    <Section id="publications" title="Publications" wide>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-sm">
         <a
           href={allPapersUrl}
@@ -304,7 +304,7 @@ export default function Publications() {
 
       {patents.length > 0 && (
         <div className="mt-10">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <h3 className="mb-4 text-lg font-semibold">
             Patents
           </h3>
           <ul className="space-y-4">
