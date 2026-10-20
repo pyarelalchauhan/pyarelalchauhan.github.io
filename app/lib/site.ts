@@ -47,9 +47,9 @@ export const profile = {
 export const heroFigure = {
   video: "/images/bhopalmls_street.mp4",
   poster: "/images/bhopalmls_street_poster.webp",
-  width: 1280,
-  height: 536,
-  label: "A slow camera sweep above a tree-lined street in Bhopal, seen as a point cloud: buildings, trees, parked vehicles, poles and overhead wires, each point coloured by its class.",
+  width: 960,
+  height: 402,
+  label: "The camera turns a full circle above a tree-lined street in Bhopal, seen as a point cloud: buildings, trees, parked vehicles, poles and overhead wires, each point coloured by its class.",
   dataset: "BhopalMLS",
   datasetUrl: "https://geoai4cities.github.io/bhopalmls/",
   viewerUrl: "https://geoai4cities.github.io/bhopalmls/#scenes",
