@@ -84,7 +84,7 @@ export default function Hero() {
         />
         <figcaption className="mt-3 flex flex-col gap-2 text-sm text-slate-500 dark:text-slate-400">
           <span>
-            Three streets in Bhopal from the{" "}
+            A street in Bhopal from the{" "}
             <a
               href={heroFigure.datasetUrl}
               target="_blank"
@@ -93,16 +93,16 @@ export default function Hero() {
             >
               {heroFigure.dataset}
             </a>{" "}
-            dataset, each point coloured by its class. Clicking an object in the{" "}
+            dataset, each point coloured by its class.{" "}
             <a
               href={heroFigure.viewerUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="link-underline"
             >
-              viewer
-            </a>{" "}
-            shows its class.
+              Explore the scenes
+            </a>
+            .
           </span>
           <ul className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
             {heroFigure.legend.map((c) => (

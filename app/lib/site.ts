@@ -42,14 +42,14 @@ export const profile = {
   },
 };
 
-// Looping clip at the top of the home page: three scenes and one click from the
-// BhopalMLS project-page recordings. Rebuild with `bash scripts/hero-video.sh`.
+// Looping clip at the top of the home page, rendered from the BhopalMLS viewer's
+// Bhopal_7 point cloud. Rebuild with `python3 scripts/hero/render_hero.py`.
 export const heroFigure = {
   video: "/images/bhopalmls_street.mp4",
   poster: "/images/bhopalmls_street_poster.webp",
   width: 1280,
   height: 536,
-  label: "Flying through three streets in Bhopal in the BhopalMLS point-cloud viewer, each point coloured by its class, then clicking a wire and a pole to show their class labels.",
+  label: "A slow camera sweep above a tree-lined street in Bhopal, seen as a point cloud: buildings, trees, parked vehicles, poles and overhead wires, each point coloured by its class.",
   dataset: "BhopalMLS",
   datasetUrl: "https://geoai4cities.github.io/bhopalmls/",
   viewerUrl: "https://geoai4cities.github.io/bhopalmls/#scenes",
