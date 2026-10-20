@@ -51,6 +51,11 @@ export interface NewsItem {
 // Newest first.
 export const news: NewsItem[] = [
   {
+    date: "Oct 2026",
+    text: "BhopalMLS, a large-scale mobile-LiDAR dataset for semantic scene understanding in heterogeneous urban environments, accepted at WACV 2027.",
+    url: "https://geoai4cities.github.io/bhopalmls/",
+  },
+  {
     date: "Jun 2026",
     text: "New journal paper in Applied Intelligence on deep-learning semantic segmentation of subsampled LiDAR point clouds.",
     url: "https://doi.org/10.1007/s10489-026-07282-2",
@@ -111,6 +116,9 @@ export interface Publication {
   doi?: string;
   url: string;
   code?: string;
+  project?: string; // project page
+  video?: string; // overview video; the thumbnail links here
+  comingSoon?: ("paper" | "code")[]; // shown as disabled "coming soon" buttons
   image?: string; // teaser thumbnail in /public/images
   imageFit?: "cover" | "contain"; // "contain" shows the whole figure (use for wide diagrams); defaults to "cover"
   summary?: string; // one-line "what we did" shown under the venue
@@ -118,6 +126,24 @@ export interface Publication {
 
 // Newest first.
 export const publications: Publication[] = [
+  {
+    authors: "**Pyare Lal Chauhan**, Vaibhav Kumar, Bharat Lohani",
+    title:
+      "BhopalMLS: A LiDAR dataset for semantic scene understanding in heterogeneous urban environments",
+    venue:
+      "IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), Evaluations and Datasets Track",
+    short: "WACV",
+    year: 2027,
+    type: "Conference",
+    url: "https://geoai4cities.github.io/bhopalmls/",
+    project: "https://geoai4cities.github.io/bhopalmls/",
+    video: "https://geoai4cities.github.io/bhopalmls/#video",
+    comingSoon: ["paper", "code"],
+    image: "/images/bhopalmls_video_poster.webp",
+    imageFit: "contain",
+    summary:
+      "Introduces BhopalMLS, a 1.2-billion-point mobile-LiDAR dataset of dense, unplanned Indian streets with 62 fine-grained classes, and shows models trained on it transfer to other cities better than the reverse.",
+  },
   {
     authors: "**Pyare Lal Chauhan**, Aakash Singh Bais, Vaibhav Kumar",
     title:

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FiGithub, FiExternalLink, FiFileText } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiFileText, FiGlobe, FiPlay } from "react-icons/fi";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { Section } from "./ui";
 import { publications, allPapersUrl } from "../lib/site";
@@ -54,15 +54,46 @@ function Thumb({
   );
 }
 
+// A Paper / Code / Video button; with no href it renders greyed out as "coming soon".
+function LinkButton({
+  href,
+  icon,
+  label,
+}: {
+  href?: string;
+  icon: React.ReactNode;
+  label: string;
+}) {
+  if (!href) {
+    return (
+      <span className="inline-flex cursor-default items-center gap-1 rounded-md border border-dashed border-slate-200 px-2 py-0.5 text-slate-400 dark:border-slate-700 dark:text-slate-500">
+        {icon} {label}
+        <span className="text-[10px] opacity-80">(coming soon)</span>
+      </span>
+    );
+  }
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-0.5 text-slate-600 hover:border-accent-500 hover:text-accent-700 dark:border-slate-700 dark:text-slate-400 dark:hover:text-accent-400"
+    >
+      {icon} {label}
+    </a>
+  );
+}
+
 function PubEntry({ pub }: { pub: (typeof publications)[number] }) {
+  const soon = (k: "paper" | "code") => pub.comingSoon?.includes(k) ?? false;
   return (
     <li className="grid grid-cols-1 gap-4 sm:grid-cols-[18rem_1fr]">
-      <div className="relative sm:row-span-1">
+      <div className="relative self-start sm:row-span-1">
         <a
-          href={pub.url}
+          href={pub.video ?? pub.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={pub.title}
+          aria-label={pub.video ? `Watch the video: ${pub.title}` : pub.title}
           className="block transition-opacity hover:opacity-90"
         >
           <Thumb src={pub.image} alt={pub.title} fit={pub.imageFit} />
@@ -70,6 +101,11 @@ function PubEntry({ pub }: { pub: (typeof publications)[number] }) {
         <span className="pointer-events-none absolute left-2 top-2 rounded-md bg-slate-900/75 px-2 py-0.5 text-[11px] font-semibold text-white backdrop-blur">
           {pub.short ? `${pub.short} · ${pub.year}` : pub.year}
         </span>
+        {pub.video && (
+          <span className="pointer-events-none absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-md bg-slate-900/75 px-2 py-0.5 text-[11px] font-semibold text-white backdrop-blur">
+            <FiPlay size="0.7rem" /> Video
+          </span>
+        )}
       </div>
       <div>
               <a
@@ -99,23 +135,31 @@ function PubEntry({ pub }: { pub: (typeof publications)[number] }) {
                 >
                   {pub.type}
                 </span>
-                <a
-                  href={pub.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-0.5 text-slate-600 hover:border-accent-500 hover:text-accent-700 dark:border-slate-700 dark:text-slate-400 dark:hover:text-accent-400"
-                >
-                  <FiFileText size="0.8rem" /> Paper
-                </a>
-                {pub.code && (
-                  <a
+                <LinkButton
+                  href={soon("paper") ? undefined : pub.url}
+                  icon={<FiFileText size="0.8rem" />}
+                  label="Paper"
+                />
+                {(pub.code || soon("code")) && (
+                  <LinkButton
                     href={pub.code}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-0.5 text-slate-600 hover:border-accent-500 hover:text-accent-700 dark:border-slate-700 dark:text-slate-400 dark:hover:text-accent-400"
-                  >
-                    <FiGithub size="0.8rem" /> Code
-                  </a>
+                    icon={<FiGithub size="0.8rem" />}
+                    label="Code"
+                  />
+                )}
+                {pub.project && (
+                  <LinkButton
+                    href={pub.project}
+                    icon={<FiGlobe size="0.8rem" />}
+                    label="Project page"
+                  />
+                )}
+                {pub.video && (
+                  <LinkButton
+                    href={pub.video}
+                    icon={<FiPlay size="0.8rem" />}
+                    label="Video"
+                  />
                 )}
                 {pub.doi && (
                   <span className="font-mono text-slate-500 dark:text-slate-400">doi:{pub.doi}</span>
