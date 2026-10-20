@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FiArrowRight, FiExternalLink } from "react-icons/fi";
+import { FiArrowRight, FiExternalLink, FiRss } from "react-icons/fi";
 import { Section } from "./ui";
 import { writing } from "../lib/site";
 import { getAllPosts, formatDate } from "../lib/blog";
@@ -39,6 +39,12 @@ export default function Writing() {
         >
           All posts <FiArrowRight size="0.85rem" />
         </Link>
+        <a
+          href="/feed.xml"
+          className="inline-flex items-center gap-1 text-slate-500 hover:text-accent-700 dark:hover:text-accent-400"
+        >
+          <FiRss size="0.8rem" /> RSS
+        </a>
         {writing.map((w) => (
           <a
             key={w.url}

@@ -38,7 +38,10 @@ export const metadata: Metadata = {
     "GeoAI",
   ],
   authors: [{ name: profile.name }],
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": "/feed.xml" },
+  },
   openGraph: {
     type: "website",
     url: siteUrl,

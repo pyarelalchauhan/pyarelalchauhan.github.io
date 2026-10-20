@@ -1,5 +1,5 @@
 import { Section } from "./ui";
-import { experience, teaching } from "../lib/site";
+import { experience, teaching, service } from "../lib/site";
 
 export default function Experience() {
   return (
@@ -78,6 +78,22 @@ export default function Experience() {
             </span>
           ))}
         </p>
+        {teaching.workshops.map((w) => (
+          <p key={w} className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+            {w}
+          </p>
+        ))}
+      </div>
+
+      <div className="mt-8">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Service
+        </h3>
+        {service.map((s) => (
+          <p key={s} className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            {s}
+          </p>
+        ))}
       </div>
     </Section>
   );

@@ -41,7 +41,8 @@ export default function Venture() {
               {venture.tagline}
             </p>
             <p className="mt-2 text-sm text-slate-500">
-              Incubated at the {venture.incubator}.
+              Incubated at the {venture.incubator}, supported by{" "}
+              {venture.grants}.
             </p>
             <a
               href={venture.url}

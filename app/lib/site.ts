@@ -18,13 +18,12 @@ export const profile = {
     advisorUrl: "https://sites.google.com/view/vaibhavkumar1/home",
   },
   thesis:
-    "LiDAR Point Cloud Perception for Emergency Vehicle Accessibility and Quality-of-Life Mapping in Urban Environments",
+    "Quantification of Quality of Life using 2D and 3D Spatial Data and AI",
   // One-line research statement shown in the hero.
   tagline:
     "I develop deep learning methods for 3D point clouds, LiDAR, and multi-source geospatial data to better understand and plan urban environments.",
   location: "Bhopal, Madhya Pradesh, India",
   email: "pyare22@iiserb.ac.in",
-  phone: "+91 9566095406",
   orcid: "0009-0002-0793-9240",
   // Default CV, plus a version that includes citation metrics.
   resume: "/resume.pdf",
@@ -94,7 +93,7 @@ export const news: NewsItem[] = [
 
 // Short bio paragraphs for the About section.
 export const about: string[] = [
-  `I am a Ph.D. research scholar in the ${profile.affiliation.lab} at ${profile.affiliation.institute}, advised by ${profile.affiliation.advisor}. My work sits at the intersection of 3D computer vision and geospatial science.`,
+  `My work sits at the intersection of 3D computer vision and geospatial science. Most recently, BhopalMLS, my first-author mobile-LiDAR dataset of dense, unplanned Indian streets, was accepted at WACV 2027, and I founded ${profile.founderOf}, an applied-AI venture for urban planning.`,
   `My doctoral research, "${profile.thesis}", develops deep learning models for semantic segmentation of mobile LiDAR point clouds, domain adaptation across urban scenes, and the fusion of LiDAR, street-view imagery, and other 2D and 3D geospatial data for applications such as pedestrian-oriented route planning and urban quality-of-life assessment.`,
 ];
 
@@ -129,6 +128,7 @@ export interface Publication {
   image?: string; // teaser thumbnail in /public/images
   imageFit?: "cover" | "contain"; // "contain" shows the whole figure (use for wide diagrams); defaults to "cover"
   summary?: string; // one-line "what we did" shown under the venue
+  bibtex?: string; // shown and copied by the BibTeX button
 }
 
 // Newest first.
@@ -151,6 +151,12 @@ export const publications: Publication[] = [
     imageFit: "contain",
     summary:
       "Introduces BhopalMLS, a 1.2-billion-point mobile-LiDAR dataset of dense, unplanned Indian streets with 62 fine-grained classes, and shows models trained on it transfer to other cities better than the reverse.",
+    bibtex: `@inproceedings{chauhan2027bhopalmls,
+  title     = {BhopalMLS: A LiDAR Dataset for Semantic Scene Understanding in Heterogeneous Urban Environments},
+  author    = {Chauhan, Pyare Lal and Kumar, Vaibhav and Lohani, Bharat},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year      = {2027}
+}`,
   },
   {
     authors: "**Pyare Lal Chauhan**, Aakash Singh Bais, Vaibhav Kumar",
@@ -166,12 +172,23 @@ export const publications: Publication[] = [
     image: "/images/lidar_subsampling_pointclouds.png",
     summary:
       "Benchmarks how point-cloud subsampling and compression strategies trade off semantic-segmentation accuracy against compute cost for airborne and mobile LiDAR.",
+    bibtex: `@article{chauhan2026subsampled,
+  title   = {Performance analysis of subsampled {LiDAR} point clouds using deep learning based semantic segmentation},
+  author  = {Chauhan, Pyare Lal and Bais, Aakash Singh and Kumar, Vaibhav},
+  journal = {Applied Intelligence},
+  volume  = {56},
+  number  = {8},
+  pages   = {273},
+  year    = {2026},
+  doi     = {10.1007/s10489-026-07282-2}
+}`,
   },
   {
     authors: "Vaibhav Kumar, Bharat Lohani, **Pyare Lal**, Aakash Singh Bais, Aditya",
     title:
       "Ke-MLS: A large-scale labeled mobile LiDAR data set from Indian urban region",
-    venue: "Environment and Planning B: Urban Analytics and City Science",
+    venue:
+      "Environment and Planning B: Urban Analytics and City Science, vol. 53, no. 8, pp. 1897–1905",
     short: "Env. Plan. B",
     year: 2026,
     type: "Journal",
@@ -180,6 +197,16 @@ export const publications: Publication[] = [
     image: "/images/kemls_seg.png",
     summary:
       "Introduces Ke-MLS, a large-scale labeled mobile-LiDAR dataset of Indian urban streetscapes for point-cloud segmentation research.",
+    bibtex: `@article{kumar2026kemls,
+  title   = {{Ke-MLS}: A large-scale labeled mobile {LiDAR} data set from {Indian} urban region},
+  author  = {Kumar, Vaibhav and Lohani, Bharat and Lal, Pyare and Bais, Aakash Singh and Aditya, Aditya},
+  journal = {Environment and Planning B: Urban Analytics and City Science},
+  volume  = {53},
+  number  = {8},
+  pages   = {1897--1905},
+  year    = {2026},
+  doi     = {10.1177/23998083261430812}
+}`,
   },
   {
     authors: "**Pyare Lal Chauhan**, Tanishq Kumar Baswal, Vaibhav Kumar",
@@ -196,6 +223,15 @@ export const publications: Publication[] = [
     image: "/images/pedestrian_route_planning.png",
     summary:
       "Plans pedestrian routes optimized for human perception (safe, lively, beautiful) by combining street-view imagery with deep learning and spatial data.",
+    bibtex: `@article{chauhan2025pedestrian,
+  title   = {A data-driven framework for pedestrian oriented route planning leveraging deep learning and spatial perception},
+  author  = {Chauhan, Pyare Lal and Baswal, Tanishq Kumar and Kumar, Vaibhav},
+  journal = {International Journal of Applied Earth Observation and Geoinformation},
+  volume  = {144},
+  pages   = {104932},
+  year    = {2025},
+  doi     = {10.1016/j.jag.2025.104932}
+}`,
   },
   {
     authors: "Ayush Dabra, **Pyare Lal Chauhan**, Vaibhav Kumar",
@@ -211,12 +247,21 @@ export const publications: Publication[] = [
     image: "/images/uqol_methodology.png",
     summary:
       "Fuses multi-source 2D and 3D geospatial data with deep learning to map and assess urban quality of life.",
+    bibtex: `@article{dabra2025uqol,
+  title   = {Deep learning and multi source {2D} and {3D} geospatial data for urban quality of life assessment},
+  author  = {Dabra, Ayush and Chauhan, Pyare Lal and Kumar, Vaibhav},
+  journal = {International Journal of Applied Earth Observation and Geoinformation},
+  volume  = {144},
+  pages   = {104838},
+  year    = {2025},
+  doi     = {10.1016/j.jag.2025.104838}
+}`,
   },
   {
     authors: "Anurag Nihal*, **Pyare Lal***, Vaibhav Kumar",
     title:
       "Urban multi-domain mixing (UMDMix) based unsupervised domain adaptation for LiDAR semantic segmentation",
-    venue: "Neurocomputing, Article 131526",
+    venue: "Neurocomputing, vol. 657, Article 131526",
     short: "Neurocomputing",
     year: 2025,
     type: "Journal",
@@ -227,6 +272,15 @@ export const publications: Publication[] = [
     imageFit: "contain",
     summary:
       "Proposes UMDMix, an unsupervised domain-adaptation method that mixes urban LiDAR domains to transfer semantic segmentation across cities.",
+    bibtex: `@article{nihal2025umdmix,
+  title   = {Urban multi-domain mixing ({UMDMix}) based unsupervised domain adaptation for {LiDAR} semantic segmentation},
+  author  = {Nihal, Anurag and Lal, Pyare and Kumar, Vaibhav},
+  journal = {Neurocomputing},
+  volume  = {657},
+  pages   = {131526},
+  year    = {2025},
+  doi     = {10.1016/j.neucom.2025.131526}
+}`,
   },
   {
     authors: "**Pyare Lal Chauhan**, J. Vijaywargiya, A. M. Ramiya",
@@ -241,6 +295,29 @@ export const publications: Publication[] = [
     image: "/images/point_cloud_seg.png",
     summary:
       "Examines class imbalance in airborne-LiDAR (ALS) semantic segmentation, comparing RandLA-Net and PointNet++.",
+    bibtex: `@inproceedings{chauhan2023classimbalance,
+  title     = {Addressing class imbalance challenge in semantic segmentation of {ALS} data through performance analysis of {RandLA-Net} and {PointNet++}},
+  author    = {Chauhan, Pyare Lal and Vijaywargiya, Jayati and Ramiya, Anandakumar M.},
+  booktitle = {2023 IEEE India Geoscience and Remote Sensing Symposium (InGARSS)},
+  pages     = {1--4},
+  year      = {2023},
+  doi       = {10.1109/InGARSS59135.2023.10490326}
+}`,
+  },
+];
+
+export interface Patent {
+  title: string;
+  inventors: string; // **Name** bolds the highlighted inventor, as in Publication.authors
+  detail: string;
+}
+
+export const patents: Patent[] = [
+  {
+    title: "A Pedestrian Navigation System Based on Human Perceptions",
+    inventors: "Vaibhav Kumar, **Pyare Lal**, Tanishq Kumar Baswal",
+    detail:
+      "Indian Patent Application No. 202421059925, filed 8 Aug 2024; response to the First Examination Report filed 9 Jul 2026. Applicant: IISER Bhopal.",
   },
 ];
 
@@ -251,6 +328,12 @@ export interface OpenSourceItem {
 }
 
 export const openSource: OpenSourceItem[] = [
+  {
+    name: "BhopalMLS",
+    description:
+      "Mobile-LiDAR dataset of dense, unplanned Indian streets: about 10 km of road corridors, 1.2 billion points and 62 fine-grained classes (WACV 2027). The project page has an interactive scene viewer; data and code are coming soon.",
+    url: "https://geoai4cities.github.io/bhopalmls/",
+  },
   {
     name: "Ke-MLS",
     description:
@@ -291,9 +374,10 @@ export const venture = {
   logo: "/images/netrica-logo.png",
   incubator:
     "IISER Bhopal (IICE) and IISER Pune (AIC) incubation centres",
+  grants: "the AIC-SEED grant and a Student Innovation Grant",
   period: "Feb 2026 - Present",
   tagline:
-    "An early-stage AI venture building applied-intelligence solutions for urban planning, incubated at IISER Bhopal and IISER Pune.",
+    "An early-stage AI venture building applied-intelligence solutions for urban planning.",
   // Photos of the venture's early journey.
   images: [
     {
@@ -392,8 +476,16 @@ export const teaching = {
     { name: "Spatial Data Science (DSE416)" },
     { name: "Accelerated Applied AI" },
     { name: "Applied Optimization" },
+    { name: "3D Deep Learning and Applications" },
   ] as { name: string; url?: string }[],
+  workshops: [
+    "Led the two-day workshop “3D Modeling: Exploring LiDAR and Point Cloud Data for the Future,” IISER Bhopal (Oct 2024).",
+  ],
 };
+
+export const service: string[] = [
+  "Reviewer, Scientific Data and Discover Artificial Intelligence (Springer Nature), 2026.",
+];
 
 export interface Education {
   degree: string;
@@ -443,6 +535,11 @@ export interface Award {
 }
 
 export const awards: Award[] = [
+  {
+    title: "Prize Winner, AI Hackathon for Smart Parking Solutions",
+    detail: "Prize winner at the AI Hackathon for Smart Parking Solutions, IITTNIF, IIT Tirupati.",
+    year: "2025",
+  },
   {
     title: "First Prize, IEEE-GRSS Student Hackathon",
     detail: "Winner at the IEEE GRSS Student Hackathon, Bangalore.",

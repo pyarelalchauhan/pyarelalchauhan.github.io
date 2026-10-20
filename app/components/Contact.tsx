@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin, FaPhone } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiGooglescholar } from "react-icons/si";
 import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
 import { Section } from "./ui";
@@ -11,7 +11,6 @@ export default function Contact() {
       label: profile.email,
       href: `mailto:${profile.email}`,
     },
-    { Icon: FaPhone, label: profile.phone, href: `tel:${profile.phone.replace(/\s/g, "")}` },
     {
       Icon: SiGooglescholar,
       label: "Google Scholar",
