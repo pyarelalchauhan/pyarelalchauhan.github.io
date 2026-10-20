@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 940 420" width="940" height="420" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b6472"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="420" rx="10" fill="#ffffff"/>
+
+  <!-- city training column -->
+  <text x="88" y="26" font-size="13" font-weight="700" fill="#1f2430" text-anchor="middle">City training</text>
+  <text x="88" y="42" font-size="11" fill="#5b6472" text-anchor="middle">each behind its own wall</text>
+
+  <g>
+    <rect x="18" y="60"  width="140" height="52" rx="8" fill="#fdf1e7" stroke="#b45309" stroke-width="2"/>
+    <text x="88" y="82"  font-size="13" font-weight="700" fill="#b45309" text-anchor="middle">City B FT</text>
+    <text x="88" y="99"  font-size="12" fill="#1f2430" text-anchor="middle">θ_B</text>
+
+    <rect x="18" y="130" width="140" height="52" rx="8" fill="#eaf6ee" stroke="#15803d" stroke-width="2"/>
+    <text x="88" y="152" font-size="13" font-weight="700" fill="#15803d" text-anchor="middle">City K FT</text>
+    <text x="88" y="169" font-size="12" fill="#1f2430" text-anchor="middle">θ_K</text>
+
+    <rect x="18" y="200" width="140" height="52" rx="8" fill="#e9effd" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="88" y="222" font-size="13" font-weight="700" fill="#1d4ed8" text-anchor="middle">City C FT</text>
+    <text x="88" y="239" font-size="12" fill="#1f2430" text-anchor="middle">θ_C</text>
+
+    <rect x="18" y="290" width="140" height="52" rx="8" fill="#f0f0f0" stroke="#6b7280" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="88" y="312" font-size="13" font-weight="700" fill="#6b7280" text-anchor="middle">shared base</text>
+    <text x="88" y="329" font-size="12" fill="#1f2430" text-anchor="middle">θ₀ (pretrained)</text>
+  </g>
+
+  <!-- custody wall -->
+  <line x1="205" y1="52" x2="205" y2="360" stroke="#b45309" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="205" y="385" font-size="11.5" font-weight="700" fill="#b45309" text-anchor="middle">custody wall: only weights cross, never point clouds</text>
+
+  <!-- task vectors -->
+  <text x="300" y="26" font-size="13" font-weight="700" fill="#1f2430" text-anchor="middle">Task vectors</text>
+  <text x="300" y="42" font-size="11" fill="#5b6472" text-anchor="middle">τᵢ = θᵢ − θ₀</text>
+
+  <line x1="158" y1="86"  x2="238" y2="86"  stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="158" y1="156" x2="238" y2="156" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="158" y1="226" x2="238" y2="226" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="242" y="70"  width="116" height="32" rx="16" fill="#b45309"/>
+  <text x="300" y="91"  font-size="13" font-weight="700" fill="#fff" text-anchor="middle">τ_B</text>
+  <rect x="242" y="140" width="116" height="32" rx="16" fill="#15803d"/>
+  <text x="300" y="161" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">τ_K</text>
+  <rect x="242" y="210" width="116" height="32" rx="16" fill="#1d4ed8"/>
+  <text x="300" y="231" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">τ_C</text>
+
+  <!-- base into merge -->
+  <path d="M158,316 L420,316 L420,262" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+
+  <!-- merge box -->
+  <line x1="358" y1="86"  x2="392" y2="150" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="358" y1="156" x2="388" y2="176" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="358" y1="226" x2="392" y2="204" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="392" y="140" width="150" height="118" rx="10" fill="#e8f4f6" stroke="#0e7490" stroke-width="2.5"/>
+  <text x="467" y="172" font-size="14" font-weight="800" fill="#0e7490" text-anchor="middle">MERGE</text>
+  <text x="467" y="192" font-size="11.5" fill="#1f2430" text-anchor="middle">TA · TIES · DARE</text>
+  <text x="467" y="208" font-size="11.5" fill="#1f2430" text-anchor="middle">DELLA · reweighting</text>
+  <text x="467" y="232" font-size="12" font-weight="600" fill="#1f2430" text-anchor="middle">encoder only</text>
+
+  <!-- merged encoder -->
+  <line x1="542" y1="199" x2="596" y2="199" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+  <rect x="600" y="172" width="120" height="54" rx="8" fill="#fff" stroke="#0e7490" stroke-width="2.5"/>
+  <text x="660" y="194" font-size="13" font-weight="700" fill="#0e7490" text-anchor="middle">merged encoder</text>
+  <text x="660" y="212" font-size="12" fill="#1f2430" text-anchor="middle">θ* (one file)</text>
+
+  <!-- attach heads -->
+  <text x="828" y="26" font-size="13" font-weight="700" fill="#1f2430" text-anchor="middle">Attach city head, deploy</text>
+  <line x1="720" y1="185" x2="762" y2="96"  stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="720" y1="199" x2="762" y2="166" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="720" y1="213" x2="762" y2="236" stroke="#5b6472" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="766" y="60"  width="156" height="52" rx="8" fill="#fdf1e7" stroke="#b45309" stroke-width="2"/>
+  <text x="844" y="82"  font-size="12.5" font-weight="700" fill="#b45309" text-anchor="middle">θ* + City B head</text>
+  <text x="844" y="99"  font-size="11" fill="#5b6472" text-anchor="middle">attached_B.pth</text>
+
+  <rect x="766" y="130" width="156" height="52" rx="8" fill="#eaf6ee" stroke="#15803d" stroke-width="2"/>
+  <text x="844" y="152" font-size="12.5" font-weight="700" fill="#15803d" text-anchor="middle">θ* + City K head</text>
+  <text x="844" y="169" font-size="11" fill="#5b6472" text-anchor="middle">attached_K.pth</text>
+
+  <rect x="766" y="200" width="156" height="52" rx="8" fill="#e9effd" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="844" y="222" font-size="12.5" font-weight="700" fill="#1d4ed8" text-anchor="middle">θ* + City C head</text>
+  <text x="844" y="239" font-size="11" fill="#5b6472" text-anchor="middle">attached_C.pth</text>
+
+  <rect x="600" y="290" width="322" height="62" rx="8" fill="#f1f0ea" stroke="#d9d5cc"/>
+  <text x="761" y="315" font-size="12.5" font-weight="700" fill="#1f2430" text-anchor="middle">Evaluate every attached model on every city</text>
+  <text x="761" y="334" font-size="11.5" fill="#5b6472" text-anchor="middle">same test protocol as the FT baselines → fair 3×3 comparison</text>
+</svg>

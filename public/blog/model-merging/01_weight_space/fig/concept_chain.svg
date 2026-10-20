@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 940 196" width="940" height="196" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect x="0" y="0" width="940" height="196" rx="10" fill="#ffffff"/>
+  <defs>
+    <marker id="fa" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b6472"/>
+    </marker>
+  </defs>
+  <g font-size="13" font-weight="700" text-anchor="middle">
+    <rect x="30"  y="36" width="180" height="46" rx="8" fill="#f3f0fa" stroke="#6d28d9" stroke-width="2"/>
+    <text x="120" y="64" fill="#1f2430">parameters</text>
+    <rect x="260" y="36" width="180" height="46" rx="8" fill="#f3f0fa" stroke="#6d28d9" stroke-width="2"/>
+    <text x="350" y="64" fill="#1f2430">neurons · layers</text>
+    <rect x="490" y="36" width="180" height="46" rx="8" fill="#f3f0fa" stroke="#6d28d9" stroke-width="2"/>
+    <text x="580" y="64" fill="#1f2430">checkpoint</text>
+    <rect x="720" y="36" width="180" height="46" rx="8" fill="#f3f0fa" stroke="#6d28d9" stroke-width="2"/>
+    <text x="810" y="64" fill="#1f2430">flattening</text>
+
+    <rect x="30"  y="140" width="180" height="46" rx="8" fill="#f3f0fa" stroke="#6d28d9" stroke-width="2"/>
+    <text x="120" y="168" fill="#1f2430">point in weight space</text>
+    <rect x="260" y="140" width="180" height="46" rx="8" fill="#f3f0fa" stroke="#6d28d9" stroke-width="2"/>
+    <text x="350" y="168" fill="#1f2430">norm · distance</text>
+    <rect x="490" y="140" width="180" height="46" rx="8" fill="#f3f0fa" stroke="#6d28d9" stroke-width="2"/>
+    <text x="580" y="168" fill="#1f2430">task vector τ</text>
+    <rect x="720" y="140" width="180" height="46" rx="8" fill="#fdecec" stroke="#b91c1c" stroke-width="2.5"/>
+    <text x="810" y="168" fill="#b91c1c">merging → θ*</text>
+  </g>
+
+  <g stroke="#5b6472" stroke-width="1.6">
+    <line x1="210" y1="59" x2="256" y2="59" marker-end="url(#fa)"/>
+    <line x1="440" y1="59" x2="486" y2="59" marker-end="url(#fa)"/>
+    <line x1="670" y1="59" x2="716" y2="59" marker-end="url(#fa)"/>
+    <line x1="210" y1="163" x2="256" y2="163" marker-end="url(#fa)"/>
+    <line x1="440" y1="163" x2="486" y2="163" marker-end="url(#fa)"/>
+    <line x1="670" y1="163" x2="716" y2="163" marker-end="url(#fa)"/>
+  </g>
+  <path d="M810,82 L810,111 L120,111 L120,136" fill="none" stroke="#5b6472" stroke-width="1.6" marker-end="url(#fa)"/>
+
+  <g font-size="11" fill="#5b6472" text-anchor="middle">
+    <text x="233" y="28">belong to</text>
+    <text x="463" y="28">saved as</text>
+    <text x="693" y="28">read out in fixed order</text>
+    <text x="465" y="104">one long vector = the model as ONE point</text>
+    <text x="233" y="132">compared by</text>
+    <text x="463" y="132">key difference θᵢ − θ₀</text>
+    <text x="693" y="132">weighted sum onto θ₀</text>
+  </g>
+</svg>
