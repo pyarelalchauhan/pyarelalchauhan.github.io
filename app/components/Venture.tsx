@@ -47,9 +47,9 @@ export default function Venture() {
               href={venture.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1 text-sm text-accent-700 hover:underline dark:text-accent-400"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-md bg-accent-700 px-4 py-2 text-sm font-medium text-white hover:bg-accent-800"
             >
-              <FiExternalLink size="0.85rem" /> netrica.co.in
+              Visit website <FiExternalLink size="0.85rem" />
             </a>
           </div>
         </div>
