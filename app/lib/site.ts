@@ -111,6 +111,7 @@ export interface Publication {
   title: string;
   venue: string;
   short?: string; // short venue label shown on the thumbnail badge (e.g. "JAG")
+  badge?: string; // overrides the "short · year" thumbnail badge text
   year: number;
   type: PubType;
   doi?: string;
@@ -133,6 +134,7 @@ export const publications: Publication[] = [
     venue:
       "IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), Evaluations and Datasets Track",
     short: "WACV",
+    badge: "WACV-2027",
     year: 2027,
     type: "Conference",
     url: "https://geoai4cities.github.io/bhopalmls/",
