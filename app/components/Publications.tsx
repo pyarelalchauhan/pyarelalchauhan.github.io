@@ -1,5 +1,12 @@
 import Image from "next/image";
-import { FiGithub, FiExternalLink, FiFileText, FiGlobe, FiPlay } from "react-icons/fi";
+import {
+  FiDatabase,
+  FiGithub,
+  FiExternalLink,
+  FiFileText,
+  FiGlobe,
+  FiPlay,
+} from "react-icons/fi";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { Section } from "./ui";
 import { publications, allPapersUrl } from "../lib/site";
@@ -85,7 +92,8 @@ function LinkButton({
 }
 
 function PubEntry({ pub }: { pub: (typeof publications)[number] }) {
-  const soon = (k: "paper" | "code") => pub.comingSoon?.includes(k) ?? false;
+  const soon = (k: "paper" | "code" | "data") =>
+    pub.comingSoon?.includes(k) ?? false;
   return (
     <li className="grid grid-cols-1 gap-4 sm:grid-cols-[18rem_1fr]">
       <div className="relative self-start sm:row-span-1">
@@ -145,6 +153,13 @@ function PubEntry({ pub }: { pub: (typeof publications)[number] }) {
                     href={pub.code}
                     icon={<FiGithub size="0.8rem" />}
                     label="Code"
+                  />
+                )}
+                {(pub.data || soon("data")) && (
+                  <LinkButton
+                    href={pub.data}
+                    icon={<FiDatabase size="0.8rem" />}
+                    label="Data"
                   />
                 )}
                 {pub.project && (

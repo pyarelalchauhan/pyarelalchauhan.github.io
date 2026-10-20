@@ -117,9 +117,10 @@ export interface Publication {
   doi?: string;
   url: string;
   code?: string;
+  data?: string; // dataset download page
   project?: string; // project page
   video?: string; // overview video; the thumbnail links here
-  comingSoon?: ("paper" | "code")[]; // shown as disabled "coming soon" buttons
+  comingSoon?: ("paper" | "code" | "data")[]; // shown as disabled "coming soon" buttons
   image?: string; // teaser thumbnail in /public/images
   imageFit?: "cover" | "contain"; // "contain" shows the whole figure (use for wide diagrams); defaults to "cover"
   summary?: string; // one-line "what we did" shown under the venue
@@ -140,7 +141,7 @@ export const publications: Publication[] = [
     url: "https://geoai4cities.github.io/bhopalmls/",
     project: "https://geoai4cities.github.io/bhopalmls/",
     video: "https://geoai4cities.github.io/bhopalmls/#video",
-    comingSoon: ["paper", "code"],
+    comingSoon: ["paper", "code", "data"],
     image: "/images/bhopalmls_video_poster.webp",
     imageFit: "contain",
     summary:
