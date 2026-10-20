@@ -278,6 +278,7 @@ export const openSource: OpenSourceItem[] = [
 export const venture = {
   name: "Netrica.AI",
   legalName: "Netrica Pvt. Ltd.",
+  url: "https://netrica.co.in/",
   role: "Founder",
   logo: "/images/netrica-logo.png",
   incubator:

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FiExternalLink } from "react-icons/fi";
 import { Section } from "./ui";
 import { venture } from "../lib/site";
 
@@ -17,7 +18,14 @@ export default function Venture() {
           <div className="flex-1">
             <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                {venture.name}{" "}
+                <a
+                  href={venture.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent-700 dark:hover:text-accent-400"
+                >
+                  {venture.name}
+                </a>{" "}
                 <span className="text-sm font-normal text-slate-500">
                   · {venture.legalName}
                 </span>
@@ -35,6 +43,14 @@ export default function Venture() {
             <p className="mt-2 text-sm text-slate-500">
               Incubated at the {venture.incubator}.
             </p>
+            <a
+              href={venture.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1 text-sm text-accent-700 hover:underline dark:text-accent-400"
+            >
+              <FiExternalLink size="0.85rem" /> netrica.co.in
+            </a>
           </div>
         </div>
 
