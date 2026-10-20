@@ -43,12 +43,12 @@ export const profile = {
 };
 
 // Looping clip at the top of the home page: three scenes and one click from the
-// BhopalMLS overview video. Rebuild with `bash scripts/hero-video.sh`.
+// BhopalMLS project-page recordings. Rebuild with `bash scripts/hero-video.sh`.
 export const heroFigure = {
   video: "/images/bhopalmls_street.mp4",
   poster: "/images/bhopalmls_street_poster.webp",
   width: 1280,
-  height: 494,
+  height: 536,
   label: "Flying through three streets in Bhopal in the BhopalMLS point-cloud viewer, each point coloured by its class, then clicking a wire and a pole to show their class labels.",
   dataset: "BhopalMLS",
   datasetUrl: "https://geoai4cities.github.io/bhopalmls/",
